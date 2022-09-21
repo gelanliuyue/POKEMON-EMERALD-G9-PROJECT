@@ -84,24 +84,24 @@ struct battle_participant
 	u8 atk_buff;//25
 	u8 def_buff;//26
 	u8 spd_buff;//27
-	u8 sp_atk_buff;//
-	u8 sp_def_buff;
-	u8 acc_buff;
-	u8 evasion_buff;
+	u8 sp_atk_buff;//28
+	u8 sp_def_buff;//29
+	u8 acc_buff;//30
+	u8 evasion_buff;//31
 	u8 ability_id;//32  支持0xFFFF个特性
-	u8 type1;
-	u8 type2;
-	u8 padd;
-	u8 current_pp[4];
-	u16 current_hp;
-	u8 level;
-	u8 happiness;
-	u16 max_hp;
-	u16 held_item;
-	u8 poke_name[12];
-	u8 trainer_name[8];
-	u32 padd2;
-	u32 pid;
+	u8 type1;//33
+	u8 type2;//34
+	u8 padd;//35
+	u8 current_pp[4];//36
+	u16 current_hp;//40
+	u8 level;//42
+	u8 happiness;//43
+	u16 max_hp;//44
+	u16 held_item;//46
+	u8 poke_name[12];//48
+	u8 trainer_name[8];//60
+	u32 padd2;//68
+	u32 pid;//72
 	union main_status status;
 	struct flags2 status2;
 	u32 otid;
@@ -384,7 +384,7 @@ struct disable_struct
 	u8 fury_cutter_timer;
 	u8 rollout_timer;
 	u8 charge_timer;
-	u8 taunt_timer;
+	u8 taunt_timer;//19
 	u8 bank_preventing_escape;
 	u8 always_hits_bank;
 	u8 is_first_turn;
@@ -395,7 +395,7 @@ struct disable_struct
 	u8 field1B;
 };
 
-extern struct disable_struct disable_structs[4];
+extern struct disable_struct disable_structs[4];  //28*4
 
 struct protect_struct
 {

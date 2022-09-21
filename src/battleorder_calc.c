@@ -6,6 +6,7 @@ u8 percent_chance(u8 percent);
 u8 hp_condition(u8 bank, u8 percent);
 u8 get_item_effect(u8 bank, u8 check_negating_effects);
 u8 has_ability_effect(u8 bank, u8 mold_breaker);
+u8 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
 
 bool check_ability(u8 bank, u16 ability)
 {
@@ -18,7 +19,9 @@ s8 get_priority(u16 move, u8 bank)
 {
     s8 priority = move_table[move].priority;
     if (check_ability(bank, ABILITY_GALE_WINGS) && move_table[move].type == TYPE_FLYING && FULL_HP(bank))
-        priority++;    
+        priority++;
+    if (move == MOVE_GRASSY_GLIDE && new_battlestruct->field_affecting.grassy_terrain && GROUNDED(bank))
+        priority++;
     else if (check_ability(bank, ABILITY_QUICK_DRAW))
 	{
         if(__umodsi3(battle_turn_random_no, 0x64) < 0x1e) {
@@ -30,7 +33,7 @@ s8 get_priority(u16 move, u8 bank)
     else if (check_ability(bank, ABILITY_TRIAGE))
     {
         u8 scriptID = move_table[move].script_id;
-        if (scriptID == 24 || scriptID == 25 || scriptID == 26 || scriptID == 29 || scriptID == 89 || scriptID == 124 || scriptID == 21) //damage drain, heal user, heal target, roost, dream eater, wish, lunar dance
+        if (scriptID == 24 || scriptID == 25 || scriptID == 26 || scriptID == 29 || scriptID == 89 || scriptID == 124 || scriptID == 21 || scriptID == 208) //damage drain, heal user, heal target, roost, dream eater, wish, lunar dance
             priority += 3;
     }
     return priority;
@@ -44,13 +47,15 @@ s8 get_bracket_alteration_factor(u8 bank, u8 item_effect) // will be used for qu
         if(__umodsi3(battle_turn_random_no, 0x64) < get_item_quality(battle_participants[bank].held_item))
             return 1;
         break;
-    case ITEM_EFFECT_CUSTAPBERRY:
+    /*case ITEM_EFFECT_CUSTAPBERRY:
         if(hp_condition(bank, 2))
             return 1;
-        break;
+        break;*/
     case ITEM_EFFECT_LAGGINGTAIL:
         return -1;
     }
+    if(new_battlestruct->bank_affecting[bank].custap_eff_nextturn)
+        return 1;
     return 0;
 }
 
@@ -58,9 +63,14 @@ u8 get_first_to_strike(u8 bank1, u8 bank2, u8 ignore_priority)
 {
     u8 quash1=new_battlestruct->bank_affecting[bank1].quashed;
     u8 quash2=new_battlestruct->bank_affecting[bank2].quashed;
+    u8 afteryou1=new_battlestruct->bank_affecting[bank1].afteryou_priority;
+    u8 afteryou2=new_battlestruct->bank_affecting[bank2].afteryou_priority;
     u8 faster=2;
-
-    if (quash1 && !quash2)
+    if(afteryou1 && !afteryou2)
+        faster=0;
+    else if(!afteryou1 && afteryou2)
+        faster=1;
+    else if (quash1 && !quash2)
         faster=1;
     else if (!quash1 && quash2)
         faster=0;
@@ -73,11 +83,11 @@ u8 get_first_to_strike(u8 bank1, u8 bank2, u8 ignore_priority)
         if(menu_choice_pbs[bank1]==0) //Hibiki
             priority1 = get_priority(move1, bank1);
 		else 
-			priority1 = 8;
+			priority1 += 16;
         if(menu_choice_pbs[bank2]==0) //Hibiki
             priority2 = get_priority(move2, bank2);
 		else 
-			priority2 = 8;
+			priority2 += 16;
         if (priority1 > priority2)
             faster=0;
         else if (priority2 > priority1)

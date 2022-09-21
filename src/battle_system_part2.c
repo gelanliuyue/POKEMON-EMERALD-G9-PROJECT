@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "static_references.h"
 
 u8 is_bank_present(u8 bank);
 struct pokemon* get_party_ptr(u8 bank);
@@ -6,7 +7,7 @@ struct pokemon* get_bank_poke_ptr(u8 bank);
 u8 is_poke_valid(struct pokemon* poke);
 u8 count_party_pokemon(u8 bank);
 void revert_form_change(u8 mega_revert, u8 teamID, u8 side, struct pokemon* poke);
-u8 check_ability(u8 bank, u16 ability);
+bool check_ability(u8 bank, u16 ability);
 void copy_status_condition_text(u8 bank, u8 confusion);
 void b_load_sprite_player(struct pokemon* poke, u8 bank);
 u8* get_poke_nick2(struct pokemon* poke, u8 bank, u8* dst);
@@ -16,6 +17,7 @@ void bs_execute(void* now);
 bool load_weather_from_overworld(void)
 {
     bool is_weather_loaded = false;
+	bool is_custom_setter = false;
     if (true)
     {
         u8 ow_weather = get_overworld_weather();
@@ -58,14 +60,29 @@ bool load_weather_from_overworld(void)
                 }
                 break;
         }
-        if (is_weather_loaded)
+		#if CUSTOM_SETTER_SETUP == true
+		is_custom_setter = 1;
+		#endif // CUSTOM_SETTER_SETUP
+        if (is_weather_loaded + is_custom_setter)
         {
             battle_scripting.active_bank = 0;
             battle_communication_struct.multistring_chooser = ow_weather;
-            bs_execute((void*) 0x82DACE7);
+            //bs_execute((void*) 0x82DACE7);
+			switch((is_custom_setter << 1) + is_weather_loaded)
+			{
+				case 1:
+					bs_execute(BS_OverworldWeatherStarts);
+					break;
+				case 2:
+					bs_execute(BS_Custom_Setter);
+					break;
+				case 3:
+					bs_execute(BS_CustomOverworldWeatherStarts);
+					break;
+			}
         }
     }
-    return is_weather_loaded;
+    return is_weather_loaded || is_custom_setter;
 }
 
 struct pokemon* get_poke_to_illusion_into(struct pokemon* poke, u8 bank)
@@ -231,8 +248,8 @@ void b_load_sprite(struct pokemon* poke, u8 bank, const struct sprite_poke (* sp
             else
                 sprite_load = &load_poke_sprite;
         }
-        if (species == POKE_MINIOR_CORE)
-            species = 0x3ee;
+        /*if (species == POKE_MINIOR_CORE)
+            species = 0x3ee;*/
         LZ77UnCompWram(poke_get_pal(species, TiD, PiD), decompression_buffer);
         u16 pal_adder = 256 + bank * 16;
         gpu_pal_apply((struct palette*) (decompression_buffer), pal_adder, 0x20);
@@ -284,8 +301,8 @@ void b_load_sprite(struct pokemon* poke, u8 bank, const struct sprite_poke (*spr
                 sprite_load = &load_poke_sprite;
             TiD = get_attributes(poke, ATTR_TID, 0);
         }
-        if (species==POKE_MINIOR_CORE)
-            species=0x3ee;
+        /*if (species==POKE_MINIOR_CORE)
+            species=0x3ee;*/
         sprite_load((void*) &(*sprites)[species].sprite, battle_graphics.graphics_loc->decompressed_sprite[get_bank_identity(bank)], species, PiD, sprite);
         void* poke_pal = poke_get_pal(species, TiD, PiD);
         LZ77UnCompWram(poke_pal, decompression_buffer);
@@ -373,3 +390,4 @@ u8 count_alive_mons(u8 bank)
     }
     return pokes_amount;
 }
+

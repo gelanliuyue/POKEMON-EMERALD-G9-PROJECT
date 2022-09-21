@@ -91,9 +91,9 @@ void free_new_struct(void)
 			}
 		}
     }
-    free(battle_stuff_ptr);
-    free(new_battlestruct);
 	u32* battle_flags = (u32*)0x02022FEC;//battle_flags
     *battle_flags &= 1024;
+    free(battle_stuff_ptr);
+    free(new_battlestruct);
 	battle_chosen_bg = 0;
 }

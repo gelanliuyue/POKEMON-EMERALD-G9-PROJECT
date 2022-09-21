@@ -18,7 +18,22 @@
 #define PR_mat_block 0x7
 #define PR_crafty_shield 0x8
 #define PR_baneful_bunker 0x9
+#define PR_obstruct 0xA
+// for B_TXT_BUFF1, B_TXT_BUFF2 and B_TXT_BUFF3
+#define B_BUFF_STRING                   0
+#define B_BUFF_NUMBER                   1
+#define B_BUFF_MOVE                     2
+#define B_BUFF_TYPE                     3
+#define B_BUFF_MON_NICK_WITH_PREFIX     4
+#define B_BUFF_STAT                     5
+#define B_BUFF_SPECIES                  6
+#define B_BUFF_MON_NICK                 7
+#define B_BUFF_NEGATIVE_FLAVOR          8
+#define B_BUFF_ABILITY                  9
+#define B_BUFF_ITEM                     10
 
+#define B_BUFF_PLACEHOLDER_BEGIN        0xFD
+#define B_BUFF_EOS                      0xFF
 #define CURRENT_Z_MOVE *((u16*)0x2037610)
 enum move_split
 {
@@ -95,7 +110,29 @@ enum map_type
     MAP_UNDERWATER, //0x5
     MAP_INSIDE = 8, MAP_SECRETBASE, //0x9
 };
-
+#define PREPARE_MOVE_BUFFER(textVar, move)                      \
+{                                                               \
+    textVar[0] = B_BUFF_PLACEHOLDER_BEGIN;                      \
+    textVar[1] = B_BUFF_MOVE;                                   \
+    textVar[2] = (move & 0xFF);                                 \
+    textVar[3] = (move & 0xFF00) >> 8;                          \
+    textVar[4] = B_BUFF_EOS;                                    \
+}
+#define PREPARE_BYTE_NUMBER_BUFFER(textVar, maxDigits, number)  \
+{                                                               \
+    textVar[0] = B_BUFF_PLACEHOLDER_BEGIN;                      \
+    textVar[1] = B_BUFF_NUMBER;                                 \
+    textVar[2] = 1;                                             \
+    textVar[3] = maxDigits;                                     \
+    textVar[4] = (number);                                      \
+    textVar[5] = B_BUFF_EOS;                                    \
+}
+enum StringConvertMode
+{
+    STR_CONV_MODE_LEFT_ALIGN,
+    STR_CONV_MODE_RIGHT_ALIGN,
+    STR_CONV_MODE_LEADING_ZEROS
+};
 #include "./defines/poke_types.h"
 #include "./defines/abilities.h"
 #include "./defines/moves.h"
@@ -225,6 +262,28 @@ enum trainer_class
 #define STAT_STAGES 0x70
 #define STAT_STATID 0x7
 
+//move arg2
+#define MOVEARG2_BUGBITE 0xA
+#define MOVEARG2_TEATIME 0xC
+#define MOVEARG2_HITALL 0xC
+#define MOVEARG2_CLANGOROUS_SOUL 0x10
+#define MOVEARG2_MIND_BLOWN 0x1
+
+//check and set battle struct flags
+#define NEWBATTLESTRUCT_NORETREAT 0x1
+#define NEWBATTLESTRUCT_TARSHOT 0x2
+#define NEWBATTLESTRUCT_OCTOLOCK 0x3
+
+//dragon darts target
+#define DRAGONDARTSTARGET_NOEFFECT 0x0
+#define DRAGONDARTSTARGET_FOE 0x1
+#define DRAGONDARTSTARGET_FOE_PARTNER 0x2
+#define DRAGONDARTSTARGET_FOE_BOTH 0x3
+#define DRAGONDARTSTARGET_FAIL 0x4
+#define DRAGONDARTSTARGET_MISS 0x8
+#define DRAGONDARTSTARGET_ALLY 0xC
+#define DRAGONDARTSTARGET_FOE_BOTH_PASSED 0xF
+
 #define SEPARATE_COURSE (new_battlestruct->various.instruct_phase || new_battlestruct->various.secondary_dancer)
 #define MOVE_WORKED !(move_outcome.failed || move_outcome.missed || move_outcome.not_affected)
 #define TARGET_TURN_DAMAGED (special_statuses[bank_target].moveturn_losthp)
@@ -292,6 +351,10 @@ enum trainer_class
 #define wait_for_pressed_key 0xFC, 0x09
 
 #define Poke_e 0x1B
+//system flag
+#define FLAG_BADGE01_GET 0x867
+#define NUM_BADGES 8
+#define FLAG_SYS_GAME_CLEAR 0x864
 
 #define A_ 0xBB
 #define B_ 0xBC

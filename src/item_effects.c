@@ -24,6 +24,9 @@ void bs_push(void* to_return, void* now);
 void bs_push_current(void* now);
 void call_bc_move_exec(void* bs_ptr);
 u32 random_value(u32 limit);
+bool photon_geyser_special(u16 move); 
+bool not_magicguard(u8 bank);
+bool find_move_in_table(u16 move, const u16* table_ptr);
 
 enum COMMON_ITEM_EFFECT
 {
@@ -41,7 +44,7 @@ u8 get_item_effect(u8 bank, bool check_negating_effects)
     {
         if (check_ability(bank, ABILITY_KLUTZ) || new_battlestruct->field_affecting.magic_room || new_battlestruct->bank_affecting[bank].embargo)
             return ITEM_EFFECT_NOEFFECT;
-        if (get_item_pocket_id(held_item)==4 && check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank), 0))
+        if (get_item_pocket_id(held_item)==4 && (check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE, get_bank_side(bank), 0)))
             return ITEM_EFFECT_NOEFFECT;
     }
     if (held_item == ITEM_ENIGMABERRY)
@@ -202,6 +205,8 @@ bool stat_raise_berry(u8 bank, bool checkHP, u8 item_effect, enum call_mode call
         }
         else
         {
+			if (item_effect == ITEM_EFFECT_KEEBERRY) item_effect = ITEM_EFFECT_GANLONBERRY;
+			if (item_effect == ITEM_EFFECT_MARANGABERRY) item_effect = ITEM_EFFECT_APICOTBERRY;
             u8 stat_to_raise = item_effect - ITEM_EFFECT_LIECHIBERRY + 1;
             if(check_ability(bank,ABILITY_RIPEN))
                 battle_scripting.stat_changer = 0x20 + stat_to_raise;
@@ -219,11 +224,11 @@ bool stat_raise_berry(u8 bank, bool checkHP, u8 item_effect, enum call_mode call
     return effect;
 }
 
-bool item_try_stat_raise(u8 statchanger)
+bool item_try_stat_raise(u8 statchanger,bool check_target_damage,bool check_move_work)
 {
     u8 bank = battle_scripting.active_bank;
     battle_scripting.stat_changer = statchanger;
-    if (is_bank_present(bank) && MOVE_WORKED && TARGET_TURN_DAMAGED && change_stats(bank, stat_get_bits_arg(1, 0, 0), battlescripts_curr_instruction) == STAT_CHANGED)
+    if (is_bank_present(bank) && (!check_move_work || MOVE_WORKED) && (!check_target_damage ||TARGET_TURN_DAMAGED) && change_stats(bank, stat_get_bits_arg(1, 0, 0), battlescripts_curr_instruction) == STAT_CHANGED)
     {
         bs_push_current(BS_ITEMSTATRAISE);
         return 1;
@@ -284,6 +289,26 @@ enum COMMON_ITEM_EFFECT berry_handle_lansat(u8 bank, bool checkHP, enum call_mod
     }
     return NO_ITEM_EFFECT;
 }
+enum COMMON_ITEM_EFFECT berry_handle_micle(u8 bank, bool checkHP, enum call_mode calling_mode, void* BS_ptr)
+{
+    if ((!checkHP || hp_condition(bank, 2)) && !(new_battlestruct->bank_affecting[bank].acc_up_nextturn == 2))
+    {
+        new_battlestruct->bank_affecting[bank].acc_up_nextturn = 2;
+        call_based_on_mode(calling_mode, BS_ptr);
+        return NO_COMMON_ITEM_EFFECT;
+    }
+    return NO_ITEM_EFFECT;
+}
+enum COMMON_ITEM_EFFECT berry_handle_custap(u8 bank, bool checkHP, enum call_mode calling_mode, void* BS_ptr)
+{
+    if ((!checkHP || hp_condition(bank, 2)) && !(new_battlestruct->bank_affecting[bank].custap_eff_nextturn == 2))
+    {
+        new_battlestruct->bank_affecting[bank].custap_eff_nextturn = 2;
+        call_based_on_mode(calling_mode, BS_ptr);
+        return NO_COMMON_ITEM_EFFECT;
+    }
+    return NO_ITEM_EFFECT;
+}
 u32 random_value(u32 limit);
 u8 get_random_to_switch(u8 bank)
 {
@@ -302,9 +327,10 @@ u8 get_random_to_switch(u8 bank)
     return to_ret;
 }
 
-u8 item_force_switching(u8 bank, void* BS_ptr)
+u8 item_force_switching(u8 bank, void* BS_ptr, bool be_attacked)//be_attacked=0:for REDCARD and EJECTBUTTON
+                                                                //be_attacked=1:for EJECTBUTTON
 {
-    if (MOVE_WORKED && TARGET_TURN_DAMAGED && is_bank_present(bank) && multihit_counter <= 1)
+    if (((!be_attacked && MOVE_WORKED && TARGET_TURN_DAMAGED) || (be_attacked && new_battlestruct->bank_affecting[bank].stat_lowered))&& is_bank_present(bank) && multihit_counter <= 1)
     {
         u8 ID_toswitch = get_random_to_switch(bank);
         if (ID_toswitch != 6)
@@ -322,7 +348,6 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
 {
     u8 item_effect = get_item_effect(bank, 1);
     u8 effect = NO_ITEM_EFFECT;
-
     u8 quality = get_all_item_quality(bank);
     switch (switchid)
     {
@@ -353,22 +378,26 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
             break;
 		case ITEM_EFFECT_ELECTRICSEED:
 			if(new_battlestruct->field_affecting.electic_terrain)
-				effect = item_try_stat_raise(0x12);
+				effect = item_try_stat_raise(0x12,0,0);
             break;
 				
 		case ITEM_EFFECT_GRASSYSEED:
 			if(new_battlestruct->field_affecting.grassy_terrain)
-				effect = item_try_stat_raise(0x12);
+				effect = item_try_stat_raise(0x12,0,0);
             break;
 		case ITEM_EFFECT_MISTYSEED:
 			if(new_battlestruct->field_affecting.misty_terrain)
-				effect = item_try_stat_raise(0x15);
+				effect = item_try_stat_raise(0x15,0,0);
             break;
 				
 		case ITEM_EFFECT_PSYCHICSEED:
 			if(new_battlestruct->field_affecting.psychic_terrain)
-				effect = item_try_stat_raise(0x15);
+				effect = item_try_stat_raise(0x15,0,0);
             break;
+		case ITEM_EFFECT_ROOMSERVICE:
+			if(new_battlestruct->field_affecting.trick_room)
+				effect = item_try_stat_raise(0x93,0,0);
+            break;	
         }
         break;
     case 1: //battle end turn
@@ -437,6 +466,12 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
         case ITEM_EFFECT_LANSATBERRY:
             effect = berry_handle_lansat(bank, 1, BATTLE_TURN, (void*)0x82DB869);
             break;
+		case ITEM_EFFECT_MICLEBERRY:
+				effect = berry_handle_micle(bank, 1, BATTLE_TURN, BS_MICLEBERRY_REMOVEITEM_END2);
+			break;
+		case ITEM_EFFECT_CUSTAPBERRY:
+				effect = berry_handle_custap(bank, 1, BATTLE_TURN, BS_CUSTAPBERRY_REMOVEITEM_END2);
+			break;
         case ITEM_EFFECT_WHITEHERB:
             effect = white_herb_effect(bank, BATTLE_TURN);
             break;
@@ -477,6 +512,7 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
         active_bank = bank;
         battle_scripting.active_bank = bank;
         u8 move_type = get_attacking_move_type();
+		u8 move_split = move_table[current_move].split & photon_geyser_special(current_move); //Hibiki
         switch (item_effect)
         {
         case ITEM_EFFECT_WEAKNESSPOLICY:
@@ -534,22 +570,46 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
             }
             break;
         case ITEM_EFFECT_LUMINOUSMOSS:
-            if (move_type == TYPE_WATER)
-                effect = item_try_stat_raise(0x15);
+            if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_type == TYPE_WATER)
+                effect = item_try_stat_raise(0x15,1,1);
             break;
         case ITEM_EFFECT_CELLBATTERY:
-            if (move_type == TYPE_ELECTRIC)
-                effect = item_try_stat_raise(0x11);
+            if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_type == TYPE_ELECTRIC)
+                effect = item_try_stat_raise(0x11,1,1);
             break;
         case ITEM_EFFECT_SNOWBALL:
-            if (move_type == TYPE_ICE)
-                effect = item_try_stat_raise(0x11);
+            if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_type == TYPE_ICE)
+                effect = item_try_stat_raise(0x11,1,1);
             break;
         case ITEM_EFFECT_ABSORBBULB:
-            if (move_type == TYPE_WATER)
-                effect = item_try_stat_raise(0x14);
+            if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_type == TYPE_WATER)
+                effect = item_try_stat_raise(0x14,1,1);
             break;
-        }
+		case ITEM_EFFECT_KEEBERRY:
+            if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_split == MOVE_PHYSICAL)
+                effect = stat_raise_berry(bank, 0, item_effect, MOVE_TURN);
+            break;
+		case ITEM_EFFECT_MARANGABERRY:
+            if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_split == MOVE_SPECIAL)
+                effect = stat_raise_berry(bank, 0, item_effect, MOVE_TURN);
+            break;
+		case ITEM_EFFECT_JABOCABERRY:
+			if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_split == MOVE_PHYSICAL && not_magicguard(bank_attacker)) {
+				damage_loc = get_1_8_of_max_hp(bank_attacker)*(1+check_ability(bank,ABILITY_RIPEN));
+				effect = true;
+				battle_scripting.active_bank = bank;
+				bs_push_current(BS_JABOCAROWAPBERRY);
+			}
+			break;
+		case ITEM_EFFECT_ROWAPBERRY:
+			if (MOVE_WORKED && TARGET_TURN_DAMAGED && move_split == MOVE_SPECIAL && not_magicguard(bank_attacker)) {
+				damage_loc = get_1_8_of_max_hp(bank_attacker)*(1+check_ability(bank,ABILITY_RIPEN));
+				effect = true;
+				battle_scripting.active_bank = bank;
+				bs_push_current(BS_JABOCAROWAPBERRY);
+			}
+			break;
+		}
         break;
     case 3: //move turn
         for (u8 i = 0; i < no_of_all_banks; i++)
@@ -641,6 +701,12 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
             case ITEM_EFFECT_LANSATBERRY:
                 effect = berry_handle_lansat(bank, 1, MOVE_TURN, BS_LANSATBERRY_REMOVEITEM);
                 break;
+			case ITEM_EFFECT_MICLEBERRY:
+				effect = berry_handle_micle(bank, 1, MOVE_TURN, BS_MICLEBERRY_REMOVEITEM);
+				break;
+			case ITEM_EFFECT_CUSTAPBERRY:
+				effect = berry_handle_custap(bank, 1, MOVE_TURN, BS_CUSTAPBERRY_REMOVEITEM);
+				break;
             case ITEM_EFFECT_WHITEHERB:
                 effect = white_herb_effect(bank, MOVE_TURN);
                 break;
@@ -660,20 +726,20 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
         break;
     case 4:
         {
-            quality = get_all_item_quality(bank_attacker);
-            item_effect = get_item_effect(bank_attacker, 1);
+            quality = get_all_item_quality(bank);
+            item_effect = get_item_effect(bank, 1);
             switch (item_effect)
             {
             case ITEM_EFFECT_KINGSROCK:
                 if (MOVE_WORKED && special_statuses[bank_target].moveturn_losthp && percent_chance(quality) && move_table[current_move].move_flags.flags.affected_by_kingsrock)
                 {
                     battle_participants[bank_target].status2.flinched = 1;
-                    record_usage_of_item(bank_attacker, ITEM_EFFECT_KINGSROCK);
+                    record_usage_of_item(bank, ITEM_EFFECT_KINGSROCK);
                 }
                 break;
             case ITEM_EFFECT_SHELLBELL:
-                if (MOVE_WORKED && special_statuses[bank_target].moveturn_losthp && special_statuses[bank_target].moveturn_losthp != 0xFFFF && bank_target != bank_attacker
-                    && battle_participants[bank_attacker].current_hp && battle_participants[bank_attacker].current_hp <= battle_participants[bank_attacker].max_hp &&
+                if (MOVE_WORKED && special_statuses[bank_target].moveturn_losthp && special_statuses[bank_target].moveturn_losthp != 0xFFFF && bank_target != bank
+                    && battle_participants[bank].current_hp && battle_participants[bank].current_hp <= battle_participants[bank].max_hp &&
                     !new_battlestruct->bank_affecting[bank_target].heal_block)
                 {
                     new_battlestruct->various.accumulated_damage += special_statuses[bank_target].moveturn_losthp;
@@ -682,11 +748,24 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
                 break;
             case ITEM_EFFECT_LIFEORB:
                 if (MOVE_WORKED && special_statuses[bank_target].moveturn_losthp && special_statuses[bank_target].moveturn_losthp != 0xFFFF &&
-                     bank_target != bank_attacker)
+                     bank_target != bank)
                 {
                     new_battlestruct->various.life_orbed = 1;
                 }
                 break;
+			case ITEM_EFFECT_THROATSPRAY:
+				if (!move_outcome.failed && find_move_in_table(current_move, sound_moves)){
+					new_battlestruct->various.throatspray = 1;
+					effect = 1;
+				}
+				break;
+			case ITEM_EFFECT_BLUNDERPOLICY:{
+					bool not_on_field = status3[bank_target].on_air || new_battlestruct->bank_affecting[bank_target].sky_drop_attacker || new_battlestruct->bank_affecting[bank_target].sky_drop_target || status3[bank_target].underground || status3[bank_target].underwater || status3[bank_target].phantomforce;
+					if (move_outcome.missed && move_table[current_move].script_id != 70 && !not_on_field && battle_participants[bank].current_hp && can_change_stat(bank, 1, 0x13)){
+						effect = item_try_stat_raise(0x23,0,0);
+					}
+				}
+				break;
             }
         }
         break;
@@ -721,14 +800,23 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
         switch (item_effect)
         {
         case ITEM_EFFECT_REDCARD:
-            effect = item_force_switching(bank_attacker, BS_REDCARD_SWITCH);
+            effect = item_force_switching(bank_attacker, BS_REDCARD_SWITCH,0);
             break;
         case ITEM_EFFECT_EJECTBUTTON:
-            effect = item_force_switching(bank_target, BS_EJECTBUTTON_SWITCH);
+            effect = item_force_switching(bank_target, BS_EJECTBUTTON_SWITCH,0);
             break;
         }
         break;
-    }
+	case 7: //Eject button
+		battle_scripting.active_bank = bank;
+		switch (item_effect)
+		{
+		case ITEM_EFFECT_EJECTPACK:
+			effect = item_force_switching(bank, BS_EJECTBUTTON_SWITCH,1);
+			break;
+		}
+		break;
+	}
     if (effect)
     {
         u16 item = battle_participants[bank].held_item;
@@ -760,6 +848,7 @@ u8 stat_raise_berry_bug_bite(u8 bank, u8 item_effect)
 void bugbite_get_berry_effect(void)
 {
     u8 bank = bank_attacker;
+    if(move_table[current_move].arg2 == MOVEARG2_TEATIME) bank = bank_target;
     battle_scripting.active_bank = bank;
     u8 effect = 0;
     u8 item_effect = get_item_battle_function(last_used_item);
@@ -823,12 +912,20 @@ void bugbite_get_berry_effect(void)
     case ITEM_EFFECT_PETAYABERRY:
     case ITEM_EFFECT_APICOTBERRY:
     case ITEM_EFFECT_STARFBERRY:
+	case ITEM_EFFECT_KEEBERRY:
+	case ITEM_EFFECT_MARANGABERRY:
         effect = stat_raise_berry_bug_bite(bank, item_effect);
         break;
     case ITEM_EFFECT_LANSATBERRY:
         effect = berry_handle_lansat(bank, 0, MOVE_TURN, BS_LANSATBERRY);
         break;
-    }
+	case ITEM_EFFECT_MICLEBERRY:
+		effect = berry_handle_micle(bank, 0, MOVE_TURN, BS_MICLEBERRY);
+		break;
+	case ITEM_EFFECT_CUSTAPBERRY:
+		effect = berry_handle_custap(bank, 0, MOVE_TURN, BS_CUSTAPBERRY);
+		break;
+	}
     if (effect == ALTER_NON_VOLATILE_STATUS)
     {
         active_bank = bank;

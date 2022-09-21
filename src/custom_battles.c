@@ -126,7 +126,7 @@ void handle_outcome_partnerbattle(void)
     memcpy(poke, party_player, sizeof(struct pokemon) * 3);
 
     //restore saved party
-    sp29_party_from_save();
+    //sp29_party_from_save();
 
     //set current poke data
     memcpy(party_player, poke, sizeof(struct pokemon) * 3);
@@ -148,7 +148,7 @@ void custom_battle_prepare_after_transition(u8 taskID)
 void custom_stevenliketag_battle(void) //var 8005 = opponentB ID, var 8006 partner ID, var 8007: 0x1 - animate backsprite, 0x2 - trainer battle
 {
     //save player party
-    sp28_party_to_save();
+    //sp28_party_to_save();
 
     //set general battle flags
     battle_flags.trainer = 1;

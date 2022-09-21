@@ -15,6 +15,7 @@ bool find_move_in_table(u16 move, const u16* table_ptr);
 void setup_berry_consume_buffers(u8 bank);
 u8 get_attacking_move_type();
 bool check_ability(u8 bank, u16 ability);
+bool check_ability_with_mold(u8 bank, u16 ability);
 u16 get_speed(u8 bank);
 u8 has_ability_effect(u8 bank, u8 mold_breaker);
 u8 get_item_effect(u8 bank, u8 check_negating_effects);
@@ -28,6 +29,11 @@ u32 get_battle_item_extra_param(u32 bank);
 bool is_immune_to_powder(u8 bank); //JeremyZ
 u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
 bool is_in_tag_battle(void);
+u8 dragon_darts_target(u8 bank);
+u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
+u8 get_move_table_target(u16 move,u8 atk_bank);
+u16 apply_statboost(u16 stat, u8 boost);
+bool is_of_type(u8 bank, u8 type);
 
 bool is_bank_present(u32 bank)
 {
@@ -35,7 +41,6 @@ bool is_bank_present(u32 bank)
 		return 0;
 	return 1;
 }
-
 
 u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
     u8 target_case;
@@ -46,7 +51,7 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
     if (target_given)
         target_case = target_given;
     else
-        target_case = move_table[move].target;
+        target_case = get_move_table_target(move,bank_attacker);
     if (battle_flags.double_battle) {
         switch (target_case) {
             case 4:
@@ -86,19 +91,19 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
                     else if (move_type == TYPE_WATER)
                         ability = ABILITY_STORM_DRAIN;
                     u8 alive_candidates = target_alive + ally_alive + target_partner_alive;
-                    if (ability && check_ability(target_side, ability) && target_alive &&
+                    if (ability && check_ability_with_mold(target_side, ability) && target_alive &&
                         max_speed < get_speed(target_side)) {
                         redirect_candidate = target_side;
                         max_speed = get_speed(target_side);
                         redirect = 1;
                     }
-                    if (ability && check_ability(target_partner, ability) && target_partner_alive &&
+                    if (ability && check_ability_with_mold(target_partner, ability) && target_partner_alive &&
                         max_speed < get_speed(target_partner)) {
                         redirect_candidate = target_partner;
                         max_speed = get_speed(target_partner);
                         redirect = 1;
                     }
-                    if (ability && check_ability(ally_bank, ability) && ally_alive &&
+                    if (ability && check_ability_with_mold(ally_bank, ability) && ally_alive &&
                         max_speed < get_speed(ally_bank)) {
                         redirect_candidate = ally_bank;
                         redirect = 1;
@@ -110,6 +115,12 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
                         if (ability == ABILITY_STORM_DRAIN)
                             new_battlestruct->various.stormdrain = 1;
                     } //shupian
+					else if(!redirect  && current_move == MOVE_DRAGON_DARTS){
+						if(adjust) 
+							new_battlestruct->various.dragon_darts_targets = dragon_darts_target(old_target);
+						if(new_battlestruct->various.dragon_darts_targets == DRAGONDARTSTARGET_FOE_PARTNER)
+							result_target = old_target ^ 2;
+					}
                 }
                 break;
             case 1:
@@ -132,7 +143,10 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
                     break;
             case 2: //can be everyone
             case 16: //user
-                result_target = bank_attacker;
+				if(current_move == MOVE_COACHING)
+					result_target = bank_attacker ^ 2;
+				else
+					result_target = bank_attacker;
                 break;
         }
     } else {
@@ -160,15 +174,16 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
 u8 calculate_move_type(u8 bank, u16 move, u8 set_bonus) {
     u16 ability = gBankAbilities[bank];
     u8 move_type = TYPE_EGG;
+    bool is_umbrella = get_item_effect(bank, 1) == ITEM_EFFECT_UTILITYUMBRELLA;
     if (new_battlestruct->bank_affecting[bank].electrify)
         move_type = TYPE_ELECTRIC;
     else {
         switch (move) {
             case MOVE_WEATHER_BALL:
                 if (weather_abilities_effect()) {
-                    if (SUN_WEATHER) {
+                    if (SUN_WEATHER && !is_umbrella) {
                         move_type = TYPE_FIRE;
-                    } else if (RAIN_WEATHER) {
+                    } else if (RAIN_WEATHER && !is_umbrella) {
                         move_type = TYPE_WATER;
                     } else if (HAIL_WEATHER) {
                         move_type = TYPE_ICE;
@@ -226,6 +241,24 @@ u8 calculate_move_type(u8 bank, u16 move, u8 set_bonus) {
 					move_type = battle_participants[bank].type2;
 				else
 					move_type = new_battlestruct->bank_affecting[bank].type3;
+                break;
+			}
+			case MOVE_AURA_WHEEL: {
+				if (battle_participants[bank].species == POKE_MORPEKO)
+					move_type = TYPE_ELECTRIC;
+				else if (battle_participants[bank].species == POKE_MORPEKO_HANGRY)
+					move_type = TYPE_DARK;
+                break;
+            }
+			case MOVE_TERRAIN_PULSE: {
+				if(new_battlestruct->field_affecting.electic_terrain)
+					move_type = TYPE_ELECTRIC;
+                else if(new_battlestruct->field_affecting.grassy_terrain)
+					move_type = TYPE_GRASS;
+                else if(new_battlestruct->field_affecting.psychic_terrain)
+					move_type = TYPE_PSYCHIC;
+                else if(new_battlestruct->field_affecting.misty_terrain)
+					move_type = TYPE_FAIRY;
                 break;
             }
 
@@ -476,7 +509,36 @@ void* get_move_battlescript_ptr(u32 move) {
     }
     return battlescripts_table[move_table[is_z].script_id];
 }
+u16 convert_shell_side_arm(u16 move){
+	if(move == MOVE_SHELL_SIDE_ARM_PHYSICS || move == MOVE_SHELL_SIDE_ARM){
+		u16 attack_stat_physical = battle_participants[bank_attacker].atk;
+		u8 attack_boost_physical = battle_participants[bank_attacker].atk_buff;
+		u16 attack_stat_special = battle_participants[bank_attacker].sp_atk;
+		u8 attack_boost_special = battle_participants[bank_attacker].sp_atk_buff;
+		u16 defence_stat_physical = battle_participants[bank_target].def;
+		u8 defence_boost_physical = battle_participants[bank_target].def_buff;
+		u16 defence_stat_special = battle_participants[bank_target].sp_def;
+		u8 defence_boost_special = battle_participants[bank_target].sp_def_buff;
+		
+		// u16 defence_result;
 
+		if (has_ability_effect(bank_target, 1) && gBankAbilities[bank_target] == ABILITY_UNAWARE) 
+			attack_boost_physical = attack_boost_special = 6;
+		if (check_ability(bank_attacker, ABILITY_UNAWARE) || find_move_in_table(move, ignore_targetstats_moves))
+			defence_boost_physical = defence_boost_special = 6;
+
+		attack_stat_physical = apply_statboost(attack_stat_physical, attack_boost_physical);
+		attack_stat_special = apply_statboost(attack_stat_special, attack_boost_special);
+		defence_stat_physical = apply_statboost(defence_stat_physical, defence_boost_physical);
+		defence_stat_special = apply_statboost(defence_stat_special, defence_boost_special);
+		
+		u32 physical_result = (attack_stat_physical << 16) / defence_stat_physical;
+		u32 special_result = (attack_stat_special << 16) / defence_stat_special;
+		if(physical_result > special_result)
+			return MOVE_SHELL_SIDE_ARM_PHYSICS;
+	}
+	return move;
+}
 u16 get_move_from_pledge(u8 bank);
 //void species_data_change(u8 bank, u16 new_species);
 void bs_start_attack(void) {
@@ -500,7 +562,6 @@ void bs_start_attack(void) {
 			}
 		}
 	}
-	
     bank_attacker = turn_order[current_move_turn];
     if (new_battlestruct->bank_affecting[bank_attacker].sky_drop_target && is_bank_present(bank_attacker)) {
         reset_multiple_turn_effects(bank_attacker);
@@ -556,7 +617,6 @@ void bs_start_attack(void) {
                 }
             }
         }
-        battlescripts_curr_instruction = get_move_battlescript_ptr(current_move);
         if (mode == 0) {
             set_attacking_move_type();
             bank_target = get_target_of_move(current_move, 0, 1);
@@ -580,17 +640,19 @@ void bs_start_attack(void) {
         new_battlestruct->various.secondary_dancer = 0;
         new_battlestruct->various.original_dancer = 0;
         new_battlestruct->various.instruct_phase = 0;
-        u8 move_target = move_table[current_move].target;
+        u8 move_target = get_move_table_target(current_move,bank_attacker);
         if ((battle_flags.double_battle && !is_bank_present(bank_target)) ||
             (bank_attacker == bank_target && move_target != move_target_user && move_target != 12 &&
              move_target != 2)) //fix correct targeting
             bank_target = get_target_of_move(current_move, 0, 0);
 
-        if (find_move_in_table(current_move, &moveshitting_onair[0]))
+		current_move = convert_shell_side_arm(current_move);//shell_side_arm
+        battlescripts_curr_instruction = get_move_battlescript_ptr(current_move);
+        if (find_move_in_table(current_move, &moveshitting_onair[0]) || (is_of_type(bank_attacker, TYPE_POISON) && current_move == MOVE_TOXIC))
             hitmarker |= HITMARKER_IGNORE_ON_AIR;
-        else if (find_move_in_table(current_move, &moveshitting_underground[0]))
+        else if (find_move_in_table(current_move, &moveshitting_underground[0]) || (is_of_type(bank_attacker, TYPE_POISON) && current_move == MOVE_TOXIC))
             hitmarker |= HITMERKER_IGNORE_UNDERGROUND;
-        else if (find_move_in_table(current_move, &moveshitting_underwater[0]))
+        else if (find_move_in_table(current_move, &moveshitting_underwater[0]) || (is_of_type(bank_attacker, TYPE_POISON) && current_move == MOVE_TOXIC))
             hitmarker |= HITMARKER_IGNORE_UNDERWATER;
         if (!not_impostered(bank_attacker))
             return;
@@ -622,12 +684,12 @@ void bs_start_attack(void) {
             *species = 0x421;
             //change = 1;
         } else return;
-        //if (change) {
+        if (is_bank_present(bank_attacker)) {
             battle_scripting.active_bank = active_bank = bank_attacker;
             bb2_setattributes_in_battle(0, REQUEST_SPECIES_BATTLE, 0, 2, species);
             mark_buffer_bank_for_execution(active_bank);
             bs_push_current(&aegislash_change_bs);
-        //}
+        }
 
     } else
         battle_state_mode = 0xC;
@@ -647,7 +709,6 @@ void set_focus_charge(void) {
 
 void set_beak_charge(void); //Beak Blast, JeremyZ
 void set_shell_charge(void); //Shell Trap, JeremyZ
-
 void bc_preattacks(void) {
     u8 play_script = 0;
     u8* count = &(battle_stuff_ptr->pre_attacks_bank_counter);
@@ -661,12 +722,13 @@ void bc_preattacks(void) {
                 if (get_bracket_alteration_factor(bank_attacker, item_effect) == 1) {
                     if (item_effect == ITEM_EFFECT_QUICKCLAW) {
                         call_bc_move_exec(BS_QUICKCLAW);
-                    } else if (item_effect == ITEM_EFFECT_CUSTAPBERRY) {
-                        call_bc_move_exec(BS_CUSTAPBERRY);
-                        setup_berry_consume_buffers(bank_attacker);
+                        last_used_item = battle_participants[bank_attacker].held_item;
+                    }
+                    else if(new_battlestruct->bank_affecting[bank_attacker].custap_eff_nextturn){
+                        call_bc_move_exec(BS_QUICKCLAW);
+                        last_used_item = ITEM_CUSTAPBERRY;
                     }
                     play_script = 1;
-                    last_used_item = battle_participants[bank_attacker].held_item;
                     break;
                 }
             }

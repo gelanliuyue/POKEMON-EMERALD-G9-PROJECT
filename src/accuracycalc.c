@@ -13,11 +13,17 @@ u8 has_ability_effect(u8 bank, u8 mold_breaker);
 u8 weather_abilities_effect();
 bool does_move_make_contact(u16 move, u8 atk_bank);
 u8 find_move_in_table(u16 move, const u16* table_ptr);
-u8 check_ability(u8 bank, u16 ability);
+bool check_ability(u8 bank, u16 ability);
 u8 get_bank_side(u8 bank);
 u32 random_value(u32 limit);
 u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
 
+u8 get_move_table_target(u16 move,u8 atk_bank){
+    if(move == MOVE_EXPANDING_FORCE && new_battlestruct->field_affecting.psychic_terrain && GROUNDED(atk_bank))
+        return move_target_both;
+    return move_table[move].target;
+}
 u8 protect_affects(u16 move, u8 set)
 {
     u8 effect = 0;
@@ -26,11 +32,11 @@ u8 protect_affects(u16 move, u8 set)
         return effect;
     u8 split = move_table[move].split;
     u8 contact = does_move_make_contact(move, bank_attacker);
-    u8 target = move_table[move].target;
+    u8 target = get_move_table_target(move,bank_attacker);
     u8 targets_side = get_bank_side(bank_target);
 		
 		
-		if (protect_structs[bank_target].flag0_protect && check_ability(bank_attacker, ABILITY_UNSEEN_FIST) && contact && set)
+		if (check_ability(bank_attacker, ABILITY_UNSEEN_FIST) && contact)
 			effect = 0;
 		else {
 			if (protect_structs[bank_target].flag0_protect)
@@ -53,6 +59,12 @@ u8 protect_affects(u16 move, u8 set)
 				if (contact && set)
 					new_battlestruct->bank_affecting[bank_attacker].banefulbunker_damage = 1;
 			}
+			else if (new_battlestruct->bank_affecting[bank_target].obstruct && split != 2)
+            {
+                effect = 1;
+                if (contact && set)
+                    new_battlestruct->bank_affecting[bank_attacker].obstruct_damage = 1;
+            }
 			else if (new_battlestruct->side_affecting[targets_side].crafty_shield && split == 2)
 				effect = 1;
 			else if (new_battlestruct->side_affecting[targets_side].quick_guard && get_priority(current_move, bank_attacker) > 0)
@@ -80,6 +92,7 @@ u8 protect_affecting_moves(u16 move)
 u8 accuracy_helper_replacement(u16 move)
 {
     u8 done_status = 0;
+    bool is_umbrella = get_item_effect(bank_target, 1) == ITEM_EFFECT_UTILITYUMBRELLA;
     if (
         (status3[bank_target].always_hits && disable_structs[bank_target].always_hits_bank == bank_attacker)
         || check_ability(bank_attacker, ABILITY_NO_GUARD)
@@ -100,7 +113,7 @@ u8 accuracy_helper_replacement(u16 move)
         jump_if_move_has_no_effect(7, move);
         done_status = 1;
     }
-    else if (((current_move == MOVE_THUNDER || current_move == MOVE_HURRICANE) && weather_abilities_effect() && RAIN_WEATHER)
+    else if (((current_move == MOVE_THUNDER || current_move == MOVE_HURRICANE) && weather_abilities_effect() && RAIN_WEATHER && !is_umbrella)
              || (current_move == MOVE_BLIZZARD && weather_abilities_effect() && HAIL_WEATHER)
              || (find_move_in_table(current_move, pressing_moves_table) && status3[bank_target].minimized)
              || (move_table[move].accuracy == 0))
@@ -116,6 +129,7 @@ u32 accuracy_percent(u16 move, u8 bankatk, u8 bankdef)
 {
     u32 accuracy;
 	u8 evs_buff = battle_participants[bankdef].evasion_buff;
+	bool is_umbrella = get_item_effect(bankdef, 1) == ITEM_EFFECT_UTILITYUMBRELLA;
 	if (new_battlestruct->field_affecting.gravity)
 		evs_buff -= 2;
 	if (find_move_in_table(move, ignore_targetstats_moves) || check_ability(bankatk, ABILITY_UNAWARE))
@@ -131,7 +145,7 @@ u32 accuracy_percent(u16 move, u8 bankatk, u8 bankdef)
 	u8 move_accuracy = move_table[move].accuracy;
 	if (has_ability_effect(bankdef, 1) && gBankAbilities[bankdef] == ABILITY_WONDER_SKIN && !DAMAGING_MOVE(move) && move_accuracy > 0)
 		move_accuracy = 50;
-	else if ((move == MOVE_THUNDER || move == MOVE_HURRICANE) && weather_abilities_effect() && SUN_WEATHER)
+	else if ((move == MOVE_THUNDER || move == MOVE_HURRICANE) && weather_abilities_effect() && SUN_WEATHER && !is_umbrella)
 		move_accuracy = 50;
 	s8 buff = accuracy_buff + 6 - evs_buff;
 	if (buff < 0)
@@ -190,6 +204,8 @@ u32 accuracy_percent(u16 move, u8 bankatk, u8 bankdef)
 			accuracy = percent_boost(accuracy, 20);
 		break;
 	}
+	if (new_battlestruct->bank_affecting[bankatk].acc_up_nextturn)
+		accuracy = percent_boost(accuracy, 20);
 	if (weather_abilities_effect() && (battle_weather.flags.fog || battle_weather.flags.permament_fog))
 		accuracy = percent_lose(accuracy, 40);	
     return accuracy;
@@ -216,19 +232,24 @@ void atk01_accuracy_calc(void)
             {
                 u16 accuracy = accuracy_percent(checked_move, bank_attacker, bank_target);
                 //if (__umodsi3(rng(), 100) + 1 > accuracy)
-                if(random_value(100) + 1 > accuracy)
-                {
-                    move_outcome.missed = 1;
-                    if (battle_flags.double_battle && (move_table[checked_move].target == 0x8 || move_table[checked_move].target == 0x20))
+                if(new_battlestruct->various.dragon_darts_targets == DRAGONDARTSTARGET_NOEFFECT ||
+                    new_battlestruct->various.dragon_darts_targets == DRAGONDARTSTARGET_FAIL ||
+                    new_battlestruct->various.dragon_darts_targets == DRAGONDARTSTARGET_ALLY ||
+                    new_battlestruct->various.dragon_darts_targets == DRAGONDARTSTARGET_MISS){
+                    if(new_battlestruct->various.dragon_darts_targets == DRAGONDARTSTARGET_MISS || random_value(100) + 1 > accuracy)
                     {
-                        battle_communication_struct.field6 = 2;
+                        move_outcome.missed = 1;
+                        if (battle_flags.double_battle && (get_move_table_target(checked_move,bank_attacker) == move_target_both || get_move_table_target(checked_move,bank_attacker) == 0x20))
+                        {
+                            battle_communication_struct.field6 = 2;
+                        }
+                        else
+                        {
+                            battle_communication_struct.field6 = 0;
+                        }
+                        type_effectiveness_calc(checked_move, get_attacking_move_type(), bank_attacker, bank_target, 1);
+                        move_outcome.not_affected = 0;
                     }
-                    else
-                    {
-                        battle_communication_struct.field6 = 0;
-                    }
-                    type_effectiveness_calc(checked_move, get_attacking_move_type(), bank_attacker, bank_target, 1);
-                    move_outcome.not_affected = 0;
                 }
                 jump_if_move_has_no_effect(7, checked_move);
             }

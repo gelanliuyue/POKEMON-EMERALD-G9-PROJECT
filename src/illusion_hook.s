@@ -82,4 +82,8 @@ illusion_playcorrectcry_return:
 .global r1_caller
 r1_caller:
 	bx r1
+
+.global r3_caller
+r3_caller:
+	bx r3
 	

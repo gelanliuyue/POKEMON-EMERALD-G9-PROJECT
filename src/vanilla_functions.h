@@ -26,7 +26,7 @@ enum poke_flavour_status __attribute__((long_call)) get_poke_flavour_relation(u3
 void __attribute__((long_call)) jump_if_move_has_no_effect(u8 howmuchtoadd, u16 move);
 void __attribute__((long_call)) record_usage_of_item(u8 bank, u8 item_effect);
 void __attribute__((long_call)) pressure_pp_lose(u8 bank_atk, u8 bank_def, u16 move);
-u8 __attribute__((long_call)) is_poke_disobedient();
+//u8 __attribute__((long_call)) is_poke_disobedient();
 u8 __attribute__((long_call)) uproar_wakeup_check(u8 bank);
 u8 __attribute__((long_call)) check_if_imprisioned(u8 bank, u16 move);
 u8 __attribute__((long_call)) get_bank_in_love(u8 arg);
@@ -37,6 +37,7 @@ void __attribute__((long_call)) sub_803CEDC(u8 bank1, u8 bank2);
 
 u8 __attribute__((long_call)) item_is_mail(u8 itemID);
 u8 __attribute__((long_call)) get_lvl_from_exp(const struct pokemon*);
+s32 __attribute__((long_call)) GetHighestLevelInPlayerParty();
 u16 __attribute__((long_call)) teach_move_in_available_slot(const struct pokemon* , u16 move);
 void __attribute__((long_call)) new_move_for_the_first(const struct pokemon*, u16 move);
 void __attribute__((long_call)) clear_atk_up_if_hit_flag_unless_enraged();
@@ -145,6 +146,7 @@ u8 __attribute__((long_call)) generate_pokemon_data_for_player(const struct poke
 u8 __attribute__((long_call)) poke_add_to_pc(const struct pokemon* poke);
 bool __attribute__((long_call)) sp1E8_is_curr_box_full(void);
 u16 __attribute__((long_call)) get_variable_value(u16 varID);
+bool __attribute__((long_call)) set_variable_value(u16 varID, u16 value);
 u8* __attribute__((long_call)) get_box_name_ptr(u8 boxID);
 void __attribute__((long_call)) rboxes_free(void);
 u8 __attribute__((long_call)) prepare_poke_dex_display(u16 nationalNO, u32 TiD, u32 PiD);
@@ -220,6 +222,10 @@ void __attribute__((long_call)) sub_81B8E80(u8 bank, u8 pokeID, u8 sth);
 void __attribute__((long_call)) sub_80571DC(u8 bank, u8 pokeID);
 void __attribute__((long_call)) buffer_pokemon_species(u8* dst, u16 species);
 void __attribute__((long_call)) update_rtc(void); //JeremyZ
+bool __attribute__((long_call)) HasObedientBitSet(u8 battlerId);
+void __attribute__((long_call)) atk19_faintpokemon(void);
+void __attribute__((long_call)) CancelMultiTurnMoves(u8 battler);
+u8 __attribute__((long_call)) GetMoveTarget0(u16 move, u8 setTarget);
 
 u32 __attribute__((long_call)) __udivsi3(u32 numerator, u32 denumerator);
 

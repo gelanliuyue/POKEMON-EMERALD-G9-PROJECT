@@ -14,6 +14,8 @@ void prep_string(u16 strID, u8 bank);
 s8 get_priority(u16 move, u8 bank);
 void bs_push_current(void* now);
 u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
+u8 get_move_table_target(u16 move,u8 atk_bank);
 
 bool time_check(u8 from, u8 to)
 {
@@ -90,24 +92,28 @@ void jumpifuserheadblown(void)
 
 void atkFA_blowifnotdamp(void)
 {
-	for (u8 i = 0; i < 4; i++)
-	{
-		if (is_bank_present(i) && gBankAbilities[i] == ABILITY_DAMP && has_ability_effect(i, 1))
+	if(move_table[current_move].arg1 == MOVEARG2_MIND_BLOWN){
+		for (u8 i = 0; i < 4; i++)
 		{
-			bank_target = i;
-			last_used_ability = ABILITY_DAMP;
-			record_usage_of_ability(i, ABILITY_DAMP);
-			move_outcome.failed = 1;
-			move_outcome.explosion_stop = 1;
-			battlescripts_curr_instruction = (void*) (0x082DB560);
-			return;
+			if (is_bank_present(i) && gBankAbilities[i] == ABILITY_DAMP && has_ability_effect(i, 1))
+			{
+				bank_target = i;
+				last_used_ability = ABILITY_DAMP;
+				record_usage_of_ability(i, ABILITY_DAMP);
+				move_outcome.failed = 1;
+				move_outcome.explosion_stop = 1;
+				battlescripts_curr_instruction = (void*) (0x082DB560);
+				return;
+			}
 		}
 	}
-	damage_loc = (battle_participants[bank_attacker].max_hp + 1) / 2;
-	if (check_ability(bank_attacker, ABILITY_MAGIC_GUARD) || new_battlestruct->bank_affecting[active_bank].head_blown)
+	damage_loc = (battle_participants[bank_attacker].max_hp + 1) >>1;
+	if (check_ability(bank_attacker, ABILITY_MAGIC_GUARD) || new_battlestruct->bank_affecting[bank_attacker].head_blown)
 		damage_loc = 0;
+	else 
+		new_battlestruct->bank_affecting[bank_attacker].head_blow_hpupsdate = 1;
 	//set head_blown flag
-	new_battlestruct->bank_affecting[active_bank].head_blown = 1;
+	new_battlestruct->bank_affecting[bank_attacker].head_blown = 1;
 	battlescripts_curr_instruction++; //Needs Revision
 }
 
@@ -221,13 +227,14 @@ void jumpifnostockpile(void)
 u8 z_protect_affects(u16 move)
 {
     u8 split = move_table[move].split;
-    u8 target = move_table[move].target;
+    u8 target = get_move_table_target(move,bank_attacker);
     u8 targets_side = get_bank_side(bank_target);
 	return (move >= MOVE_Z_NORMAL_PHYS && move <= MOVE_Z_ASH_GRENINJA &&
 		(protect_structs[bank_target].flag0_protect ||
 		(new_battlestruct->bank_affecting[bank_target].kings_shield && split != 2) ||
 		(new_battlestruct->bank_affecting[bank_target].spiky_shield) ||
 		(new_battlestruct->bank_affecting[bank_target].baneful_bunker) ||
+		(new_battlestruct->bank_affecting[bank_target].obstruct && split != 2) ||
 		(new_battlestruct->side_affecting[targets_side].quick_guard && get_priority(current_move, bank_attacker) > 0) ||
 		(new_battlestruct->side_affecting[targets_side].mat_block && split != 2) ||
 		(new_battlestruct->side_affecting[targets_side].wide_guard && (target == move_target_both || target == move_target_foes_and_ally))

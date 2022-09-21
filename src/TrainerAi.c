@@ -4,13 +4,13 @@
 u16 get_transform_species(u8 bank);
 u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
 bool is_of_type(u8 bank, u8 type);
-u8 check_ability(u8 bank, u16 ability);
+bool check_ability(u8 bank, u16 ability);
 bool is_bank_present(u32 bank);
 u8 learnsanydamagingmove(u16 poke);
 u16 type_effectiveness_calc(u16 move, u8 move_type, u8 atk_bank, u8 def_bank, u8 effects_handling_and_recording);
 u8 calculate_move_type(u8 bank, u16 move, u8 set_bonus);
 void atk04_critcalc(void);
-void damage_calc(u16 move, u8 move_type, u8 atk_bank, u8 def_bank, u16 chained_effectiveness);
+void damage_calc(u16 move, u8 move_type, u8 atk_bank, u8 def_bank, u16 chained_effectiveness,bool setflag);
 void damagecalc2();
 u8 affected_by_substitute(u8 substitute_bank);
 u8 find_move_in_table(u16 move, const u16* table_ptr);
@@ -24,6 +24,7 @@ void can_magneticflux_work();
 bool is_poke_usable(struct pokemon* poke);
 struct pokemon* get_bank_poke_ptr(u8 bank);
 u8 get_bank_side(u8 bank);
+u8 get_move_table_target(u16 move,u8 atk_bank);
 
 #define AI_STATE battle_resources->tai_state
 
@@ -103,7 +104,7 @@ bool is_ability_preventing_switching(u8 preventing_bank, u8 prevented_bank)
 
 u16 get_ability_by_species(u16 species, u8 slot);
 
-u8 ai_get_ability(u8 bank, u8 gastro)
+u16 ai_get_ability(u8 bank, u8 gastro)
 {
     u16 ability;
     if (is_bank_ai(bank))
@@ -212,7 +213,7 @@ u32 ai_calculate_damage(u8 atk_bank, u8 def_bank, u16 move)
     else
     {
         u16 chained_effectiveness=type_effectiveness_calc(move, move_type, atk_bank,def_bank,0);
-        damage_calc(move, move_type, atk_bank, def_bank, chained_effectiveness);
+        damage_calc(move, move_type, atk_bank, def_bank, chained_effectiveness,0);
     }
     battlescripts_curr_instruction = bs_inst;
     u8 no_of_hits = 1;
@@ -401,7 +402,7 @@ u8 tai_does_flower_veil_negate(u16 move)
     {
         if (script_id == 12 || script_id == 13 || script_id == 14 || script_id == 15 || script_id == 16)
             return 1;
-        if (move_table[move].target != move_target_user && !is_stat_change_positive(move))
+        if (get_move_table_target(move,tai_bank) != move_target_user && !is_stat_change_positive(move))
             return 1;
     }
     return 0;
@@ -413,7 +414,7 @@ u8 does_move_lower_target_stat(u16 move, u8 atk_bank, u8 def_bank)
     if (script_id == 3 || script_id == 7 || script_id == 38) //one stat target, multiple stats target, captivate
     {
         u8 lowers_stat = !is_stat_change_positive(move);
-        u8 atk_ability = ai_get_ability(atk_bank, 1);
+        u16 atk_ability = ai_get_ability(atk_bank, 1);
         u8 moldbreaker = 0;
         if ((atk_ability == ABILITY_MOLD_BREAKER || atk_ability == ABILITY_TURBOBLAZE || atk_ability == ABILITY_TERAVOLT))
             moldbreaker = 1;
@@ -470,7 +471,7 @@ void tai2A_discourage_moves_based_on_abilities()
     u16 move = AI_STATE->curr_move;
     u8 script_id = move_table[move].script_id;
     u8 move_type = tai_getmovetype(tai_bank, move);
-    u8 tai_ability = ai_get_ability(tai_bank, 1);
+    u16 tai_ability = ai_get_ability(tai_bank, 1);
     u8 discourage = 0;
     if (tai_ability != ABILITY_MOLD_BREAKER && tai_ability != ABILITY_TURBOBLAZE && tai_ability != ABILITY_TERAVOLT)
     {
@@ -683,11 +684,11 @@ void tai52_movehitssemiinvulnerable(void) //u8 bank, u16 move
     u16 move = read_hword(tai_current_instruction + 2);
     if (move == 0 || move == 0xFFFF)
         move = AI_STATE->var;
-    if ((status3[bank].on_air || new_battlestruct->bank_affecting[bank].sky_drop_target || new_battlestruct->bank_affecting[bank].sky_drop_attacker) && find_move_in_table(move, &moveshitting_onair[0]))
+    if ((status3[bank].on_air || new_battlestruct->bank_affecting[bank].sky_drop_target || new_battlestruct->bank_affecting[bank].sky_drop_attacker) && (find_move_in_table(move, &moveshitting_onair[0]) || (is_of_type(tai_bank, TYPE_POISON) && current_move == MOVE_TOXIC)))
         hits = 1;
-    else if (status3[bank].underground && find_move_in_table(move, &moveshitting_underground[0]))
+    else if (status3[bank].underground && (find_move_in_table(move, &moveshitting_underground[0]) || (is_of_type(tai_bank, TYPE_POISON) && current_move == MOVE_TOXIC)))
         hits = 1;
-    else if (status3[bank].underwater && find_move_in_table(move, &moveshitting_underwater[0]))
+    else if (status3[bank].underwater && (find_move_in_table(move, &moveshitting_underwater[0]) || (is_of_type(tai_bank, TYPE_POISON) && current_move == MOVE_TOXIC)))
         hits = 1;
     AI_STATE->var = hits;
     tai_current_instruction += 4;
@@ -695,13 +696,13 @@ void tai52_movehitssemiinvulnerable(void) //u8 bank, u16 move
 
 void tai53_getmovetarget(void)
 {
-    AI_STATE->var = move_table[AI_STATE->curr_move].target;
+    AI_STATE->var = get_move_table_target(AI_STATE->curr_move,tai_bank);
     tai_current_instruction++;
 }
 
 void tai54_getvarmovetarget(void)
 {
-    AI_STATE->var = move_table[AI_STATE->var].target;
+    AI_STATE->var = get_move_table_target(AI_STATE->var,tai_bank);
     tai_current_instruction++;
 }
 
@@ -709,7 +710,7 @@ void tai55_isstatchangepositive(void)
 {
     u16 move = AI_STATE->curr_move;
     u8 positive;
-    if (move_table[move].target == move_target_user)
+    if (get_move_table_target(move,tai_bank) == move_target_user)
         positive = does_move_raise_attacker_stat(move, tai_bank);
     else
         positive = !does_move_lower_target_stat(move, tai_bank, bank_target);
@@ -1533,7 +1534,7 @@ void tai85_canmultiplestatwork(void)
     u8 bank;
     u8 max;
     u16 move = AI_STATE->curr_move;
-    if (move_table[move].target == move_target_user)
+    if (get_move_table_target(move,tai_bank) == move_target_user)
         bank = bank_attacker;
     else
         bank = bank_target;

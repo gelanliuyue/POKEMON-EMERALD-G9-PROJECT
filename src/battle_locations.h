@@ -48,6 +48,7 @@ extern u8 another_active_bank;
 extern u8 absent_bank_flags;
 extern u8 battle_outcome;
 extern u8 current_move_position;
+extern u8 chosen_move_position;
 extern u8 current_move_turn;
 extern u16 move_hit_with_pbs[4];
 extern u16 move_type_hit_with_pbs[4];

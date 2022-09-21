@@ -25,6 +25,13 @@ extern const u16 instruct_banlist[];
 extern const u16 moves_with_charging_turn[];
 extern const u16 moves_calling_another_move[];
 extern const u16 pressing_moves_table[];
+//forbidenabilitiestable
+extern const u16 forbidenabilitiestable1[];
+extern const u16 forbidenabilitiestable2[];
+extern const u16 forbidenabilitiestable3[];
+extern const u16 forbidenabilitiestable4[];
+//BadgeLvTable
+extern const u8 BadgeLvTable[];
 
 extern const u8 type_effectiveness_table[TYPE_FAIRY-0x4][TYPE_FAIRY-0x4];
 
@@ -54,6 +61,7 @@ extern void* capture_exp_bs;
 //extern scripts from battlescripts.s file
 extern u8 BS_TELEKINESIS_ENDS_RET[];
 extern u8 BS_TELEKINESIS_ENDS_2[];
+extern u8 BS_EXP_FOR_TEAM[];
 extern u8 BS_BALL_BLOCK[];
 extern u8 BS_CUSTOM_LOSS[];
 extern u8 BS_TRAINER_SLIDE_MSG_RETURN[];
@@ -75,6 +83,11 @@ extern u8 BS_DEF_ABILITY_CHANGES_ATK_STAT[];
 extern u8 BS_DEF_ABILITY_CHANGES_DEF_STAT[];
 extern u8 BS_ATK_ABILITY_CHANGES_ATK_STAT[];
 extern u8 BS_ATK_ABILITY_CHANGES_ATK_STAT_END3[];
+extern u8 BS_PRINT_GLASTRIER_ABILITY[];
+extern u8 BS_PRINT_SPECTRIER_ABILITY[];
+
+extern u8 ABILITY_CHANGE_PRINTATKABILITY[];
+extern u8 ABILITY_CHANGE_PRINTDEFABILITY[];
 
 extern u8 BS_CHANGE_ATK_STAT[];
 extern u8 BS_CHANGE_ATK_STAT_SELFINFLICTED[];
@@ -116,6 +129,10 @@ extern u8 BS_ABILITYHPCHANGE_END3[];
 extern u8 BS_HARVEST[];
 extern u8 BS_DEFIANT[];
 extern u8 BS_COMPETITIVE[];
+extern u8 BS_RATTLED[];
+extern u8 BS_DEFIANT_ATK[];
+extern u8 BS_COMPETITIVE_ATK[];
+extern u8 BS_RATTLED_ATK[];
 extern u8 BS_RECEIVER[];
 extern u8 BS_SNOWWARNING[];
 extern u8 BS_DESOLATELAND[];
@@ -129,6 +146,7 @@ extern u8 BS_DARKAURA[];
 extern u8 BS_FAIRYAURA[];
 extern u8 BS_AURABREAK[];
 extern u8 BS_MOLDBREAKER[];
+extern u8 BS_AS_ONE[];
 extern u8 BS_UNNERVE[];
 extern u8 BS_SCREEN_ClEANER[];
 extern u8 BS_TELEPATHY[];
@@ -155,6 +173,7 @@ extern u8 BS_PASTELVEIL_HEAL[];
 extern u8 BS_STURDYENDURES[];
 extern u8 BS_ITEMSTATRAISE[];
 extern u8 BS_ITEMSTATRAISE_END2[];
+extern u8 BS_JABOCAROWAPBERRY[];
 extern u8 BS_WEAKNESSPOLICY[];
 extern u8 BS_BURNUP[];
 extern u8 BS_RAPIDSPIN_SPINS[];
@@ -164,6 +183,7 @@ extern u8 BS_BUGBITE_STATRAISE[];
 extern u8 BS_BUGBITE[];
 extern u8 BS_BUGBITE_HEALCONDITION[];
 extern u8 BS_BUGBITE_PERSIMBERRY[];
+extern u8 BS_TEATIME[];
 
 extern u8 BS_TOXICORB[];
 extern u8 BS_FLAMEORB[];
@@ -178,6 +198,9 @@ extern u8 BS_MENTALHERB[];
 extern u8 BS_MENTALHERB_END2[];
 extern u8 BS_BERRYHPHEAL[];
 extern u8 BS_BERRYHPHEAL_REMOVEITEM[];
+extern u8 BS_MICLEBERRY[];
+extern u8 BS_MICLEBERRY_REMOVEITEM[];
+extern u8 BS_MICLEBERRY_REMOVEITEM_END2[];
 extern u8 BS_LANSATBERRY[];
 extern u8 BS_LANSATBERRY_REMOVEITEM[];
 extern u8 BS_LEPPABERRY[];
@@ -202,6 +225,8 @@ extern u8 BS_LUNARDANCE[];
 
 extern u8 BS_QUICKCLAW[];
 extern u8 BS_CUSTAPBERRY[];
+extern u8 BS_CUSTAPBERRY_REMOVEITEM[];
+extern u8 BS_CUSTAPBERRY_REMOVEITEM_END2[];
 
 extern u8 BS_HEALBLOCKEND[];
 extern u8 BS_HEALBLOCKEND_END2[];
@@ -257,19 +282,39 @@ extern u8 BS_STAT_ONLY_FORMCHANGE_END3[];
 extern u8 BS_ZYGARDE_FORM_CHANGE[];
 extern u8 BS_BATTLE_BOND[];
 extern u8 BS_MIMIKYU_BUST[];
+extern u8 BS_GULP_MISSILE_GULPING[];
+extern u8 BS_GULP_MISSILE_GORGING[];
+extern u8 BS_EISCUE_BUST[];
 extern u8 BS_START_Z[];
 extern u8 BS_Z_KOMMO_O[];
+extern u8 BS_MIRROR_ARMOR_ASATK[];
+extern u8 BS_MIRROR_ARMOR_ASDEF[];
+extern u8 BS_GAS_REACTIVATION[];
+extern u8 BS_OCTOLOCK[];
+extern u8 BS_OCTOLOCK_MALE[];
+extern u8 BS_SCALE_SHOT[];
+extern u8 BS_CORROSIVE_GAS[];
+extern u8 BS_EERIE_SPELL[];
+extern u8 BS_OverworldWeatherStarts[];
+extern u8 BS_CustomOverworldWeatherStarts[];
+extern u8 BS_Custom_Setter[];
+extern u8 BS_FINAL_COUNTDOWM_PASSED[];
+extern u8 BS_FINAL_COUNTDOWM_TIMEUP[];
 
 //locations in asm files
 extern const u8 ability_names_table[250][13];
 extern const u8 move_names_table[1025][13];
 extern const u8 z_move_names_table[47][15];
 extern const u8 type_names[TYPE_FAIRY][7];
-extern u8* battlescripts_table[183];
+extern u8* battlescripts_table[256];
 
 //More abilities
 extern u16 gBankAbilities[4];
+extern u16 gBankAbilitiesBackups[4];
 extern u16 gRecordAbilities[4];
 extern u16 glPokeAbilities[][3];
+
+//Exp
+extern u32 gExperienceTables[][MAX_LEVEL + 1];
 
 #endif /* static_references */

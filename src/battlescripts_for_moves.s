@@ -125,7 +125,7 @@ battlescripts_table:
 .word ATTACK_STEALITEM	@99 thief, covet
 .word NEXTHITWILLHIT	@100 Lock-ON, Mind Reader
 .word 0x082D96A5 		@101 Spite
-.word BELLYDRUMLIKE		@102 Belly Drum
+.word BELLYDRUMLIKE		@102 Belly Drum,Clangorous Soul
 .word 0x082D968E 		@103 destiny bond
 .word CURSE_EFFECT		@104 Curse; arg1 is stats to raise; arg 2 by how much, speed loss is hardcoded
 .word ROLLOUT         	@105 Rollout, Ice Ball
@@ -162,7 +162,7 @@ battlescripts_table:
 .word 0x082DA439		@136 Snatch
 .word SECRETPOWER		@137 Secret Power
 .word 0x082DA529		@138 Water/Mud Sport
-.word BERRYDESTROY		@139 Incinerate, Pluck, Bug Bite; arg1 is 1 if berry is stolen and eaten, 0 if only destroyed
+.word BERRYDESTROY		@139 Incinerate, Pluck, Bug Bite; arg2 is 10 if berry is stolen and eaten, other only destroyed
 .word SETTAILWIND		@140 Tailwind
 .word ACUPRESSURE		@141 Acupressure
 .word FLING				@142 Fling
@@ -187,7 +187,7 @@ battlescripts_table:
 .word SANDSTORM_BS		@161 Sandstorm
 .word RAINDANCE_BS		@162 Rain Dance
 .word SUNNYDAY_BS		@163 Sunny Day
-.word HAIL_BS		@164 Hail
+.word HAIL_BS			@164 Hail
 .word MAGNETICFLUX		@165 Magnetic Flux @arg1 bitfield for stats to raise; arg 2 by how much
 .word VENOMDRENCH		@166 Venom Drench
 .word GRASSTYPESSTATRAISE		@167 Flower Shield, Rototiler @arg1 bitfield for stats to raise; arg 2 by how much
@@ -203,24 +203,36 @@ battlescripts_table:
 .word DRAGON_TAIL       @177 Dragon Tail, Circle Throw etc.
 .word FINAL_GAMBIT      @178 Final Gambit
 .word PLEDGE_EFFECT     @179 Pledge Moves
-.word PURIFY_EFFECT		@180 Purify, heals target's 
+.word PURIFY_EFFECT		@180 Purify, heals targets 
 .word TARGETSTAT_CONDITION	@181 Toxic Thread, arg1 is stat value, arg2 is status flag to be applied
 .word NEXTHITWILLCRIT		@182 Laser Focus
-.word AURORAVEIL_EFFECT	@183 Aurora Veil
+.word AURORAVEIL_EFFECT		@183 Aurora Veil
 .word STRENGTHSAP_EFFECT	@184 Strength Sap; arg1 is stat value
 .word LOSETYPE_EFFECT		@185 Burn Up; arg1 is type the user has to be and the type the user loses
 .word CONFUSE_STATCHANGE	@186 Swagger, Flatter; arg1 is stat value
-.word INSTRUCT_EFFECT	@187 Oh Guruuuu!!!
-.word SPOTLIGHT	@188 Spotlight, JeremyZ
-.word THROAT_CHOP	@189 Throat Chop, JeremyZ
-.word POLLEN_PUFF	@190 Pollen Puff, JeremyZ
-.word SPEED_SWAP	@191 Speed Swap, JeremyZ
-.word MIND_BLOWN	@192 Mind Blown, JeremyZ
-.word PLASMA_FISTS	@193 Plasma Fists, JeremyZ
-.word ATTACK_TERRAINCHANGE @194 Z_MEW, Z_LYCANROC, JeremyZ
+.word INSTRUCT_EFFECT		@187 Oh Guruuuu!!!
+.word SPOTLIGHT				@188 Spotlight, JeremyZ
+.word THROAT_CHOP			@189 Throat Chop, JeremyZ
+.word POLLEN_PUFF			@190 Pollen Puff, JeremyZ
+.word SPEED_SWAP			@191 Speed Swap, JeremyZ
+.word MIND_BLOWN			@192 Mind Blown, JeremyZ
+.word PLASMA_FISTS			@193 Plasma Fists, JeremyZ
+.word ATTACK_TERRAINCHANGE 	@194 Z_MEW, Z_LYCANROC, JeremyZ
 .word HITS_TWO_TIMES_FLINCH @195 Double Iron Bash, JeremyZ
-.word EEVEE_ATTACK @196 Glitzy Glow, Baddy Bad, Sappy Seed, Freezy Frost, Sparkly Swirl, JeremyZ
-.word DOUBLE_DAMAGETRAP @197 Attack the target and cause damage.Make the attacker and the target in a state of no escape; Jaw Lock //jifeng
+.word EEVEE_ATTACK 			@196 Glitzy Glow, Baddy Bad, Sappy Seed, Freezy Frost, Sparkly Swirl, JeremyZ
+.word DOUBLE_DAMAGETRAP 	@197 Attack the target and cause damage.Make the attacker and the target in a state of no escape; Jaw Lock //jifeng
+.word BERRYDESTROYSELF		@198 Stuff Cheeks; arg2 is 10 if berry is stolen and eaten, other only destroyed
+.word NO_RETREAT 			@199 No Retreat;raise 5 stats and cannot escape
+.word TAR_SHOT 				@200 Tar Shot
+.word DRAGON_DARTS 			@201 Dragon Darts
+.word BERRYDESTROYALL 		@202 Tea Time; arg2 is 10 if berry is stolen and eaten, other only destroyed.
+.word OCTOLOCK 				@203 OctLock
+.word COURT_CHANGE 			@204 Court Change
+.word CLANGOROUS_SOUL 		@205 Clangorous Soul
+.word POLTERGEIST 			@206 Poltergeist
+.word CORROSIVE_GAS 		@207 Corrosive Gas
+.word JUNGLE_HEALING 		@208 Jungle Healing
+.word MOVE_EERIE_SPELL		@209 Eerie Spell
 
 SUNNYDAY_BS:
 	attackcanceler
@@ -785,6 +797,7 @@ AQUA_RING:
 TERRAINCHANGE:
 	attackcanceler
 	callasm_cmd 86
+	.byte 0x0 @just set terrain
 	.word MOVE_FAILED
 	attackstring
 	ppreduce
@@ -809,8 +822,8 @@ MIMIC:
 	goto_cmd ENDTURN
 
 STOCKPILE_STUFF:
-	jumpifmove 0xFE STOCKPILE
-	jumpifmove 0x100 SWALLOW
+	jumpifmove MOVE_STOCKPILE STOCKPILE
+	jumpifmove MOVE_SWALLOW SWALLOW
 SPIT_UP:
 	attackcanceler
 	attackstring
@@ -915,6 +928,14 @@ BERRYDESTROY:
 	setbyte EffectChooser 0x36
 	goto_cmd ATTACKING_MOVE
 
+BERRYDESTROYSELF:
+    attackcanceler
+	callasm_cmd 179
+	.byte bank_attacker
+	.word MOVE_FAILED
+	setbyte EffectChooser 0x76
+	goto_cmd ONE_STAT_USER_WORKED
+
 COPYCAT:
 	attackcanceler
 	callasm_cmd 80 @check if copycat is usable
@@ -968,7 +989,7 @@ ITEMSWAP:
 CHANGE_TARGET_TYPE_TO:
 	attackcanceler
 	jumpifsubstituteaffects MOVE_FAILED
-	jumpifability bank_target 0x79 MOVE_FAILED @Multitype check
+	jumpifability bank_target ABILITY_MULTITYPE MOVE_FAILED @Multitype check
 	accuracycheck MOVE_MISSED 0x0
 	attackstring
 	ppreduce
@@ -1195,6 +1216,8 @@ BELLYDRUMLIKE:
 	.word MOVE_FAILED
 	attackstring
 	ppreduce
+	attackanimation
+	waitanimation
 	orword 0x2024280 0x100
 	graphicalhpupdate bank_attacker
 	datahpupdate bank_attacker
@@ -1218,7 +1241,8 @@ NIGHTMARE:
 	
 HITS_THREE_TIMES:
 	attackcanceler
-	jumpifmove 0xA7 PREPARE_TRIPLE_KICK
+	jumpifmove MOVE_TRIPLE_KICK PREPARE_TRIPLE_KICK
+	jumpifmove MOVE_TRIPLE_AXEL PREPARE_TRIPLE_KICK
 	accuracycheck MOVE_MISSED 0x0
 NOACCURACYTRIPLEKICKYET:
 	attackstring
@@ -1255,10 +1279,16 @@ MULTIHIT_LOOP_START:
 	jumpifhalfword 0x0 0x20241EC 0xD6 MULTIHIT_LOOP
 	jumpifstatus bank_attacker 0x7 MULTIHIT_RESULTMESSAGE
 MULTIHIT_LOOP:
-	jumpifnotmove 0xA7 AFTER_TRIPLEKICKEFFECTS
-	accuracycheck TRIPLEKICK_SKILLLINKCHECK 0x0
+	jumpifmove MOVE_TRIPLE_KICK TRIPLEKICK_DAMAGE
+	jumpifmove MOVE_TRIPLE_AXEL TRIPLEKICK_DAMAGE20
+	goto_cmd AFTER_TRIPLEKICKEFFECTS
 TRIPLEKICK_DAMAGE:
+	accuracycheck TRIPLEKICK_SKILLLINKCHECK 0x0
 	addbyte 0x02024400 0xA @dynamic base power
+	goto_cmd AFTER_TRIPLEKICKEFFECTS
+TRIPLEKICK_DAMAGE20:
+	accuracycheck TRIPLEKICK_SKILLLINKCHECK 0x0
+	addbyte 0x02024400 20 @dynamic base power
 AFTER_TRIPLEKICKEFFECTS:
 	cmd25
 	copyarray 0x2024335 0x202448A 0x1
@@ -1296,6 +1326,7 @@ MULTIHIT_RESULTMESSAGE:
 MULTIHIT_END:
 	faintpokemon bank_target 0x0 0x0
 	setbyte EndTurnTracker 20
+	setbyte EffectChooser 58  @Scale Shot effect
 	cmd49 0x0 0x0
 	end_cmd
 STURDY_MESSAGE:
@@ -1311,7 +1342,7 @@ STURDYMSG:
 	bichalfword MoveOutcome OutcomeSturdied | 0x80
 	return_cmd
 TRIPLEKICK_SKILLLINKCHECK:
-	jumpifability bank_attacker 0x5C SKILLLINK_ALWAYS_THREETIMES
+	jumpifability bank_attacker ABILITY_SKILL_LINK SKILLLINK_ALWAYS_THREETIMES
 	goto_cmd TRIPLEKICK_MISS
 SKILLLINK_ALWAYS_THREETIMES:
 	jumpifbyte 0x1 0x2024480 0x0 TRIPLEKICK_DAMAGE
@@ -1336,7 +1367,7 @@ FORCETOSWITCH:
 	attackcanceler
 	attackstring
 	ppreduce
-	jumpifability bank_target 0x15 SUCTIONCUPSNOSWITCH
+	jumpifability bank_target ABILITY_SUCTION_CUPS SUCTIONCUPSNOSWITCH
 	jumpifspecialstatus3 bank_target 0x400 0x0 0x82DB109
 	accuracycheck MOVE_FAILED + 2 0xFFFF
 	jumpifword 0x4 0x2022FEC 0x40000 MOVE_FAILED + 2
@@ -1536,9 +1567,9 @@ TORMENTT:
 TAUNTT:
 	attackcanceler
 	accuracycheck MOVE_MISSED 0x0
+	attackstring
 	jumpifability bank_target ABILITY_OBLIVIOUS TAUNT_OBLIVIOUS_FAIL
 	settaunt MOVE_FAILED
-	attackstring
 	ppreduce
 	goto_cmd 0x082DA203
 	
@@ -1727,6 +1758,7 @@ GASTROACID:
 	waitanimation
 	printstring 0x1DD
 	waitmessage 0x38
+	callasm_cmd 0
 	call BS_CHECKCASTFORMCHERRIM
 	goto_cmd ENDTURN
 
@@ -1759,6 +1791,7 @@ CORE_ENFORCER:
 	.word ENDTURN
 	printstring 0x1DD
 	waitmessage 0x38
+	callasm_cmd 0
 	call BS_CHECKCASTFORMCHERRIM
 	goto_cmd ENDTURN
 
@@ -1779,12 +1812,14 @@ ROOMS:
 	callasm_cmd 52 @sets bit, chooses string
 	printfromtable rooms_strings
 	waitmessage 0x40
+	callasm_cmd 141 @check battle pokemon for room service
 	goto_cmd ENDTURN
 
 ABILITY_CHANGE:
 	attackcanceler
 	accuracycheck MOVE_MISSED 0xFFFF
-	callasm_cmd 51 @changes abilities
+	callasm_cmd 51 @check changes abilities
+	.byte 4
 	.word MOVE_FAILED
 	attackstring
 	ppreduce
@@ -1792,9 +1827,17 @@ ABILITY_CHANGE:
 	waitanimation
 	printfromtable abilitychange_strings
 	waitmessage 0x40
+	callasm_cmd 51 @print atk ability
+	.byte 0
+	callasm_cmd 51 @print def ability
+	.byte 1
+	callasm_cmd 51 @active atk ability
+	.byte 2
+	callasm_cmd 51 @active def ability
+	.byte 3
 	call BS_CHECKCASTFORMCHERRIM
 	goto_cmd ENDTURN
-
+	
 ADD_THIRD_TYPE:
 	attackcanceler
 	jumpifsubstituteaffects MOVE_FAILED
@@ -1972,6 +2015,7 @@ TRANSFER_CONDITION:
 	cmd49 0x0 0x0
 	cureifburnedparalysedorpoisoned JUSTEND
 	statusiconeupdate bank_attacker
+	statusiconeupdate bank_target
 	printstring 0xA7
 	waitmessage 0x40
 JUSTEND:
@@ -2010,6 +2054,7 @@ HPHEAL_user:
 	
 ALREADY_FULLHP:
 	orbyte MoveOutcome OutcomeFailed
+ALREADY_FULLHP_1:
 	attackstring
 	ppreduce
 	goto_cmd 0x82D9EFB @already has full hp
@@ -2018,7 +2063,7 @@ EXPLODE:
 	attackcanceler
 	attackstring
 	ppreduce
-	jumpifuserhasnoHP EXPLODE_DAMAGE
+	jumpifuserhasnoHP bank_attacker EXPLODE_DAMAGE
 	faintifabilitynotdamp
 	setuserhptozero
 	waitstate
@@ -2203,6 +2248,7 @@ PUT_TARGET_TO_SLEEP:
 	jumpifsubstituteaffects MOVE_FAILED
 	attackstring
 	ppreduce
+	jumpifnomoveforspecies MOVE_DARK_VOID POKE_DARKRAI MOVE_FAILED
 	jumpifstatus 0x0 0x7 0x82D8AB0 @already asleep
 	jumpifcannotsleep CANT_BECOME_ASLEEP_BS @uproar, abiliy
 	jumpifstatus 0x0 0xFF MOVE_FAILED
@@ -2270,7 +2316,9 @@ ATTACK_MULTIPLESTAT_CHANCE_USER:
 
 MULTIPLE_STAT_CHANGE_TARGET:
 	attackcanceler
+	jumpifmove MOVE_COACHING MULTIPLE_STAT_CHANGE_TARGET_NO_CHECK_SUBTITUTE
 	jumpifsubstituteaffects MOVE_FAILED
+MULTIPLE_STAT_CHANGE_TARGET_NO_CHECK_SUBTITUTE:
 	accuracycheck MOVE_MISSED 0x0
 	callasm_cmd 28 @checks if can change stats and gets how many
 	.byte bank_target
@@ -2288,14 +2336,18 @@ MULTIPLE_STAT_CHANGE_USER:
 	callasm_cmd 28 @checks if can change stats and gets how many
 	.byte bank_attacker | STAT_SELF_INFLICTED
 	.word MOVE_FAILED
+	call MULTIPLE_STAT_CHANGE_USER_RET
+	goto_cmd ENDTURN
+	
+MULTIPLE_STAT_CHANGE_USER_RET:
 	attackstring
 	ppreduce
 	attackanimation
 	waitanimation
 	callasm_cmd 29 @do all stat changes that are possible
 	.word BS_CHANGE_ATK_STAT_SELFINFLICTED
-	goto_cmd ENDTURN
-
+	return_cmd
+	
 ATTACK_TARGETSTAT_CHANCE:
 	callasm_cmd 25 @sets stat to change based on arg1
 	seteffect1 MOVEEFFECT_STATCHANGE
@@ -2380,6 +2432,9 @@ CANCELER_FAIL:
 SUCCESS_MOVE_ATTACK_WITH_CALC:
 	attackstring
 	ppreduce
+SUCCESS_MOVE_ATTACK_WITH_ATTACKSTRING:
+	goto_cmd AURA_WHEEL_CHECK
+AURA_WHEEL_CHECK_END:
 	critcalc
 	damagecalc
 	damageadjustment
@@ -2425,7 +2480,7 @@ DRAGON_TAIL:
 	cmd49 0x0 0x0
 	jumpiffainted bank_target DRAGON_TAIL_END
 	jumpifbyte 0x4 0x0202427C 0x29 DRAGON_TAIL_END
-	jumpifability bank_target 0x15 DRAGON_TAIL_END
+	jumpifability bank_target ABILITY_SUCTION_CUPS DRAGON_TAIL_END
 	jumpifspecialstatus3 bank_target 0x400 0x0 DRAGON_TAIL_END
 	jumpifword 0x4 0x2022FEC 0x40000 DRAGON_TAIL_END
 	setbyte 0x20241EA 0x12
@@ -2535,6 +2590,7 @@ MIND_BLOWN: @JeremyZ
 	blowifabilitynotdamp
 	graphicalhpupdate bank_attacker
 	datahpupdate bank_attacker
+	checkfaintpokemon bank_attacker 0x0 0x0
 	accuracycheck MOVE_MISSED 0x0
 	critcalc
 	damagecalc
@@ -2569,6 +2625,9 @@ PLASMA_FISTS: @JeremyZ
 
 ATTACK_TERRAINCHANGE:
 	attackcanceler
+	callasm_cmd 86 @Terrain Change
+	.byte 0x1 @check move steel roller availble
+	.word MOVE_FAILED
 	accuracycheck MOVE_MISSED 0x0
 	attackstring
 	ppreduce
@@ -2588,7 +2647,8 @@ ATTACK_TERRAINCHANGE:
 	waitmessage 0x40
 	faintpokemon bank_target 0x0 0x0 @faint target
 	callasm_cmd 86 @Terrain Change
-	.word MOVE_FAILED
+	.byte 0x0 @just set terrain
+	.word ENDTURN
 	printfromtable terrainstrings
 	waitmessage 0x40
 	callasm_cmd 141 @check battle pokemon for terrain seeds
@@ -2618,10 +2678,10 @@ EEVEE_ATTACK:
 	resultmessage
 	waitmessage 0x40
 	faintpokemon bank_target 0x0 0x0 @faint target
-	jumpifmove 0x2E1 GLITZY_GLOW
-	jumpifmove 0x2E2 BADDY_BAD
-	jumpifmove 0x2E3 SAPPY_SEED
-	jumpifmove 0x2E4 0x082D8D75
+	jumpifmove MOVE_GLITZY_GLOW GLITZY_GLOW
+	jumpifmove MOVE_BADDY_BAD BADDY_BAD
+	jumpifmove MOVE_SAPPY_SEED SAPPY_SEED
+	jumpifmove MOVE_FREEZY_FROST 0x082D8D75
 SPARKLY_SWIRL:
 	call PARTYHEAL_STRING
 	printfromtable 0x85CC904
@@ -2644,9 +2704,153 @@ SAPPY_SEED:
 	printfromtable 0x85CC878
 	waitmessage 0x40
 	goto_cmd ENDTURN
-DOUBLE_DAMAGETRAP: 
+DOUBLE_DAMAGETRAP:
+    attackcanceler
+	accuracycheck MOVE_MISSED 0x0
+	jumpifsubstituteaffects SUCCESS_MOVE_ATTACK_WITH_CALC
 	callasm_cmd 68 @sets the trapped bit
 	callasm_cmd 176 @Make the attacker in a state of no escape
 	printstring 0x8F
 	waitmessage 0x40
+	goto_cmd SUCCESS_MOVE_ATTACK_WITH_CALC
+	
+NO_RETREAT:
+	attackcanceler
+	callasm_cmd 28 @checks if can change stats and gets how many
+	.byte bank_attacker | STAT_SELF_INFLICTED
+	.word MOVE_FAILED
+	callasm_cmd 180 @check if no_retreat is already on effect
+	.byte NEWBATTLESTRUCT_NORETREAT
+	.word MOVE_FAILED
+	call MULTIPLE_STAT_CHANGE_USER_RET
+	callasm_cmd 176 @Make the attacker in a state of no escape
+	printstring 0x8F
+	waitmessage 0x40
+	goto_cmd ENDTURN
+	
+TAR_SHOT:
+	attackcanceler
+	jumpifsubstituteaffects MOVE_FAILED
+	accuracycheck MOVE_MISSED 0x0
+	call ONE_STAT_TARGET_RET
+	callasm_cmd 180 @check if tar_shot is already on effect
+	.byte NEWBATTLESTRUCT_TARSHOT
+	.word ENDTURN
+	printstring 0x27a
+	waitmessage 0x40
+	goto_cmd ENDTURN
+	
+DRAGON_DARTS:
+	attackcanceler
+	callasm_cmd 181
+	.word MOVE_FAILED
+	.word ATTACKING_MOVE + 1
+	goto_cmd HITS_TWO_TIMES + 1
+	
+BERRYDESTROYALL:
+    attackcanceler
+	callasm_cmd 182
+	.word MOVE_FAILED
+	accuracycheck MOVE_MISSED 0x0
+	setbyte EffectChooser 0x36
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	goto_cmd ENDTURN
+	
+OCTOLOCK:
+	attackcanceler
+	jumpifsubstituteaffects MOVE_FAILED
+	jumpiftype2 bank_target TYPE_GHOST MOVE_FAILED 
+	accuracycheck MOVE_MISSED 0
+	callasm_cmd 180 @set octlock flag
+	.byte NEWBATTLESTRUCT_OCTOLOCK
+	.word MOVE_FAILED
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	callasm_cmd 68 @sets the trapped bit
+	printstring 0x8F
+	waitmessage 0x40
+	goto_cmd ENDTURN
+	
+COURT_CHANGE:
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	printstring 0x27e
+	waitmessage 0x40
+	callasm_cmd 183
+	goto_cmd ENDTURN
+	
+CLANGOROUS_SOUL:
+	attackcanceler
+	callasm_cmd 74
+	.word MOVE_FAILED
+	callasm_cmd 28 @checks if can change stats and gets how many
+	.byte bank_attacker | STAT_SELF_INFLICTED
+	.word MOVE_FAILED
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	orword 0x2024280 0x100
+	graphicalhpupdate bank_attacker
+	datahpupdate bank_attacker
+	callasm_cmd 29 @do all stat changes that are possible
+	.word BS_CHANGE_ATK_STAT_SELFINFLICTED
+	goto_cmd ENDTURN
+	
+AURA_WHEEL_CHECK:
+	jumpifnomoveforspecies MOVE_AURA_WHEEL POKE_MORPEKO AURA_WHEEL_CHECK2
+	goto_cmd AURA_WHEEL_CHECK_END
+AURA_WHEEL_CHECK2:
+	jumpifnomoveforspecies MOVE_AURA_WHEEL POKE_MORPEKO_HANGRY MOVE_FAILED
+	goto_cmd AURA_WHEEL_CHECK_END
+
+POLTERGEIST:
+	attackcanceler
+	callasm_cmd 185
+	.word MOVE_FAILED
+	accuracycheck MOVE_MISSED 0x0
+	attackstring
+	ppreduce
+	printstring 0x4
+	waitmessage 0x60
+	printstring 0x281
+	goto_cmd SUCCESS_MOVE_ATTACK_WITH_ATTACKSTRING
+	
+CORROSIVE_GAS:
+	setbyte EffectChooser 0x10
+	attackcanceler
+	callasm_cmd 186
+	.word MOVE_FAILED
+	accuracycheck MOVE_MISSED 0x0
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	goto_cmd ENDTURN
+	
+JUNGLE_HEALING:
+	attackcanceler
+	callasm_cmd 187 @check move availble
+	.byte 0
+	.word MOVE_FAILED
+	attackstring
+	ppreduce
+	callasm_cmd 187 @set status 0
+	.byte 1
+	@callasm_cmd 104
+	statusiconeupdate bank_target
+	setdamageasrestorehalfmaxhp ALREADY_FULLHP_1 bank_target
+	weatherhpheal bank_target
+	goto_cmd 0x82D8ED7 @hp healing script
+	
+MOVE_EERIE_SPELL:
+	setbyte EffectChooser 59
 	goto_cmd ATTACKING_MOVE

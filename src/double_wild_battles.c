@@ -281,16 +281,20 @@ void atkEF_ballthrow(void)
     else
     {
         enum ball_index ball_no = itemID_to_ballID(last_used_item);
+		bool cal_shakes = 1;
 
-		 //calculate ball shakes
-        u32 formula = calc_ball_formula(ball_no, &battle_participants[catch_bank]);
-        ball_shakes = 0;
-        while (rng() < formula && ball_shakes <= 3)
-                ball_shakes++;
-
-        if (ball_no == BALL_MASTER )
+        if (ball_no == BALL_MASTER)//illegal master ball no effect
 		{
-			battle_trace.flags |= 2;
+			u16 masterball = get_variable_value(BALL_MASTER_COUNT);
+			if(masterball){
+				battle_trace.flags |= 2;
+				set_variable_value(BALL_MASTER_COUNT,masterball - 1);
+			}
+			else{
+				ball_no = BALL_POKE;
+				ball_shakes = 3;
+				cal_shakes = 0;
+			}	
 		}
         else if (last_used_item < 11)
         {
@@ -298,7 +302,31 @@ void atkEF_ballthrow(void)
             if (*attempt < 254)
                 (*attempt)++;
         }
-
+		//check trainer can catch for lv reason
+		//u8 highest_lv = GetHighestLevelInPlayerParty();
+		u8 obedienceLevel = BadgeLvTable[0];
+		if (getflag(FLAG_SYS_GAME_CLEAR))
+            obedienceLevel = BadgeLvTable[9];
+		else{
+			for (u8 i = 0; i < NUM_BADGES; i++){
+				if (getflag(FLAG_BADGE01_GET + i))
+					obedienceLevel = BadgeLvTable[i + 1];
+			}
+		}
+		//if(highest_lv < obedienceLevel) obedienceLevel = highest_lv;
+		if(obedienceLevel < battle_participants[catch_bank].level){
+			ball_no = BALL_POKE;
+			ball_shakes = 0;
+			cal_shakes = 0;
+		}
+		 //calculate ball shakes
+		if(cal_shakes){
+			u32 formula = calc_ball_formula(ball_no, &battle_participants[catch_bank]);
+			ball_shakes = 0;
+			while (rng() < formula && ball_shakes <= 3)
+					ball_shakes++;
+		}
+				
         u8* string_chooser = &battle_communication_struct.multistring_chooser;
         if (ball_no == BALL_MASTER || ball_shakes == 4) //catching successful
         {

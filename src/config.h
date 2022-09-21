@@ -29,7 +29,8 @@
 #define NO_OF_SLIDING_MSG_TRAINERS 5 //number of trainers that say things in the middle of a battle
 #define SCHOOLING_LEVEL     20
 #define BALL_DREAM_FLAG     0x279
-//#define DISABLE_BALL_MASTER_FLAG     0x4091
+#define BALL_MASTER_COUNT   0x4091
+#define CUSTOM_SETTER_SETUP false
 
 
 //form indexes

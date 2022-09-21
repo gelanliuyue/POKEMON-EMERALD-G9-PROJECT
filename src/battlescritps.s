@@ -7,8 +7,11 @@
 //
 //Poke Ball block
 //
-
-	
+.global BS_EXP_FOR_TEAM
+BS_EXP_FOR_TEAM:
+    printstring 0x26b
+    waitmessage 0x40
+    return_cmd
 
 .global BS_BALL_BLOCK
 BS_BALL_BLOCK:
@@ -116,7 +119,7 @@ BAD_DREAMS_BS_MAIN:
 	goto_cmd BAD_DREAMS_BS_ITER
 BAD_DREAMS_BS_DAMAGE:
 	jumpifsecondarystatus 0x0 0x100000 BAD_DREAMS_BS_ITER
-	jumpifability 0x0 0x62 BAD_DREAMS_BS_ITER
+	jumpifability 0x0 ABILITY_MAGIC_GUARD BAD_DREAMS_BS_ITER
 	callasm_cmd 0xB @@callasm from table
 	@@ playanimation
 	printstring 0x1A2
@@ -240,6 +243,36 @@ BS_PRINT_ATK_ABILITY:
 	waitmessage 0x40
 	return_cmd
 	
+.global BS_PRINT_GLASTRIER_ABILITY
+BS_PRINT_GLASTRIER_ABILITY:
+	waitstate
+	printstring 0x278
+	waitmessage 0x40
+	goto_cmd BS_CHANGE_ATK_STAT_SELFINFLICTED
+	
+.global BS_PRINT_SPECTRIER_ABILITY
+BS_PRINT_SPECTRIER_ABILITY:
+	waitstate
+	printstring 0x279
+	waitmessage 0x40
+	goto_cmd BS_CHANGE_ATK_STAT_SELFINFLICTED
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ switchability
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+.global ABILITY_CHANGE_PRINTATKABILITY
+ABILITY_CHANGE_PRINTATKABILITY:
+	printstring 0x272
+	waitmessage 0x50
+	return_cmd
+	
+.global ABILITY_CHANGE_PRINTDEFABILITY
+ABILITY_CHANGE_PRINTDEFABILITY:
+	printstring 0x1d2
+	waitmessage 0x50
+	return_cmd
+	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ target ability changes attacker's stat
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -297,7 +330,7 @@ BS_CHANGE_DEF_STAT:
 @ target ability changes all's stat
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@ BS Defiant and Competitive
+@ BS Defiant and Competitive and Rattled
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_DEFIANT
 BS_DEFIANT:
@@ -308,11 +341,38 @@ BS_DEFIANT_STATCHANGE:
 	call BS_DEF_ABILITY_CHANGES_DEF_STAT
 	return_cmd
 	
+.global BS_DEFIANT_ATK
+BS_DEFIANT_ATK:
+	pause_cmd 0x25
+	setbyte StatChanger 0x21
+BS_DEFIANT_STATCHANGE_ATK:
+	callasm_cmd 156 @turns on stat animation
+	call BS_ATK_ABILITY_CHANGES_ATK_STAT
+	return_cmd
+	
 .global BS_COMPETITIVE
 BS_COMPETITIVE:
 	pause_cmd 0x25
 	setbyte StatChanger 0x24
 	goto_cmd BS_DEFIANT_STATCHANGE
+	
+.global BS_COMPETITIVE_ATK
+BS_COMPETITIVE_ATK:
+	pause_cmd 0x25
+	setbyte StatChanger 0x24
+	goto_cmd BS_DEFIANT_STATCHANGE_ATK
+
+.global BS_RATTLED
+BS_RATTLED:
+	pause_cmd 0x25
+	setbyte StatChanger 0x13
+	goto_cmd BS_DEFIANT_STATCHANGE
+	
+.global BS_RATTLED_ATK
+BS_RATTLED_ATK:
+	pause_cmd 0x25
+	setbyte StatChanger 0x13
+	goto_cmd BS_DEFIANT_STATCHANGE_ATK
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -349,6 +409,22 @@ BS_ITEMSTATRAISE_RET:
 BS_ITEMSTATRAISE_END2:
 	call BS_ITEMSTATRAISE
 	end2
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ item Jaboca and Rowap scripting active
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_JABOCAROWAPBERRY
+BS_JABOCAROWAPBERRY:
+	waitstate
+	playanimation bank_scripting_active 7 0x0
+	orword HitMarker HITMARKER_HITSSUBSTITUTE
+	graphicalhpupdate bank_attacker
+	datahpupdate bank_attacker
+	printstring 0x19e
+	waitmessage 0x40
+	faintpokemon bank_attacker 0 0
+	removeitem bank_scripting_active
+	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ weakness policy
@@ -363,7 +439,7 @@ BS_WEAKNESSPOLICY:
 	.byte MLTS_ATK | MLTS_SPATK, 0x20
 BS_WEAKNESSPOLICY_RETURN:
 	return_cmd
-	
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ bug bite stat raise
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -439,6 +515,44 @@ BS_LANSATBERRY_REMOVEITEM:
 	call BS_LANSATBERRY
 	removeitem bank_scripting_active
 	return_cmd
+	
+.global BS_MICLEBERRY
+BS_MICLEBERRY:
+	playanimation bank_scripting_active 7 0x0
+	printstring 0x273
+	waitmessage 0x40
+	return_cmd
+	
+.global BS_MICLEBERRY_REMOVEITEM
+BS_MICLEBERRY_REMOVEITEM:
+	call BS_MICLEBERRY
+	removeitem bank_scripting_active
+	return_cmd
+	
+.global BS_MICLEBERRY_REMOVEITEM_END2
+BS_MICLEBERRY_REMOVEITEM_END2:
+	call BS_MICLEBERRY
+	removeitem bank_scripting_active
+	end2
+	
+.global BS_CUSTAPBERRY
+BS_CUSTAPBERRY:
+	playanimation bank_scripting_active 7 0x0
+	printstring 0x274
+	waitmessage 0x40
+	return_cmd
+	
+.global BS_CUSTAPBERRY_REMOVEITEM
+BS_CUSTAPBERRY_REMOVEITEM:
+	call BS_CUSTAPBERRY
+	removeitem bank_scripting_active
+	return_cmd
+	
+.global BS_CUSTAPBERRY_REMOVEITEM_END2
+BS_CUSTAPBERRY_REMOVEITEM_END2:
+	call BS_CUSTAPBERRY
+	removeitem bank_scripting_active
+	end2
 	
 .global BS_LEPPABERRY
 BS_LEPPABERRY:
@@ -520,7 +634,10 @@ BS_DEF_FAINTED:
 	cmd1a bank_target
 	cmd1b bank_target
 	printstring 0x1d
-	callasm_cmd 20 @check Fell Stinger and Moxie
+	callasm_cmd 20 @check Fell Stinger
+	.byte 1
+	callasm_cmd 20 @check Moxie
+	.byte 0
 	callasm_cmd 23 @reset var
 	callasm_cmd 142 @check soul heart on the whole field
 	callasm_cmd 160 @ash_greninja_check
@@ -649,8 +766,7 @@ BS_CURSEDBODY:
 BS_PERISHBODY:
 	waitstate
 	call BS_PRINT_DEF_ABILITY
-	setperishsong
-	goto_cmd 0x82D997E
+	callasm_cmd 178
 	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -662,6 +778,7 @@ BS_MUMMY:
 	call BS_PRINT_DEF_ABILITY
 	printstring 0x194
 	waitmessage 0x40
+	callasm_cmd 0
 	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -671,6 +788,15 @@ BS_MUMMY:
 BS_WANDERING_SPIRIT:	
 	printstring 0x26e
 	waitmessage 0x40
+	callasm_cmd 51 @print atk ability
+	.byte 0
+	callasm_cmd 51 @print def ability
+	.byte 1
+	callasm_cmd 51 @active atk ability
+	.byte 2
+	callasm_cmd 51 @active def ability
+	.byte 3
+	call BS_CHECKCASTFORMCHERRIM
 	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -715,20 +841,35 @@ BS_AFTERMATH:
 	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@ BS GULPMISSILEGULPING
+@ BS GULPMISSILE
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_GULP_MISSILE_GULPING
 BS_GULP_MISSILE_GULPING:
 	waitstate
 	call BS_PRINT_DEF_ABILITY
+	call BS_FORMCHANGE_GENERAL
+	callasm_cmd 115 @stat_only_form_change
 	graphicalhpupdate bank_attacker
 	datahpupdate bank_attacker
-	printstring 0x192
-	waitmessage 0x40
 	faintpokemon bank_attacker 0 0
-	statbuffchange bank_attacker ONE_STAT_RETURN
-	jumpifbyte Equals 0x2024337 0x1 ONE_STAT_USER_STATANIM
-	goto_cmd ONE_STAT_PRINT
+	jumpifuserhasnoHP bank_attacker BS_GULP_MISSILE_GULPING_RET
+	call BS_CHANGE_ATK_STAT
+BS_GULP_MISSILE_GULPING_RET:
+	return_cmd
+	
+.global BS_GULP_MISSILE_GORGING
+BS_GULP_MISSILE_GORGING:
+	waitstate
+	call BS_PRINT_DEF_ABILITY
+	call BS_FORMCHANGE_GENERAL
+	callasm_cmd 115 @stat_only_form_change
+	graphicalhpupdate bank_attacker
+	datahpupdate bank_attacker
+	faintpokemon bank_attacker 0 0
+	jumpifuserhasnoHP bank_attacker BS_GULP_MISSILE_GORGING_RET
+	seteffectsecondary
+BS_GULP_MISSILE_GORGING_RET:
+	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -963,8 +1104,9 @@ BS_CHERRIMSWITCH_END3:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_TRACE
 BS_TRACE:
-	pause_cmd 0x10
+	@pause_cmd 0x10
 	printstring 0xD0
+	waitmessage 0x50
 	waitanimation
 	callasm_cmd 0	@calls switch-in abilities
 	end3
@@ -1060,6 +1202,19 @@ BS_MOLDBREAKER:
 	waitmessage 0x40
 	end3
 	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS AS_ONE
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_AS_ONE
+BS_AS_ONE:
+	pause_cmd 0x10
+	call BS_PRINT_ATK_ABILITY
+	printstring 0x277
+	waitmessage 0x60
+	printstring 0x199
+	waitmessage 0x60
+	end3
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ BS Unnerve
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1401,6 +1556,7 @@ BS_ITEM_SWITCH_RET:
 .global BS_EJECTBUTTON_SWITCH
 BS_EJECTBUTTON_SWITCH:
 	jumpifcannotswitch bank_newstruct | 0x80 BS_ITEM_SWITCH_RET @this should be checked beforehand
+	pause_cmd 0x40
 	printstring 0x1AC
 	call BS_ITEMSWITCH_REMOVEPLAY
 BS_EJECTBUTTONLIKE_SWITCHING_PART:
@@ -1421,6 +1577,7 @@ BS_WIMPOUT:
 	goto_cmd BS_EJECTBUTTONLIKE_SWITCHING_PART
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@BS_NEUTRALIZING_GAS
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_NEUTRALIZING_GAS
 BS_NEUTRALIZING_GAS:
@@ -1430,6 +1587,7 @@ BS_NEUTRALIZING_GAS:
 	waitmessage 0x40
 	call BS_CHECKCASTFORMCHERRIM
 	end3	
+	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Usage Prevention
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1711,12 +1869,6 @@ BS_QUICKCLAW:
 	call BS_MOVEFIRST
 	end2
 	
-.global BS_CUSTAPBERRY
-BS_CUSTAPBERRY:
-	call BS_MOVEFIRST
-	removeitem bank_attacker
-	end2
-	
 .global BS_INCINERATEBERRY
 BS_INCINERATEBERRY:
 	printstring 0x1D6
@@ -1727,9 +1879,16 @@ BS_INCINERATEBERRY:
 BS_BUGBITE:
 	printstring 0x1D5
 	waitmessage 0x40
+BS_BUGBITE_DO_EFFECT:
 	callasm_cmd 158 @do berry effect if it can do something
 	callasm_cmd 117 @sets berry as eaten
 	return_cmd
+	
+.global BS_TEATIME
+BS_TEATIME:
+	printstring 0x27b
+	waitmessage 0x40
+	goto_cmd BS_BUGBITE_DO_EFFECT
 
 .global BS_RAPIDSPIN_SPINS
 BS_RAPIDSPIN_SPINS:
@@ -1856,28 +2015,147 @@ BS_FORMCHANGE_WITH_HP_CHANGE:
 	end2
 		
 BS_FORMCHANGE_GENERAL:
+	jumpifuserhasnoHP bank_scripting_active BS_FORMCHANGE_GENERAL_RET
 	printstring 0x130
 	callasm_cmd 119 @change species
-	playanimation 0xA 0x21 0x0
+	playanimation bank_scripting_active 0x21 0x0
 	waitstate
 	callasm_cmd 122 @prints string in var2
 	waitmessage 0x40
+BS_FORMCHANGE_GENERAL_RET:
 	return_cmd
 
 .global BS_BATTLE_BOND
 BS_BATTLE_BOND:
 	printstring 0x246
 	waitmessage 0x40
-	call BS_FORMCHANGE_GENERAL
-	callasm_cmd 115 @stat_only_form_change
-	return_cmd
+	goto_cmd BS_STAT_ONLY_FORMCHANGE_RET
 	
 .global BS_MIMIKYU_BUST
 BS_MIMIKYU_BUST:
 	printstring 0x24C
 	waitmessage 0x40
+	@graphicalhpupdate bank_scripting_active
+	datahpupdate bank_scripting_active
 	call BS_FORMCHANGE_GENERAL
 	callasm_cmd 118 @type_stat_form_change
 	return_cmd
+	
+.global BS_EISCUE_BUST
+BS_EISCUE_BUST:
+	printstring 0x276
+	waitmessage 0x40
+	goto_cmd BS_STAT_ONLY_FORMCHANGE_RET
 
-
+.global BS_MIRROR_ARMOR_ASDEF
+BS_MIRROR_ARMOR_ASDEF:
+	pause_cmd 0x25
+	call BS_PRINT_DEF_ABILITY
+	jumpifsubstituteaffects BS_MIRROR_ARMOR_END1
+	call BS_CHANGE_ATK_STAT
+BS_MIRROR_ARMOR_END1:
+	return_cmd
+	
+.global BS_MIRROR_ARMOR_ASATK
+BS_MIRROR_ARMOR_ASATK:
+	pause_cmd 0x25
+	call BS_PRINT_ATK_ABILITY
+	jumpifsubstituteaffects BS_MIRROR_ARMOR_END2
+	call BS_CHANGE_DEF_STAT
+BS_MIRROR_ARMOR_END2:
+	return_cmd
+	
+.global BS_GAS_REACTIVATION
+BS_GAS_REACTIVATION:
+	callasm_cmd 0
+	return_cmd
+	
+.global BS_OCTOLOCK
+BS_OCTOLOCK:
+	playanimation bank_attacker 6 0x2024484
+	waitanimation
+	printstring 0x27c
+BS_OCTOLOCK_MAIN:
+	waitmessage 0x40
+	setbyte StatChanger 0x92
+	call BS_CHANGE_ATK_STAT
+	setbyte StatChanger 0x95
+	call BS_CHANGE_ATK_STAT
+	end2
+	
+.global BS_OCTOLOCK_MALE
+BS_OCTOLOCK_MALE:
+	playanimation bank_attacker 6 0x2024484
+	waitanimation
+	printstring 0x27d
+	goto_cmd BS_OCTOLOCK_MAIN
+	
+.global BS_SCALE_SHOT
+BS_SCALE_SHOT:
+	waitmessage 0x40
+	setbyte StatChanger 0x92
+	call BS_CHANGE_ATK_STAT
+	setbyte StatChanger 0x13
+	call BS_CHANGE_ATK_STAT
+	return_cmd
+	
+.global BS_CORROSIVE_GAS
+BS_CORROSIVE_GAS:
+	playanimation bank_target 0x5 0
+	printstring 0x282
+	waitmessage 0x50
+	return_cmd
+	
+.global BS_EERIE_SPELL
+BS_EERIE_SPELL:
+	callasm_cmd 188   @ppreduce by arg1
+	.word BS_EERIE_SPELL_FAILED
+	printstring 141
+	waitmessage 0x40
+	return_cmd
+	
+BS_EERIE_SPELL_FAILED:
+	printstring 0x284
+	waitmessage 0x40
+	return_cmd
+	
+.global BS_OverworldWeatherStarts
+BS_OverworldWeatherStarts:
+	printfromtable 0x85cc91a  @gWeatherContinuesStringIds
+	waitmessage 0x40
+	playanimation2 bank_attacker 0x2024484 0
+	end3
+	
+.global BS_CustomOverworldWeatherStarts
+BS_CustomOverworldWeatherStarts:
+	printfromtable 0x85cc91a  @gWeatherContinuesStringIds
+	waitmessage 0x40
+	playanimation2 bank_attacker 0x2024484 0
+.global BS_Custom_Setter
+BS_Custom_Setter:
+	printstring 0x285
+	callasm_cmd 189
+	.byte 1
+	end3
+	
+.global BS_FINAL_COUNTDOWM_PASSED
+BS_FINAL_COUNTDOWM_PASSED:
+	printstring 0x286
+	waitmessage 0x60
+	end2
+	
+.global BS_FINAL_COUNTDOWM_TIMEUP
+BS_FINAL_COUNTDOWM_TIMEUP:
+	printstring 0x286
+	waitmessage 0x60
+	printstring 0x287
+	attackanimation
+	waitanimation
+	printstring 0x288
+	callasm_cmd 189
+	.byte 3
+	callasm_cmd 189
+	.byte 2
+BS_FINAL_COUNTDOWM_TIMEUP_LOOP:
+	goto_cmd BS_FINAL_COUNTDOWM_TIMEUP_LOOP
+	

@@ -32,6 +32,7 @@ struct bank_affecting{
     u8 spiky_shield : 1;
     u8 kings_shield : 1;
     u8 baneful_bunker : 1;
+    u8 obstruct : 1;
     u8 sky_drop_attacker : 1;
     u8 sky_drop_target : 1;
     u8 me_first : 1;
@@ -41,6 +42,7 @@ struct bank_affecting{
     u8 kingsshield_damage : 1;
     u8 spikyshield_damage : 1;
     u8 banefulbunker_damage : 1;
+    u8 obstruct_damage: 1;
     u8 grassyterrain_heal : 1;
     u8 slowstart_duration : 3;
     u8 aegislash_form : 2; //0 = not aegi, 1 = defensive, 2 = attacking
@@ -55,6 +57,7 @@ struct bank_affecting{
     s8 stockpile_sp_def_changes;
     u8 autonomize_uses;
     u8 lastmove_type;
+    u8 octolock_atkbank; //Hibiki
     u16 wish_hp;
     u32 transform_tid;
     u8 illusion_on : 1;
@@ -71,8 +74,20 @@ struct bank_affecting{
 	u8 shell_trap_charge : 2; //JeremyZ
 	u8 lastmove_fail : 1; //JeremyZ
 	u8 head_blown : 1; //JeremyZ
+	u8 head_blow_hpupsdate : 1; //used in head blow and Steel Beam
 	u8 stockpile_counter : 2; //JeremyZ
 	u8 move_worked_thisturn : 1; //JeremyZ
+	u8 be_intimidated : 1; //Hibiki
+	u8 acc_up_nextturn : 2;//Hibiki
+	u8 custap_eff_nextturn : 2;//Hibiki
+	u8 hailing_for_eiscue : 1;//Hibiki
+	u8 battleturn_losthp : 1;//for move Assurance
+	u8 is_on_no_retreat : 1;
+	u8 is_on_tar_shot : 1;
+	u8 octolock : 1;
+	u8 stat_raised_battle_turn : 1; //Burning Jealousy
+	u8 stat_lowered_battle_turn : 1; //Lash Out
+	u8 afteryou_priority : 1;//pledge, after you.
 };
 
 struct side_affecting{
@@ -117,38 +132,44 @@ struct field_affecting{
     u8 fairy_lock : 2; //6-7
     u8 echo_voice_counter : 3; //0-3
 };
-
+struct cotton_down_store{//Hibiki
+    u8 bank_temp : 2;
+    u8 curr_bank : 3;
+};
 struct various{
     u8 active_bank : 2;
     u8 cmd49_safeattacker_bank: 2;
     u8 inverse_battle : 1;
     u8 fishing_battle : 1;
     u8 magicbounce : 1;
-    u8 stormdrain : 1;
-    u16 var1;
-    u16 var2;
-    u16 recently_used_item;
-    u16 previous_move;
-    u16 accumulated_damage;
-    u8 move_primary_effect;
+    u8 stormdrain : 1;  //0x0
+    u16 var1;  //0x1
+    u16 var2;  //0x3
+    u16 recently_used_item;  //0x5
+    u16 previous_move;  //0x7
+    u16 accumulated_damage;  //0x9
+    u8 move_primary_effect;  //0xb
     u8 parental_bond_mode: 2;
     u8 life_orbed : 1;
     u8 sheerforce_bonus : 1;
     u8 ate_bonus : 1;
     u8 gem_boost : 1;
     u8 happyhour_bonus : 1;
-    u8 berry_damage_redux : 1;
+    u8 berry_damage_redux : 1;  //0xc
     u8 trigger_symbiosis: 1;
     u8 switch_in_cos_switch : 1; //and not because a poke fainted or it is the first one
     u8 protean_msg : 1;
-    u8 recorded_mega : 1;
-    u8 sent_in_player : 6;
-    u8 returns_item : 6;
-    u8 gravity_levitate : 1;
+    u8 recorded_mega : 1; //0xd
+    u8 sent_in_player : 6;  //0xe
+    u8 returns_item : 6;  //0xf
+    u8 gravity_levitate : 1;  //0x10
     #if ITEM_SWAP == false
     u16 original_held_item[6];
     u8 returns_swap : 6;
     #endif // ITEMS_SWAP
+	struct cotton_down_store cotton_down_store;//Hibiki
+    u8 dragon_darts_targets;
+    u8 final_countdown_turn;
     u8* trainer_slide_msg;
     u8 trainer_msg_on_switch_in_done : 1;
     u8 trainer_msg_on_low_health_done : 1;
@@ -156,10 +177,19 @@ struct various{
     u8 dont_play_move_anim : 1;
     u8 dont_play_stat_anim : 1;
     u8 bust_mimikyu : 1;
-    u8 original_dancer : 3;
-    u8 secondary_dancer : 3;
     u8 instruct_phase : 1;
 	u8 bust_eiscue : 1;
+    u8 original_dancer : 3;
+    u8 secondary_dancer : 3;
+	u8 abilityswitch_atkbank : 2;//Hibiki
+	u8 abilityswitch_defbank : 2;//Hibiki
+	u8 activating_bankorder_while_gas_leaving : 3;//activing bank order while neutralizing_gas leaving
+	u8 intimidating : 1; //Hibiki
+	u8 throatspray : 1; //Hibiki
+	u8 mirror_armor_affecting : 1;//Hibiki
+	u8 hailing_this_turn : 1;//Hibiki
+	u8 neutralizing_gas_in_force : 1;//Hibiki
+	u8 trace_activating : 1;
 };
 
 #define PBOND_PARENT 2
@@ -217,7 +247,7 @@ struct move_effects{
     u16 synchro_effect[4];
 };
 
-struct new_battle_struct{
+struct new_battle_struct{ //size:0x104
     struct bank_affecting bank_affecting[4];
     struct side_affecting side_affecting[2];
     struct field_affecting field_affecting;

@@ -34,7 +34,7 @@ void atk07_final_dmg_calc(void)
        && has_ability_effect(bank_target, 1, 1) && MOVE_WORKED && !affected_by_substitute(bank_target) && not_impostered(bank_target)) //JeremyZ
     {
         new_battlestruct->various.bust_mimikyu = 1;
-        damage_loc = 0;
+        damage_loc = get_1_8_of_max_hp(bank_target);
         move_outcome.super_effective = 0;
         move_outcome.not_very_effective = 0;
         move_outcome.one_hit_ko = 0;
@@ -75,7 +75,7 @@ void atk07_final_dmg_calc(void)
             {
                 damage_loc = target_hp - 1;
             }
-            else if (gBankAbilities[bank_target] == ABILITY_STURDY && has_ability_effect(bank_target, 1, 1) && (damage_loc >= target_hp) && target_hp == battle_participants[bank_target].max_hp)
+            else if (gBankAbilities[bank_target] == ABILITY_STURDY && has_ability_effect(bank_target, 1,1) && (damage_loc >= target_hp) && target_hp == battle_participants[bank_target].max_hp)
             {
                 damage_loc = target_hp - 1;
                 move_outcome.sturdied = 1;
