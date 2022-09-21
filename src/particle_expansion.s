@@ -344,6 +344,7 @@ shiny_particle_image:
 .byte 0x00, 0x02
 .hword OMEGAEVO_SYMBOL_particle
 
+
 .word HAMMER_ARM_particle
 .byte 0x00, 0x02, HAMMER_ARM_particle_ID, 0x28
 .word BRINE_particle
@@ -463,14 +464,15 @@ shiny_particle_image:
 
 .word Z_PIKA_BALLOON_particle
 .byte 0x00, 0x08, 0x69, 0x28
-.align 2
 
 .word Z_AURA_particle
 .byte 0x00, 0x08, 0x6A, 0x28
-.align 2
 
 .word DRAGON_ASCENT_particle
 .byte 0x00, 0x08, 0x6B, 0x28
+
+.word ULTRABURST_SYMBOL_particle
+.byte 0x00, 0x08, 0x6C, 0x28
 .align 2
 
 @Battle Animations Particles Table
@@ -781,6 +783,7 @@ particle_entry OMEGA_REVERSION_CHARGE_palette OMEGAEVO_CHARGE_particle 0x0
 particle_entry OMEGA_REVERSION_STONE_palette OMEGAEVO_STONE_particle 0x0
 particle_entry OMEGA_REVERSION_SYMBOL_palette OMEGAEVO_SYMBOL_particle 0x0
 
+
 .byte 0xDC, 0xCD, 0xC2, 0x08, HAMMER_ARM_particle_ID, 0x28, 0x00, 0x00
 .byte 0x28, 0xB7, 0xC1, 0x08, BRINE_particle_ID, 0x28, 0x00, 0x00
 .byte 0xF4, 0x31, 0xC2, 0x08, ACUPRESSURE_particle_ID, 0x28, 0x00, 0x00
@@ -878,3 +881,5 @@ particle_entry OMEGA_REVERSION_SYMBOL_palette OMEGAEVO_SYMBOL_particle 0x0
 .byte 0x6A, 0x28, 0x00, 0x00
 .word DRAGON_ASCENT_palette
 .byte 0x6B, 0x28, 0x00, 0x00
+.word ULTRABURST_SYMBOL_palette
+.byte 0x6C, 0x28, 0x00, 0x00

@@ -221,9 +221,9 @@ enum trainer_class
 #define POKE_BURMY(species) (species == POKE_BURMY_PLANT || species == POKE_BURMY_SAND || species == POKE_BURMY_TRASH)
 
 #define STAT_NEGATIVE 0x80
+#define STAT_MULTIPLE 0x8
 #define STAT_STAGES 0x70
 #define STAT_STATID 0x7
-#define STAT_MULTIPLE 0x8
 
 #define SEPARATE_COURSE (new_battlestruct->various.instruct_phase || new_battlestruct->various.secondary_dancer)
 #define MOVE_WORKED !(move_outcome.failed || move_outcome.missed || move_outcome.not_affected)

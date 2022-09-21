@@ -159,6 +159,7 @@ struct various{
     u8 original_dancer : 3;
     u8 secondary_dancer : 3;
     u8 instruct_phase : 1;
+	u8 bust_eiscue : 1;
 };
 
 #define PBOND_PARENT 2

@@ -39,6 +39,8 @@ u16 get_battle_item_extra_param(u32 bank); //JeremyZ
 u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
 u8 can_lose_item(u8 bank, u8 stickyhold_check, u8 sticky_message);
 void check_weather_trio(void);
+u16 findability_in_table(u16 ability, const u16* table);
+static const u16 forbidenabilitiestable2[] = {ABILITY_MULTITYPE,  ABILITY_STANCE_CHANGE, ABILITY_DISGUISE, ABILITY_BATTLE_BOND, ABILITY_SHIELDS_DOWN, ABILITY_POWER_CONSTRUCT, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_RKS_SYSTEM, ABILITY_NEUTRALIZING_GAS, 0xFF}; //SHUPIAN
 
 bool not_impostered(u8 bank) {
     return !battle_participants[bank].status2.transformed;
@@ -47,6 +49,8 @@ bool not_impostered(u8 bank) {
 bool has_ability_effect(u8 bank, u8 mold_breaker) {
     if (new_battlestruct->bank_affecting[bank].gastro_acided)
         return false;
+	else if  (!findability_in_table(gBankAbilities[bank], forbidenabilitiestable2) && check_field_for_ability(ABILITY_NEUTRALIZING_GAS, 3, 0))
+        return false;		
 
     u16 bank_ability = gBankAbilities[bank];
     if (mold_breaker && bank != bank_attacker && bank_ability != ABILITY_SHADOW_SHIELD &&
@@ -54,7 +58,8 @@ bool has_ability_effect(u8 bank, u8 mold_breaker) {
         u16 attacker_ability = gBankAbilities[bank_attacker];
         static const u16 const mold_moves[] = {MOVE_PHOTON_GEYSER, MOVE_MOONGEIST_BEAM,
                 MOVE_SUNSTEEL_STRIKE, MOVE_Z_SOLGALEO, MOVE_Z_LUNALA, MOVE_Z_NECROZMA, 0xFFFF};
-        if (!new_battlestruct->bank_affecting[bank_attacker].gastro_acided && (
+        if (!new_battlestruct->bank_affecting[bank_attacker].gastro_acided && 
+		    !(!findability_in_table(gBankAbilities[bank], forbidenabilitiestable2) && check_field_for_ability(ABILITY_NEUTRALIZING_GAS, 3, 0)) && (
                 attacker_ability == ABILITY_MOLD_BREAKER || attacker_ability == ABILITY_TERAVOLT ||
                 attacker_ability == ABILITY_TURBOBLAZE
                 || find_move_in_table(current_move, mold_moves)))
@@ -399,7 +404,6 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                     bs_execute(BAD_DREAMS_BS);
                     break;
 
-				case ABILITY_TEST: //shupian	
                 case ABILITY_SPEED_BOOST:
                     if (battle_participants[bank].spd_buff != 0xC && disable_structs[bank].is_first_turn != 2) {
                         effect = 1;
@@ -410,6 +414,39 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                 case ABILITY_TRUANT:
                     disable_structs[bank].truant_counter ^= 0x80;
                     break;
+				case ABILITY_BALL_FETCH: //shupian
+				    if (get_item_pocket_id(var_800E_last_used_item) == POCKET_BALLS &&
+                        !battle_participants[bank].held_item &&
+                        !new_battlestruct->bank_affecting[bank_target].caught) {
+                            effect = true;
+                            bs_execute(BS_PICKUP);
+                            battle_participants[bank].held_item = var_800E_last_used_item;
+                            last_used_item = var_800E_last_used_item;
+                            active_bank = bank;
+                            bb2_setattributes_in_battle(0, 2, 0, 2, &battle_participants[bank].held_item);
+                            mark_buffer_bank_for_execution(bank);
+                            new_battlestruct->various.recently_used_item = 0;
+                            var_800E_last_used_item = 0;
+							//*var_800E_last_used_item = 0;							
+                    }
+                    break;	
+				case ABILITY_HUNGER_SWITCH: //shupian	
+                        if (battle_participants[bank].species == POKE_MORPEKO
+                            && (battle_participants[bank].current_hp > 0) && 
+							!battle_participants[bank].status2.transformed ) {
+                            common_effect = 1;
+                            new_battlestruct->various.var1 = POKE_MORPEKO_HANGRY;
+                            new_battlestruct->various.var2 = 0x244;
+                            script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
+                        }
+                        else if (battle_participants[bank].species == POKE_MORPEKO_HANGRY
+                            && (battle_participants[bank].current_hp > 0) ) {
+                            common_effect = 1;
+                            new_battlestruct->various.var1 = POKE_MORPEKO;
+                            new_battlestruct->various.var2 = 0x244;
+                            script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
+                        }						
+                        break;				
                 case ABILITY_MOODY: {
                     u8 raiseable_stats = 0;
                     u8 lowerable_stats = 0;
@@ -603,6 +640,35 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                             bs_push_current(BS_AFTERMATH);
                         }
                         break;
+                    case ABILITY_GULP_MISSILE:
+                        if (battle_participants[bank_attacker].current_hp &&
+							battle_participants[bank].species == POKE_CRAMORANT_GULPING && 
+							bank == bank_target	&&					
+                            !(has_ability_effect(bank_attacker, 0) &&
+                              gBankAbilities[bank_attacker] == ABILITY_MAGIC_GUARD)) {
+                            damage_loc = get_1_4_of_max_hp(bank_attacker);
+                            effect = true;
+							//bs_push_current(BS_GULP_MISSILE_GULPING);
+                            bs_push_current(BS_AFTERMATH);//not finish shupian
+                            battle_scripting.stat_changer = 0x92;							
+                        }
+                        else if (battle_participants[bank_attacker].current_hp &&
+							battle_participants[bank].species == POKE_CRAMORANT_GORGING && 
+							bank == bank_target	&&					
+                            !(has_ability_effect(bank_attacker, 0) &&
+                              gBankAbilities[bank_attacker] == ABILITY_MAGIC_GUARD)) {
+                            damage_loc = get_1_4_of_max_hp(bank_attacker);
+							if (!cant_become_paralyzed(bank_attacker, 0)){
+								if (percent_chance(30)) {
+									new_battlestruct->move_effect.effect1 = MOVEEFFECT_PRLZ | MOVEEFFECT_AFFECTSUSER;
+									hitmarker |= HITMAKRER_IGNORE_SAFEGUARD;
+								}	
+							}	
+                            effect = true;
+							//bs_push_current(BS_GULP_MISSILE_GORGING);
+                            bs_push_current(BS_AFTERMATH);//not finish shupian						
+                        }						
+                        break;						
                     case ABILITY_INNARDS_OUT:
                         if (curr_hp == 0 && not_magicguard(bank_attacker)) {
                             damage_loc = hp_dealt;
@@ -612,8 +678,6 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         break;
                     case ABILITY_MUMMY: {
                         u16 ability = gBankAbilities[bank_attacker];
-
-
                         if (contact) {
                             switch (ability) {
                                 case ABILITY_MUMMY:
@@ -635,6 +699,34 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         }
                     }
                         break;
+                    case ABILITY_WANDERING_SPIRIT: {
+                        u16 ability = gBankAbilities[bank_attacker];
+                        if (contact) {
+                            switch (ability) {
+                                case ABILITY_MUMMY:
+                                case ABILITY_STANCE_CHANGE:
+                                case ABILITY_MULTITYPE:
+                                case ABILITY_SCHOOLING:
+                                case ABILITY_BATTLE_BOND:
+                                case ABILITY_SHIELDS_DOWN:
+                                case ABILITY_RKS_SYSTEM:
+								case ABILITY_WANDERING_SPIRIT:
+								case ABILITY_GULP_MISSILE:
+								case ABILITY_HUNGER_SWITCH:		
+								case ABILITY_ICE_FACE:										
+                                    break;
+                                case ABILITY_DISGUISE:
+                                    if (battle_participants[bank_attacker].species == POKE_MIMIKYU)
+                                        break;
+                                default:
+                                    effect = true;
+                                    bs_push_current(BS_WANDERING_SPIRIT);
+                                    gBankAbilities[bank] = ability;									
+                                    gBankAbilities[bank_attacker] = ABILITY_WANDERING_SPIRIT;									
+                            }
+                        }
+                    }
+                        break;						
                     case ABILITY_CURSED_BODY:
                         if (!disable_structs[bank_attacker].disabled_move && percent_chance(30) &&
                             !check_field_for_ability(ABILITY_AROMA_VEIL, bank_side, 0)) {
@@ -644,6 +736,12 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                             effect = true;
                         }
                         break;
+                    case ABILITY_PERISH_BODY: //shupian	
+                        if (contact && !disable_structs[bank_attacker].perishsong_timer) {
+                            bs_push_current(BS_PERISHBODY);
+                            effect = true;
+                        }
+                        break;						
                     case ABILITY_ROUGH_SKIN:
                     case ABILITY_IRON_BARBS:
                         if (contact && not_magicguard(bank_attacker)) {
@@ -652,14 +750,28 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                             bs_push_current(BS_ROUGHSKIN);
                         }
                         break;
+                    case ABILITY_SAND_SPIT: //shupian	
+                        if (contact && !(SANDSTORM_WEATHER || battle_weather.flags.harsh_sun || battle_weather.flags.heavy_rain || battle_weather.flags.air_current)) {
+                            effect = true;
+                            battle_weather.int_bw = weather_sandstorm;
+                            if (get_item_effect(bank, true) == ITEM_EFFECT_SMOOTHROCK)
+                                battle_effects_duration.weather_dur = 8;
+                            else
+                                battle_effects_duration.weather_dur = 5;
+
+                            bs_execute(BS_SANDSTREAM);
+                            battle_scripting.active_bank = bank;
+                        }
+                        break;						
                     case ABILITY_GOOEY:
+                    case ABILITY_COTTON_DOWN:	//shupian					
                     case ABILITY_TANGLING_HAIR:
                         if (contact && battle_participants[bank_attacker].spd_buff != 0) {
                             effect = true;
                             bs_push_current(BS_DEF_ABILITY_CHANGES_ATK_STAT);
                             battle_scripting.stat_changer = 0x93;
                         }
-                        break;
+                        break;				
                     case ABILITY_RATTLED:
                         if (curr_hp && battle_participants[bank].spd_buff != 0xC &&
                             (move_type == TYPE_BUG || move_type == TYPE_DARK || move_type == TYPE_GHOST)) {
@@ -727,7 +839,14 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                             bs_push_current(BS_DEF_ABILITY_CHANGES_DEF_STAT);
                             battle_scripting.stat_changer = 0x22;
                         }
-                        break;
+                        break;							
+                    case ABILITY_STEAM_ENGINE: //shupian
+                        if (curr_hp && battle_participants[bank].def_buff != 0xC && (move_type == TYPE_WATER || move_type == TYPE_FIRE )) {
+                            effect = true;
+                            bs_push_current(BS_DEF_ABILITY_CHANGES_DEF_STAT);
+                            battle_scripting.stat_changer = 0x63;
+                        }
+                        break;						
                     case ABILITY_BERSERK:
                         if (curr_hp && battle_participants[bank].sp_atk_buff != 0xC && HP_half_drop(bank) &&
                             !new_battlestruct->various.sheerforce_bonus
@@ -752,7 +871,8 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                             if (battle_participants[i].status.flags.freeze)
                                 common_effect = 1;
                             break;
-                        case ABILITY_IMMUNITY:
+                        case ABILITY_PASTEL_VEIL:
+						case ABILITY_IMMUNITY:
                             if (battle_participants[i].status.flags.poison ||
                                 battle_participants[i].status.flags.toxic_poison)
                                 common_effect = 1;
@@ -959,10 +1079,10 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
         case 24: //switch ability per bank
 
             if (status3[bank].innerswitchinlock) {
-
-
-                switch (last_used_ability) {
-                    case ABILITY_MOLD_BREAKER:
+				
+				
+                switch (last_used_ability) {                    
+					case ABILITY_MOLD_BREAKER:
                         battle_communication_struct.multistring_chooser = 0;
                     MOLDBREAKER_MSG:
                         script_ptr = BS_MOLDBREAKER;
@@ -996,6 +1116,11 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         bs_execute(BS_UNNERVE);
                         effect = 1;
                         break;
+					case ABILITY_SCREEN_ClEANER: //shupian
+				        effect = 1;	
+						bank_attacker = bank;
+                        bs_execute(BS_SCREEN_ClEANER);
+						break;							
                     case ABILITY_DOWNLOAD: {
                         u16 def_sum = 0;
                         u16 spdef_sum = 0;
@@ -1188,7 +1313,7 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         new_battlestruct->bank_affecting[bank].slowstart_duration = 5;
                         common_effect = 1;
                         script_ptr = BS_SLOWSTART_MSG1;
-                        break;
+                        break;						
                     case ABILITY_ELECTRIC_SURGE:
                         if (!new_battlestruct->field_affecting.electic_terrain) {
                             common_effect = 1;
@@ -1244,6 +1369,16 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                             script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
                         }
                         break;
+                    case ABILITY_ICE_FACE: //shupian
+                        if (battle_participants[bank].species == POKE_EISCUE_NOICE &&
+                            HAIL_WEATHER
+                            && !battle_participants[bank].status2.transformed) {
+                            common_effect = 1;
+                            new_battlestruct->various.var1 = POKE_EISCUE;
+                            new_battlestruct->various.var2 = 0x242;
+                            script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
+                        }
+                        break;						
 					case ABILITY_MULTITYPE: //JeremyZ
 						if (battle_participants[bank].species == POKE_ARCEUS &&
 							battle_participants[bank].held_item >= 0x270 &&
@@ -1258,10 +1393,39 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
 							new_battlestruct->various.var2 = 0x218;
 							script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
 						}
-						break;		
+						break;
 					case ABILITY_COMATOSE: //JeremyZ
-						battle_participants[bank].status.flags.sleep = 1;
-                }
+						battle_participants[bank].status.flags.sleep = 1;	
+						break;		
+					case ABILITY_PASTEL_VEIL: //shupian	
+                    if (is_bank_present(bank ^2) && (battle_participants[bank ^2].status.flags.poison || battle_participants[bank ^2].status.flags.toxic_poison)) {
+                        effect = 1;
+                        copy_status_condition_text(bank ^2, 0);
+                        bs_execute(BS_PASTELVEIL_HEAL);
+                        battle_scripting.active_bank = active_bank = bank ^2;
+                        battle_participants[bank ^2].status.flags.poison = 0;
+                        battle_participants[bank ^2].status.flags.toxic_poison = 0;						
+                        bb2_setattributes_in_battle(0, REQUEST_STATUS_BATTLE, 0, 4, &battle_participants[bank ^2].status);
+                        mark_buffer_bank_for_execution(bank ^2);	
+						}
+						break;		
+					case ABILITY_NEUTRALIZING_GAS: //shupian	
+                        effect = 1;
+                        bank_attacker = bank;
+                        bs_execute(BS_NEUTRALIZING_GAS);
+						break;						
+					case ABILITY_INTREPID_SWORD: //shupian	
+						battle_scripting.stat_changer = 0x11;
+				        effect = 1;
+                        bank_attacker = bank;
+                        bs_execute(BS_DOWNLOAD);
+						break;						
+					case ABILITY_DAUNTLESS_SHIELD: //shupian	
+						battle_scripting.stat_changer = 0x12;
+				        effect = 1;
+                        bank_attacker = bank;
+                        bs_execute(BS_DOWNLOAD);											
+                }			
                 if (common_effect) {
                     effect = true;
                     battle_scripting.active_bank = bank;
@@ -1269,7 +1433,7 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                 }
                 status3[bank].innerswitchinlock = 0;
                 break;
-            }
+            }					
     }
     if (effect && last_used_ability != 0xFF && (switch_id <= 12 || switch_id >= 21) && switch_id != 9)
         record_usage_of_ability(bank, last_used_ability);

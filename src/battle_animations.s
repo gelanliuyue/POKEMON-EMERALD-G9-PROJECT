@@ -45,7 +45,7 @@ NewPlayAnimationTable:
 .word PartnerAtkStealsPartnerDefItemAnimation		@0x23
 .word PokeGetsRemovedAnimation							@0x24
 .word Z_start_ani							@0x25
-
+.word UltraBurstAnimation							@0x26
 PokeGetsRemovedAnimation:
 	pokespritetoBG bank_attacker 
 	leftbankBG_over_partnerBG bank_attacker  
@@ -268,6 +268,8 @@ OmegaPrimal_build_rainbow:
 	
 Z_start_ani:
 	loadparticle 0x284c
+	loadBG1 0x31 
+	waitfortransparentBG 
 	pokespritetoBG side_attacker 
 	@setblends 0x80c
 	soundcomplex 0x8c 0xc0 0xd 0x3 
@@ -290,6 +292,8 @@ Z_start_ani:
 	call z_part1
 	waitanimation
 	pokespritefromBG side_attacker
+	loaddefaultBG 
+	waitfortransparentBG 
 	endanimation
 z_part1:
 	launchtemplate z_start_templ 0x2 0x4 0x0 0xFFE8 0x1C 0x3
@@ -302,7 +306,44 @@ z_part1:
 	pause 0x4
 	launchtemplate z_start_templ 0x2 0x4 0x0 0xFFF4 0x1C 0x3
 	return
-	
+
+UltraBurstAnimation:	
+	loadparticle MEGAEVORAINBOW_particle
+	loadparticle 0x281b  @0xc2407c
+	loadparticle 0x2797  @0xc1a3a0
+	loadparticle 0x286c
+	pokespritetoBG side_attacker 
+	setblends 0x80c 
+	soundcomplex 0x8c 0xc0 0xd 0x3 
+	launchtask AnimTask_pal_fade_complex 0x2 0x6 PAL_ATK 0x0 0x6 0x0 0xb 0x2fff  
+	call MegaEvo_build_rainbow 
+	call MegaEvo_build_rainbow 
+	call MegaEvo_build_rainbow 
+	waitanimation 
+	pokespritefromBG side_attacker 
+	resetblends 
+	pause 0x0 
+	waitfortransparentBG 
+	pokespritetoBG side_attacker 
+	setblends 0x80c 
+	playsound2 0xc9 0xc0 
+	launchtemplate 0x8596898 0x29 0x4 0x0 0x0 0x0 0x0
+	@objtemplate 0x281b 0x281b 0x8524afc 0x82ec69c 0x0 0x8596894 0x80a77c9
+	pause 0x14
+	launchtask 0x8116665 0x5 0x5 0x5 0x2 0x0 0x10 0xffff
+	launchtask 0x8116849 0x5 0x5 0x281b 0x2 0x0 0x10 0xffff
+	waitanimation
+	launchtemplate ULRALBURST_SYMBOL_TEMPL 0x82 0x0  
+	waitanimation
+	launchtask AnimTask_pal_fade_particle 0x5 0x0  
+	launchtask AnimTask_megaevo_swap_sprite +1 0x2 0x0   
+	launchtask 0x8116665 0x5 0x5 0x5 0x2 0x10 0x0 0xffff  
+	launchtask AnimTask_screen_shake 0x5 0x3 0x1 0x5 0xe  
+	waitanimation 
+	pokespritefromBG side_attacker
+	endanimation 
+
+
 .align 2
 O_PRIMAL_STONE_TEMPL:
 objtemplate OMEGAEVO_STONE_particle OMEGAEVO_STONE_particle 0x8524afc 0x82ec69c 0x0 0x8596894 0x80a77c9
@@ -318,3 +359,8 @@ objtemplate 0x284c 0x284c 0x8524954 0x8592d88 0x0 0x82ec6a8 0x81020d9
 
 Z_AURA_templ:
 objtemplate 0x286a 0x286a 0x8524afc 0x82ec69c 0x0 0x859337c 0x810387d
+
+ULRALBURST_SYMBOL_TEMPL:
+objtemplate  0x286c 0x286c 0x8524a34 0x82ec69c 0x0 0x82ec6a8 0x8112b79
+
+

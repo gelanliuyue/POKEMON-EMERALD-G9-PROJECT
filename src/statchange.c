@@ -66,8 +66,9 @@ u8 change_stats(u8 bank, u8 bits, void* bs_unable) //returns 1 if unable to chan
         {
         case ABILITY_FLOWER_VEIL:
             if (!is_of_type(bank, TYPE_GRASS)) {break;}
-        case ABILITY_WHITE_SMOKE:
+        case ABILITY_WHITE_SMOKE:	
         case ABILITY_CLEAR_BODY:
+        case ABILITY_MIRROR_ARMOR:		
         case ABILITY_FULL_METAL_BODY:
             bs_ability = (void*)(0x082DB5C7);
             break;
@@ -92,8 +93,16 @@ u8 change_stats(u8 bank, u8 bits, void* bs_unable) //returns 1 if unable to chan
                 battlescripts_curr_instruction = bs_unable;
             return STAT_UNABLE;
          }
+		//if (ABILITY_MIRROR_ARMOR)
+			//{
+			//record_usage_of_ability(bank, ABILITY_MIRROR_ARMOR);
+			//bs_push_current (BS_MIRRORARMOR_REFLECT_STATLOSS);
+			//battle_scripting.stat_changer = lower;
+			//}
+			//return STAT_UNABLE;		 
 		if(is_class_FOUR(bank))
 			return STAT_CANT_GO_DOWN;
+		
     }
 
     //get stat ptr

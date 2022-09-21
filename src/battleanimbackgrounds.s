@@ -124,3 +124,10 @@ battle_anim_bg_table:
 .byte 0xBC, 0x9D, 0xC2, 0x08
 .word DRAGON_ASCENT_ANIM_background_palette
 .byte 0x3C, 0xA3, 0xC2, 0x08
+#31 zroombackground
+.word Z_ROOM_background_image
+.word Z_ROOM_background_palette
+.word 0x48, 0xE6, 0xD8, 0x08
+
+
+

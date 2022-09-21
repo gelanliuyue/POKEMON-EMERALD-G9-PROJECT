@@ -22,3 +22,4 @@
 .equ Z_ASH_PIKACHU_background_foe_2, 0x2E
 .equ DRAGON_ASCENT_ANIM_background_user, 0x2F
 .equ DRAGON_ASCENT_ANIM_background_foe, 0x30
+.equ Z_ROOM_background, 0x31

@@ -54,7 +54,8 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
                 if (side_timers[target_side].followme_timer &&
                     battle_participants[side_timers[target_side].followme_target].current_hp
                     && !(is_immune_to_powder(bank_attacker) &&
-                         new_battlestruct->bank_affecting[side_timers[target_side].followme_target].rage_powder)) //Rage Powder, JeremyZ
+                         new_battlestruct->bank_affecting[side_timers[target_side].followme_target].rage_powder)
+						 && !(current_move == MOVE_SNIPE_SHOT ||check_ability(bank_attacker, ABILITY_PROPELLER_TAIL)||check_ability(bank_attacker, ABILITY_STALWART))) //Rage Powder, JeremyZ //ABILITY_PROPELLER_TAIL ect shupian
                     result_target = side_timers[target_side].followme_target;
                 else {
                     u8 ally_bank = bank_attacker ^2;
@@ -102,13 +103,13 @@ u8 get_target_of_move(u16 move, u8 target_given, u8 adjust) {
                         redirect_candidate = ally_bank;
                         redirect = 1;
                     }
-                    if (redirect && alive_candidates >= 2 && (!adjust || (old_target != redirect_candidate))) {
+                    if (redirect && alive_candidates >= 2 && (!adjust || (old_target != redirect_candidate)) && !(current_move == MOVE_SNIPE_SHOT ||check_ability(bank_attacker, ABILITY_PROPELLER_TAIL)||check_ability(bank_attacker, ABILITY_STALWART)) ) {
                         result_target = redirect_candidate;
                         record_usage_of_ability(result_target, ability);
                         special_statuses[result_target].lightning_rod_redirected = 1;
                         if (ability == ABILITY_STORM_DRAIN)
                             new_battlestruct->various.stormdrain = 1;
-                    }
+                    } //shupian
                 }
                 break;
             case 1:

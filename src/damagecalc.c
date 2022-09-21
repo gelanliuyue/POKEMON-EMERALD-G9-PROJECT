@@ -417,7 +417,7 @@ u16 apply_statboost(u16 stat, u8 boost) {
 }
 
 u16 get_poke_weight(u8 bank) {
-    u16 poke_weight = get_height_or_weight(species_to_national_dex(battle_participants[bank].species), 1);
+    u16 poke_weight = get_height_or_weight(species_to_national_dex(battle_participants[bank].species), 1); //shupian
     if (has_ability_effect(bank, 1)) {
         switch (gBankAbilities[bank]) {
             case ABILITY_HEAVY_METAL:
@@ -893,6 +893,11 @@ u16 apply_base_power_modifiers(u16 move, u8 move_type, u8 atk_bank, u8 def_bank,
                     modifier = chain_modifier(modifier, 0x14CD);
                 }
                 break;
+            case ABILITY_PUNK_ROCK:  //shupian
+                if (find_move_in_table(move, &sound_moves[0])) {
+                    modifier = chain_modifier(modifier, 0x14CD);
+                }
+                break;				
             case ABILITY_TOUGH_CLAWS:
                 if (move_table[move].move_flags.flags.makes_contact) {
                     modifier = chain_modifier(modifier, 0x14CD);
@@ -933,10 +938,17 @@ u16 apply_base_power_modifiers(u16 move, u8 move_type, u8 atk_bank, u8 def_bank,
     u8 atk_partner = atk_bank ^2;
     if (is_bank_present(atk_partner) && has_ability_effect(atk_partner, 0)) {
         switch (gBankAbilities[atk_partner]) {
+            case ABILITY_POWER_SPOT:  //shupian
+                    modifier = chain_modifier(modifier, 0x14CD);
+                break;
+            case ABILITY_STEELY_SPIRIT:  //shupian
+                if (move_type == TYPE_STEEL)			
+                    modifier = chain_modifier(modifier, 0x1800);
+                break;				
             case ABILITY_BATTERY:
                 if (move_split == MOVE_SPECIAL)
                     modifier = chain_modifier(modifier, 0x14CD);
-                break;
+                break;				
         }
     }
 
@@ -952,6 +964,14 @@ u16 apply_base_power_modifiers(u16 move, u8 move_type, u8 atk_bank, u8 def_bank,
                 if (move_type == TYPE_FIRE)
                     modifier = chain_modifier(modifier, 0x1400);
                 break;
+            case ABILITY_PUNK_ROCK: //shupian
+                if (find_move_in_table(move, sound_moves))
+                    modifier = chain_modifier(modifier, 0x800);
+                break;	
+            case ABILITY_ICE_SCALES:  //shupian
+                if (move_split == MOVE_SPECIAL)
+                    modifier = chain_modifier(modifier, 0x800);
+                break;					
             case ABILITY_FLUFFY:
                 if (does_move_make_contact(move, atk_bank))
                     modifier = chain_modifier(modifier, 0x800);
@@ -1213,6 +1233,11 @@ u16 get_attack_stat(u16 move, u8 move_type, u8 atk_bank, u8 def_bank) {
                     modifier = chain_modifier(modifier, 0x2000);
                 }
                 break;
+			case ABILITY_GORILLA_TACTICS: //SHUPIAN
+            if (move_split == MOVE_PHYSICAL) {
+                modifier = chain_modifier(modifier, 0x1800);
+            }
+            break;				
             case ABILITY_SLOW_START:
                 if (new_battlestruct->bank_affecting[atk_bank].slowstart_duration) {
                     modifier = chain_modifier(modifier, 0x800);

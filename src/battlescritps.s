@@ -179,7 +179,14 @@ BS_FERVENT_EVO:
 BS_LIGHT_UP:
 	callasm_cmd 88
 	printstring 0x188
-	goto_cmd BS_MEGA_EVO_STUFF
+	playanimation bank_attacker 0x26 0x0
+	waitstate
+	callasm_cmd 106
+	callasm_cmd 89
+	printstring 0x204
+	waitmessage 0x40
+	callasm_cmd 0
+	end3
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ primal reversion
@@ -287,6 +294,9 @@ BS_CHANGE_DEF_STAT:
 	goto_cmd BS_CHANGE_DEF_STAT_ANIMPRINT
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ target ability changes all's stat
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ BS Defiant and Competitive
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_DEFIANT
@@ -304,6 +314,7 @@ BS_COMPETITIVE:
 	setbyte StatChanger 0x24
 	goto_cmd BS_DEFIANT_STATCHANGE
 	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Weak Armor
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -631,6 +642,18 @@ BS_CURSEDBODY:
 	return_cmd
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS PERISH BODY
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_PERISHBODY
+BS_PERISHBODY:
+	waitstate
+	call BS_PRINT_DEF_ABILITY
+	setperishsong
+	goto_cmd 0x82D997E
+	return_cmd
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ BS Mummy
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_MUMMY
@@ -638,6 +661,15 @@ BS_MUMMY:
 	waitstate
 	call BS_PRINT_DEF_ABILITY
 	printstring 0x194
+	waitmessage 0x40
+	return_cmd
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS WANDERING_SPIRIT
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_WANDERING_SPIRIT
+BS_WANDERING_SPIRIT:	
+	printstring 0x26e
 	waitmessage 0x40
 	return_cmd
 	
@@ -682,6 +714,23 @@ BS_AFTERMATH:
 	faintpokemon bank_attacker 0 0
 	return_cmd
 	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS GULPMISSILEGULPING
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_GULP_MISSILE_GULPING
+BS_GULP_MISSILE_GULPING:
+	waitstate
+	call BS_PRINT_DEF_ABILITY
+	graphicalhpupdate bank_attacker
+	datahpupdate bank_attacker
+	printstring 0x192
+	waitmessage 0x40
+	faintpokemon bank_attacker 0 0
+	statbuffchange bank_attacker ONE_STAT_RETURN
+	jumpifbyte Equals 0x2024337 0x1 ONE_STAT_USER_STATANIM
+	goto_cmd ONE_STAT_PRINT
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ BS Cute Charm
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1034,6 +1083,16 @@ BS_PRESSURE:
 	end3
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_SCREEN_ClEANER
+BS_SCREEN_ClEANER:
+	pause_cmd 0x10
+	call BS_PRINT_ATK_ABILITY
+	printstring 0x26d	
+	waitmessage 0x40
+    callasm_cmd 175 @cleanscreen
+	end3
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ BS Sturdy endures hit
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_STURDYENDURES
@@ -1362,6 +1421,16 @@ BS_WIMPOUT:
 	goto_cmd BS_EJECTBUTTONLIKE_SWITCHING_PART
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_NEUTRALIZING_GAS
+BS_NEUTRALIZING_GAS:
+	pause_cmd 0x10
+	call BS_PRINT_ATK_ABILITY
+	printstring 0x271
+	waitmessage 0x40
+	call BS_CHECKCASTFORMCHERRIM
+	end3	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Usage Prevention
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .global BS_HEALBLOCK_PREVENTS
@@ -1409,7 +1478,22 @@ BS_AROMAVEIL_PREVENTS:
 	pause_cmd 0x20
 	printstring 0x1B4
 	goto_cmd BS_PPREDUCE_FAIL_WAITMSG_ENDTURN
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_PASTELVEIL_PREVENTS	
+BS_PASTELVEIL_PREVENTS:	
+	pause_cmd 0x20
+	printstring 0x26f
+	waitmessage 0x40
+	end2
 	
+.global BS_PASTELVEIL_HEAL	
+BS_PASTELVEIL_HEAL:		
+	pause_cmd 0x10
+	printstring 0x270
+	waitmessage 0x40
+	statusiconeupdate bank_scripting_active
+	end3
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Entry Hazards: Spikes, Stealth Rock, Sticky Web, Toxic Spikes
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1707,6 +1791,11 @@ BS_CANTSELECT_ASSAULTVEST:
 	printstring2 0x200
 	cmd44
 	
+.global BS_CANTSELECT_GORILLA_TACTICS	
+BS_CANTSELECT_GORILLA_TACTICS:
+	printstring2 0x26c
+	cmd44	
+	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ BS Grassy Terrain Heal
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1790,3 +1879,5 @@ BS_MIMIKYU_BUST:
 	call BS_FORMCHANGE_GENERAL
 	callasm_cmd 118 @type_stat_form_change
 	return_cmd
+
+

@@ -577,7 +577,7 @@ void checkifcanconfuse_or_changestats(void)
 }
 
 void jumpifcantpoison(void)
-{
+{	
     switch (cant_poison(bank_attacker, bank_target, 0))
     {
     case 0: //gets poisoned
@@ -585,7 +585,7 @@ void jumpifcantpoison(void)
         if (is_of_type(bank_target, TYPE_STEEL) || is_of_type(bank_target, TYPE_POISON))
             record_usage_of_ability(bank_attacker, ABILITY_CORROSION);
         break;
-    case 1: //already poisoned
+	case 1: //already poisoned
         battlescripts_curr_instruction = (void*) 0x82D8F52;
         break;
     case 2: //other major condition
@@ -601,6 +601,10 @@ void jumpifcantpoison(void)
         break;
     case 5: //safeguard
         battlescripts_curr_instruction = (void*) 0x82DAD01;
+    case 6: //pastel veil
+		last_used_ability = gBankAbilities[bank_target];
+        record_usage_of_ability(bank_target, last_used_ability);
+     	bs_push_current(BS_PASTELVEIL_PREVENTS	);   
         break;
     }
 }
@@ -3108,6 +3112,8 @@ void print_start_z(void); //Start Z, JeremyZ
 void jumpifnostockpile(void); //Spit Up, JeremyZ
 void calc_recoil_dmg2(void); //Recoil damage, JeremyZ
 void clanging_scales_stat(void); //Clanging Scales, Clangorous Soulblaze, JeremyZ
+void clear_screen(void); //Clear screen, shupian
+void trapattacker(void); //Make the attacker in a state of no escape //jifeng
 
 const command callasm_table[] = {&ability_switchin_effect /*0*/, &jump_if_forcesetflag_set /*1*/, &change_attacker_item /*2*/, &callasm_nop /*3*/, &callasm_nop /*4*/,
 &changestatvar1_atk /*5*/, &changestatvar2_atk /*6*/, &frisk_target_item /*7*/, &callasm_nop /*8*/, &set_type_msg_buffer /*9*/, &callasm_nop /*10*/, &bad_dreams_damage_calc /*11*/,
@@ -3142,11 +3148,16 @@ const command callasm_table[] = {&ability_switchin_effect /*0*/, &jump_if_forces
 &set_stats_to_play /*156*/, &receiver_effect /*157*/, &bugbite_get_berry_effect /*158*/, &prepare_switchbank_data /*159*/, &ash_greninja_check /*160*/,
 &zygarde_message_based_on_side/*161*/, &hp_stat_form_change /*162*/, &revert_mega /*163*/, &instruct_canceler /*164*/, &set_instruct /*165*/,
 &apply_zmove_changes/*166*/, &set_spotlight/*167*/, &set_throatchop/*168*/, &speed_swap/*169*/, &jumpifuserheadblown/*170*/,
-&print_start_z/*171*/, &jumpifnostockpile/*172*/, &calc_recoil_dmg2/*173*/, &clanging_scales_stat/*174*/};
+&print_start_z/*171*/, &jumpifnostockpile/*172*/, &calc_recoil_dmg2/*173*/, &clanging_scales_stat/*174*/, &clear_screen/*175*/ ,&trapattacker/*176*/};
 
 void atk83_callasm(void)
 {
     u16 command_id = read_hword(battlescripts_curr_instruction + 1);
     battlescripts_curr_instruction += 3;
     callasm_table[command_id]();
+}
+void trapattacker(void)
+{
+	battle_participants[bank_attacker].status2.cant_escape = 1;
+    disable_structs[bank_target].bank_preventing_escape = bank_attacker;
 }

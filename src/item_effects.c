@@ -170,7 +170,7 @@ u8 mental_herb_effect(u8 bank, enum call_mode calling_mode)
     }
     return effect;
 }
-
+//Tangle 0720 modify
 bool stat_raise_berry(u8 bank, bool checkHP, u8 item_effect, enum call_mode calling_mode)
 {
     bool effect = 0;
@@ -181,7 +181,9 @@ bool stat_raise_berry(u8 bank, bool checkHP, u8 item_effect, enum call_mode call
             u8 doable = 0;
             for (u8 i = 0; i < 5; i++)
             {
-                if (can_change_stat(bank, 1, 0x21 + i))
+                if(check_ability(bank,ABILITY_RIPEN) && can_change_stat(bank, 1, 0x41 + i))
+                    doable |= BIT_GET(i);
+                else if (can_change_stat(bank, 1, 0x21 + i))
                     doable |= BIT_GET(i);
             }
             while (doable)
@@ -189,7 +191,10 @@ bool stat_raise_berry(u8 bank, bool checkHP, u8 item_effect, enum call_mode call
                 u8 rand = random_value(5);
                 if (doable & BIT_GET(rand))
                 {
-                    battle_scripting.stat_changer = 0x21 + rand;
+                    if(check_ability(bank,ABILITY_RIPEN))
+                        battle_scripting.stat_changer = 0x41 + rand;
+                    else
+                        battle_scripting.stat_changer = 0x21 + rand;
                     effect = 1;
                     break;
                 }
@@ -198,7 +203,10 @@ bool stat_raise_berry(u8 bank, bool checkHP, u8 item_effect, enum call_mode call
         else
         {
             u8 stat_to_raise = item_effect - ITEM_EFFECT_LIECHIBERRY + 1;
-            battle_scripting.stat_changer = 0x10 + stat_to_raise;
+            if(check_ability(bank,ABILITY_RIPEN))
+                battle_scripting.stat_changer = 0x20 + stat_to_raise;
+            else
+                battle_scripting.stat_changer = 0x10 + stat_to_raise;
             if (change_stats(bank, stat_get_bits_arg(1, 0, 0), 0) == STAT_CHANGED)
                 effect = 1;
         }
@@ -554,11 +562,21 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
             {
             case ITEM_EFFECT_ORANBERRY:
                 if (!move_turn)
-                    effect = berry_HP_heal(bank, 1, quality, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM);
+                {
+                    if(check_ability(bank,ABILITY_RIPEN)) //Tangle 0719
+                        effect = berry_HP_heal(bank, 1, quality*2, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM);
+                    else
+                        effect = berry_HP_heal(bank, 1, quality, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM);
+                }
                 break;
             case ITEM_EFFECT_SITRUSBERRY:
                 if (!move_turn)
-                    effect = berry_HP_heal(bank, 1, get_1_4_of_max_hp(bank), MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM);
+                {
+                    if(check_ability(bank,ABILITY_RIPEN)) //Tangle 0719
+                        effect = berry_HP_heal(bank, 1, get_1_4_of_max_hp(bank)*2, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM);
+                    else
+                        effect = berry_HP_heal(bank, 1, get_1_4_of_max_hp(bank), MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM);
+                }
                 break;
             case ITEM_EFFECT_CHERIBERRY:
                 effect = berry_status_heal(bank, STATUS_PARALYSIS, MOVE_TURN, (void*) 0x82DB70C);
@@ -595,14 +613,22 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
                 break;
             case ITEM_EFFECT_LEPPABERRY:
                 if (multihit_counter <= 1)
-                    effect = handle_leppa(bank, quality, MOVE_TURN, 0, BS_LEPPABERRY_REMOVEITEM);
+                {
+                    if(check_ability(bank,ABILITY_RIPEN)) //Tangle 0719
+                        effect = handle_leppa(bank, quality*2, MOVE_TURN, 0, BS_LEPPABERRY_REMOVEITEM);
+                    else
+                        effect = handle_leppa(bank, quality, MOVE_TURN, 0, BS_LEPPABERRY_REMOVEITEM);
+                }
                 break;
             case ITEM_EFFECT_FIGYBERRY:
             case ITEM_EFFECT_WIKIBERRY:
             case ITEM_EFFECT_MAGOBERRY:
             case ITEM_EFFECT_AGUAVBERRY:
             case ITEM_EFFECT_IAPAPABERRY:
-                effect = berry_heal_confuse(bank, 1, item_effect, quality, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM, BS_HEALCONFUSE_BERRY_REMOVEITEM);
+                if(check_ability(bank,ABILITY_RIPEN)) //Tangle 0719
+                    effect = berry_heal_confuse(bank, 1, item_effect, quality/2, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM, BS_HEALCONFUSE_BERRY_REMOVEITEM);
+                else
+                    effect = berry_heal_confuse(bank, 1, item_effect, quality, MOVE_TURN, BS_BERRYHPHEAL_REMOVEITEM, BS_HEALCONFUSE_BERRY_REMOVEITEM);
                 break;
             case ITEM_EFFECT_LIECHIBERRY:
             case ITEM_EFFECT_GANLONBERRY:

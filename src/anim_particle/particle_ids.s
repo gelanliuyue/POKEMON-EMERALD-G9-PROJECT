@@ -15,6 +15,7 @@
 .equ OMEGAEVO_STONE_particle, 0x2838
 .equ OMEGAEVO_SYMBOL_particle, 0x2839
 
+
 @for moves
 .equ HAMMER_ARM_particle_ID, 0x3A
 .equ BRINE_particle_ID, 0x3B
@@ -36,3 +37,5 @@
 .equ Z_PIKA_BALLOON_particle_ID, 0x4B
 .equ Z_AURA__particle_ID, 0x4C
 .equ DRAGON_ASCENT__particle_ID, 0x4D
+@primal ultraburst
+.equ ULTRA_BURSTSYMBOL_particle, 0x4E

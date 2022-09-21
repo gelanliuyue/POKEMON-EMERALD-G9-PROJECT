@@ -1053,8 +1053,8 @@
 #define POKE_BLACEPHALON 0x432              /*砰头小丑*/
 #define POKE_ZERAORA 0x433                  /*捷拉奥拉*/
 #define POKE_PIKACHU_PARTNER 0x434          /*20周年皮神*/
-#define POKE_ZYGARDE_CELL 0x435             /*细胞*/
-#define POKE_ZYGARDE_CORE 0x436             /*核心*/
+#define POKE_CRAMORANT_GULPING 0x435        /*古月鸟 叼鱼*/
+#define POKE_CRAMORANT_GORGING 0x436        /*古月鸟 叼皮*/
 #define POKE_SHADOW_LUGIA 0x437             /*暗黑洛奇亚*/
 #define POKE_SHADOW_HOOH 0x438              /*黯黑凤凰*/
 #define POKE_FURFROU_HEART 0x439            /*心形造型*/
@@ -1062,14 +1062,16 @@
 #define POKE_FURFROU_DIAMOND 0x43B          /*菱形造型*/
 #define POKE_FURFROU_DEBUTANTE 0x43C        /*淑女造型*/
 #define POKE_FURFROU_MATRON 0x43D           /*贵妇造型*/
-#define POKE_FURFROU_DANDY 0x43E            /*绅士造型*/
-#define POKE_FURFROU_QUEEN 0x43F            /*女王造型*/
+#define POKE_EISCUE_NOICE 0x43E            /*冰砌鹅(融化头)*/
+#define POKE_MORPEKO_HANGRY 0x43F            /*莫鲁贝可(饥饿状态)*/
 #define POKE_FURFROU_KABUKI 0x440           /*歌舞伎造型*/
 #define POKE_FURFROU_PHARAOH 0x441          /*国王造型*/
 #define POKE_CRYSTAL_ONIX 0x448             /*水晶大岩蛇*/
+#define POKE_CRAMORANT 0x47A             /*古月鸟*/
 #define POKE_AEROBONEDRAGON 0x490           /*化石骨龙*/
 #define POKE_MISSINGNO 0x493                /*MissingNo*/
 #define POKE_GHOSTGARA 0x497                /*亡灵*/
-
+#define POKE_EISCUE 0x499                /*冰砌鹅*/
+#define POKE_MORPEKO 0x49B                /*莫鲁贝可*/
 
 #endif /* POKE_INDICES_H */

@@ -754,5 +754,134 @@
 #define	MOVE_SPARKLY_SWIRL 741
 #define	MOVE_VEEVEE_VOLLEY 742
 #define	MOVE_DOUBLE_IRON_BASH 743
-
+#define	MOVE_MAX_GUARD 744
+#define	MOVE_DYNAMAX_CANNON 745
+#define	MOVE_SNIPE_SHOT 746
+#define	MOVE_JAW_LOCK 747
+#define	MOVE_STUFF_CHEEKS 748
+#define	MOVE_NO_RETREAT 749
+#define	MOVE_TAR_SHOT 750
+#define	MOVE_MAGIC_POWDER 751
+#define	MOVE_DRAGON_DARTS 752
+#define	MOVE_TEATIME 753
+#define	MOVE_OCTOLOCK 754
+#define	MOVE_BOLT_BEAK 755
+#define	MOVE_FISHIOUS_REND 756
+#define	MOVE_COURT_CHANGE 757
+#define	MOVE_CLANGOROUS_SOUL 758
+#define	MOVE_BODY_PRESS 759
+#define	MOVE_DECORATE 760
+#define	MOVE_DRUM_BEATING 761
+#define	MOVE_SNAP_TRAP 762
+#define	MOVE_PYRO_BALL 763
+#define	MOVE_BEHEMOTH_BLADE 764
+#define	MOVE_BEHEMOTH_BASH 765
+#define	MOVE_AURA_WHEEL 766
+#define	MOVE_BREAKING_SWIPE 767
+#define	MOVE_BRANCH_POKE 768
+#define	MOVE_OVERDRIVE 769
+#define	MOVE_APPLE_ACID 770
+#define	MOVE_GRAV_APPLE 771
+#define	MOVE_SPIRIT_BREAK 772
+#define	MOVE_STRANGE_STEAM 773
+#define	MOVE_LIFE_DEW 774
+#define	MOVE_OBSTRUCT 775
+#define	MOVE_FALSE_SURRENDER 776
+#define	MOVE_METEOR_ASSAULT 777
+#define	MOVE_ETERNA_BEAM 778
+#define	MOVE_STEEL_BEAM 779
+#define MOVE_MAX_FLARE_PHYS 780    //极巨火爆
+#define MOVE_MAX_FLARE_SPEC 781    //极巨火爆
+#define MOVE_MAX_FLUTTERBY_PHYS 782    //极巨虫蛊
+#define MOVE_MAX_FLUTTERBY_SPEC 783    //极巨虫蛊
+#define MOVE_MAX_LIGHTNING_PHYS 784    //极巨闪电
+#define MOVE_MAX_LIGHTNING_SPEC 785    //极巨闪电
+#define MOVE_MAX_STRIKE_PHYS 786    //极巨攻击
+#define MOVE_MAX_STRIKE_SPEC 787    //极巨攻击
+#define MOVE_MAX_KNUCKLE_PHYS 788    //极巨拳斗
+#define MOVE_MAX_KNUCKLE_SPEC 789    //极巨拳斗
+#define MOVE_MAX_PHANTASM_PHYS 790    //极巨幽魂
+#define MOVE_MAX_PHANTASM_SPEC    791    //极巨幽魂
+#define MOVE_MAX_HAILSTORM_PHYS    792    //极巨寒冰
+#define MOVE_MAX_HAILSTORM_SPEC    793    //极巨寒冰
+#define MOVE_MAX_OOZE_PHYS_SPEC    794    //极巨酸毒
+#define MOVE_MAX_OOZE_SPEC    795    //极巨酸毒
+#define MOVE_MAX_GEYSER_PHYS    796    //极巨水流
+#define MOVE_MAX_GEYSER_SPEC    797    //极巨水流
+#define MOVE_MAX_AIRSTREAM_PHYS    798    //极巨飞冲
+#define MOVE_MAX_AIRSTREAM_SPEC    799    //极巨飞冲
+#define MOVE_MAX_STARFALL_PHYS    800    //极巨妖精
+#define MOVE_MAX_STARFALL_SPEC    801    //极巨妖精
+#define MOVE_MAX_WYRMWIND_PHYS    802    //极巨龙骑
+#define MOVE_MAX_WYRMWIND_SPEC    803    //极巨龙骑
+#define MOVE_MAX_MINDSTORM_PHYS    804    //极巨超能
+#define MOVE_MAX_MINDSTORM_SPEC    805    //极巨超能
+#define MOVE_MAX_ROCKFALL_PHYS    806    //极巨岩石
+#define MOVE_MAX_ROCKFALL_SPEC    807    //极巨岩石
+#define MOVE_MAX_QUAKE_PHYS    808    //极巨大地
+#define MOVE_MAX_QUAKE_SPEC    809    //极巨大地
+#define MOVE_MAX_DARKNESS_PHYS    810    //极巨恶霸
+#define MOVE_MAX_DARKNESS_SPEC    811    //极巨恶霸
+#define MOVE_MAX_OVERGROWTH_PHYS    812    //极巨草原
+#define MOVE_MAX_OVERGROWTH_SPEC    813    //极巨草原
+#define MOVE_MAX_STEELSPIKE_PHYS    814    //极巨钢铁
+#define MOVE_MAX_STEELSPIKE_SPEC    815    //极巨钢铁
+#define	MOVE_G_MAX_WILDFIRE_PHYS    816    //地狱烈焰
+#define	MOVE_G_MAX_WILDFIRE_SPEC    817    //地狱烈焰
+#define	MOVE_G_MAX_BEFUDDLE_PHYS    818    //蝶影蛊惑
+#define	MOVE_G_MAX_BEFUDDLE_SPEC    819    //蝶影蛊惑
+#define	MOVE_G_MAX_VOLT_CRASH_PHYS    820    //万雷轰顶
+#define	MOVE_G_MAX_VOLT_CRASH_SPEC    821    //万雷轰顶
+#define	MOVE_G_MAX_GOLD_RUSH_PHYS    822    //特大金币
+#define	MOVE_G_MAX_GOLD_RUSH_SPEC    823    //特大金币
+#define	MOVE_G_MAX_CHI_STRIKE_PHYS    824    //会心一击
+#define	MOVE_G_MAX_CHI_STRIKE_SPEC    825    //会心一击
+#define	MOVE_G_MAX_TERROR_PHYS    826    //幻影幽魂
+#define	MOVE_G_MAX_TERROR_SPEC    827    //幻影幽魂
+#define	MOVE_G_MAX_RESONANCE_PHYS    828    //极光旋律
+#define	MOVE_G_MAX_RESONANCE_SPEC    829    //极光旋律
+#define	MOVE_G_MAX_CUDDLE_PHYS    830    //热情拥抱
+#define	MOVE_G_MAX_CUDDLE_SPEC    831    //热情拥抱
+#define	MOVE_G_MAX_REPLENISH_PHYS    832    //资源再生
+#define	MOVE_G_MAX_REPLENISH_SPEC    833    //资源再生
+#define MOVE_G_MAX_MALODOR_PHYS    834    //臭气冲天
+#define	MOVE_G_MAX_MALODOR_SPEC    835    //臭气冲天
+#define	MOVE_G_MAX_STONESURGE_PHYS    836    //岩阵以待
+#define	MOVE_G_MAX_STONESURGE_SPEC    837    //岩阵以待
+#define	MOVE_G_MAX_WIND_RAGE_PHYS    838    //旋风袭卷
+#define	MOVE_G_MAX_WIND_RAGE_SPEC    839    //旋风袭卷
+#define	MOVE_G_MAX_STUN_SHOCK_PHYS    840    //异毒电场
+#define	MOVE_G_MAX_STUN_SHOCK_SPEC    841    //异毒电场
+#define	MOVE_G_MAX_FINALE_PHYS    842    //幸福圆满
+#define	MOVE_G_MAX_FINALE_SPEC    843    //幸福圆满
+#define	MOVE_G_MAX_DEPLETION_PHYS    844    //劣化衰变
+#define	MOVE_G_MAX_DEPLETION_SPEC    845    //劣化衰变
+#define	MOVE_G_MAX_GRAVITAS_PHYS    846    //天道七星
+#define	MOVE_G_MAX_GRAVITAS_SPEC    847    //天道七星
+#define	MOVE_G_MAX_VOLCALITH_PHYS    848    //炎石喷发
+#define	MOVE_G_MAX_VOLCALITH_SPEC    849    //炎石喷发
+#define	MOVE_G_MAX_SANDBLAST_PHYS    850    //沙尘漫天
+#define	MOVE_G_MAX_SANDBLAST_SPEC    851    //沙尘漫天
+#define	MOVE_G_MAX_SNOOZE_PHYS    852    //睡魔降临
+#define	MOVE_G_MAX_SNOOZE_SPEC    853    //睡魔降临
+#define	MOVE_G_MAX_TARTNESS_PHYS    854    //酸不溜丢
+#define	MOVE_G_MAX_TARTNESS_SPEC    855    //酸不溜丢
+#define	MOVE_G_MAX_SWEETNESS_PHYS    856    //琼浆玉液
+#define	MOVE_G_MAX_SWEETNESS_SPEC    857    //琼浆玉液
+#define	MOVE_G_MAX_SMITE_PHYS    858    //天谴雷诛
+#define	MOVE_G_MAX_SMITE_SPEC    859    //天谴雷诛
+#define	MOVE_G_MAX_STEELSURGE_PHYS    860    //钢铁阵法
+#define	MOVE_G_MAX_STEELSURGE_SPEC    861    //钢铁阵法
+#define	MOVE_G_MAX_MELTDOWN_PHYS    862    //液金熔击
+#define	MOVE_G_MAX_MELTDOWN_SPEC    863    //液金熔击
+#define	MOVE_G_MAX_FOAM_BURST_PHYS    864    //激漩泡涡
+#define	MOVE_G_MAX_FOAM_BURST_SPEC    865    //激漩泡涡
+#define	MOVE_G_MAX_CENTIFERNO_PHYS    866    //百火焚野
+#define	MOVE_G_MAX_CENTIFERNO_SPEC    867    //百火焚野
+#define	MOVE_G_MAX_DRUM_SOLO_PHYS    868    //狂擂乱打
+#define	MOVE_G_MAX_DRUM_SOLO_SPEC    869    //狂擂乱打
+#define	MOVE_G_MAX_FIRE_BALL_PHYS    870    //破阵火球
+#define	MOVE_G_MAX_FIRE_BALL_SPEC    871    //破阵火球
+#define	MOVE_G_MAX_HYDROSNIPE_PHYS    872    //狙击神射
+#define	MOVE_G_MAX_HYDROSNIPE_SPEC    873    //狙击神射
 #endif /* MOVE_IDS_H */

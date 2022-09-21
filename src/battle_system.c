@@ -38,6 +38,8 @@ struct pokemon* get_bank_poke_ptr(u8 bank); //JeremyZ
 u32 random_value(u32 limit);
 u8 get_bank_side(u8 bank);
 u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 get_first_to_strike(u8 bank1, u8 bank2, u8 ignore_priority);
+
 u8 get_battle_bank(u8 to_get)
 {
     switch (to_get)
@@ -252,7 +254,7 @@ u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate)
         || new_battlestruct->bank_affecting[bank].smacked_down
         || status3[bank].rooted)
         return 1;
-    if (check_levitate && gBankAbilities[bank] == ABILITY_LEVITATE && has_ability_effect(bank,mode))
+    if (check_levitate && gBankAbilities[bank] == ABILITY_LEVITATE && has_ability_effect(bank,0))  //shupian
         return 4;
     if ((mode==0 && is_of_type(bank,TYPE_FLYING)) || get_item_effect(bank, true) == ITEM_EFFECT_AIRBALLOON ||
         new_battlestruct->bank_affecting[bank].magnet_rise || new_battlestruct->bank_affecting[bank].telekinesis)
@@ -457,20 +459,23 @@ u8 cant_poison(u8 atk_bank, u8 def_bank, u8 self_inflicted)
     //3 == type doesn't allow it
     //4 == ability doesn't allow it
     //5 == safeguard protection
+	//6 == pastel veil protection
     //8 == misty terrain doesn't allow it
     if (battle_participants[def_bank].status.flags.poison || battle_participants[def_bank].status.flags.toxic_poison)
         return 1;
     if (battle_participants[def_bank].status.int_status ||is_class_FOUR(def_bank))
         return 2;
     if ((is_of_type(def_bank, TYPE_POISON) || is_of_type(def_bank, TYPE_STEEL)) && !check_ability(atk_bank, ABILITY_CORROSION))
-        return 3;
-	
+        return 3;	
     u16 ability = gBankAbilities[def_bank];
+	u8 pastel = check_field_for_ability(ABILITY_PASTEL_VEIL, get_bank_side(bank_attacker), 1);
     if (!has_ability_effect(def_bank, 0)) {ability = 0;}
     if (ability == ABILITY_IMMUNITY || check_leafguard_shieldsdown(ability, def_bank))
         return 4;
     if (side_affecting_halfword[get_bank_side(def_bank)].safeguard_on && !self_inflicted)
         return 5;
+    if (pastel)
+        return 6;	
     if (new_battlestruct->field_affecting.misty_terrain && GROUNDED(def_bank) /*&& !self_inflicted*/)
         return 8;
     return 0;
@@ -1201,6 +1206,32 @@ bool battle_turn_move_effects(void)
 								//mark_buffer_bank_for_execution(activeBank);
 								script = (BS_STAT_ONLY_FORMCHANGE_END2);
 								break;
+							case POKE_MORPEKO:
+								effect = 1;
+								new_species = POKE_MORPEKO_HANGRY;
+								//battle_scripting.active_bank = activeBank;
+								string_chooser = 0x244;
+								//mark_buffer_bank_for_execution(activeBank);
+								script = (BS_STAT_ONLY_FORMCHANGE_END2);
+								break;	
+							case POKE_MORPEKO_HANGRY:
+								effect = 1;
+								new_species = POKE_MORPEKO;
+								//battle_scripting.active_bank = activeBank;
+								string_chooser = 0x244;
+								//mark_buffer_bank_for_execution(activeBank);
+								script = (BS_STAT_ONLY_FORMCHANGE_END2);
+								break;
+							case POKE_EISCUE_NOICE:
+                                if(HAIL_WEATHER && check_ability(activeBank,ABILITY_ICE_FACE)) //shupian
+                                {
+                                    effect = 1;
+                                    new_species = POKE_EISCUE;
+                                    string_chooser = 0x242;
+                                    //battle_scripting.active_bank=activeBank;
+                                    script = (BS_STAT_ONLY_FORMCHANGE_END2);
+                                }
+								break;									
                             }
 							if(effect){
 								battle_scripting.active_bank = activeBank;
@@ -1239,8 +1270,6 @@ bool battle_turn_move_effects(void)
 
     return effect;
 }
-
-u8 get_first_to_strike(u8 bank1, u8 bank2, u8 ignore_priority);
 
 void move_to_buff1(u16 move)
 {
@@ -1405,24 +1434,13 @@ bool update_turn_counters(void)
             if (new_battlestruct->field_affecting.fairy_lock)
                 new_battlestruct->field_affecting.fairy_lock--;
             *statetracker +=1;
-        case 10: //something with turn order
-            for (u8 i = 0; i < no_of_all_banks; i++)
-            {
-                turn_order[i] = i;
-            }
-            u8 all_banks = no_of_all_banks - 1;
-            for (s8 i2 = 0; i2 > all_banks; all_banks--)
-            {
-                s8 i3 = i2 + 1;
-                while (i3 < no_of_all_banks)
-                {
-                    if (get_first_to_strike(turn_order[i2], turn_order[i3], 0))
-                    {
-                        sub_803CEDC(i2, i3);
-                    }
-                    i3++;
-                }
-            }
+        case 10: //something with turn order by Hibiki
+			for (u8 i = 0; i < no_of_all_banks; i++) {
+				for (u8 j = i+1; j < no_of_all_banks; j++){
+					if (get_first_to_strike(turn_order[i], turn_order[j], 1))
+						sub_803CEDC(i, j);
+				}
+			}
             *statetracker +=1;
             *sidebank = 0;
         case 11: //reflect
@@ -2000,7 +2018,7 @@ u8 check_move_limitations(u8 bank, u8 not_usable_moves, struct move_limitation l
             not_usable_moves |= BIT_GET(i);
         else if (status3[bank].imprision && check_if_imprisioned(bank, move_to_check) && limitations.limitation_imprision)
             not_usable_moves |= BIT_GET(i);
-        else if (CHOICE_ITEM(item_effect) && battle_stuff_ptr->choiced_move[bank] && battle_stuff_ptr->choiced_move[bank] != 0xFFFF && battle_stuff_ptr->choiced_move[bank] != move_to_check)
+		else if (CHOICE_ITEM(item_effect) && battle_stuff_ptr->choiced_move[bank] && battle_stuff_ptr->choiced_move[bank] != 0xFFFF && battle_stuff_ptr->choiced_move[bank] != move_to_check)
             not_usable_moves |= BIT_GET(i);
         else if (item_effect == ITEM_EFFECT_ASSAULTVEST && move_table[move_to_check].split == 2)
             not_usable_moves |= BIT_GET(i);
@@ -2016,6 +2034,8 @@ u8 check_move_limitations(u8 bank, u8 not_usable_moves, struct move_limitation l
             not_usable_moves |= BIT_GET(i);
 		else if (new_battlestruct->bank_affecting[bank].throatchop_timer && find_move_in_table(move_to_check, sound_moves)) //JeremyZ
 			not_usable_moves |= BIT_GET(i);
+        else if (gBankAbilities[bank]== ABILITY_GORILLA_TACTICS && battle_stuff_ptr->choiced_move[bank] && battle_stuff_ptr->choiced_move[bank] != 0xFFFF && battle_stuff_ptr->choiced_move[bank] != move_to_check)
+            not_usable_moves |= BIT_GET(i);		
     }
     return not_usable_moves;
 }
@@ -2083,7 +2103,13 @@ bool message_cant_choose_move(void)
 	{
 		cant = 1;
 		*loc_to_store_bs = BS_CANTSELECT_HEALBLOCK; //Needs Revision
-	}		
+	}	
+    else if (gBankAbilities[bank]== ABILITY_GORILLA_TACTICS && !CHOICE_ITEM(item_effect) && battle_stuff_ptr->choiced_move[bank] && battle_stuff_ptr->choiced_move[bank] != 0xFFFF && battle_stuff_ptr->choiced_move[bank] != checking_move) //shupian
+    {
+        current_move = battle_stuff_ptr->choiced_move[bank];
+        cant = 1;
+        *loc_to_store_bs = BS_CANTSELECT_GORILLA_TACTICS;
+    }	
     return cant;
 }
 
@@ -2213,7 +2239,7 @@ bool ai_switch_wonderguard()
 					u16 move = poke[i].moves[j];
                     if (move && wonderguard_good_move(wonder_bank, self, move, 0))
                     {
-                        battle_stuff_ptr->switchout_index[self] = j;
+                        battle_stuff_ptr->switchout_index[self] = i;   //Hibiki
                         prepare_chosen_option(1, 2, 0);
                         return 1;
                     }
@@ -2225,17 +2251,20 @@ bool ai_switch_wonderguard()
     return 0;
 }
 
-bool ai_ability_switch(void) //JeremyZ
+bool ai_ability_switch(void) //Hibiki
 {
-	return 0; //Anti-Bug
 	struct pokemon* poke = get_bank_poke_ptr(active_bank);
-    if (check_ability(active_bank, ABILITY_NATURAL_CURE) && get_attributes(poke, ATTR_STATUS_AILMENT, 0))
+    if ((check_ability(active_bank, ABILITY_NATURAL_CURE) && get_attributes(poke, ATTR_STATUS_AILMENT, 0))||(check_ability(active_bank, ABILITY_REGENERATOR) && battle_participants[active_bank].current_hp <= battle_participants[active_bank].max_hp / 2))
     {
-		return 1;
-    }
-    else if (check_ability(active_bank, ABILITY_REGENERATOR) && battle_participants[active_bank].current_hp <= battle_participants[active_bank].max_hp / 2)
-    {
-		return 1;
+		for (u8 i = 0; i < 6; i++)
+        {
+            if (can_poke_be_switched_into(i, active_bank))
+            {
+				battle_stuff_ptr->switchout_index[active_bank] = i;
+				prepare_chosen_option(1, 2, 0);
+				return 1;
+            }
+        }
     }
     return 0;
 }

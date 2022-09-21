@@ -66,6 +66,7 @@ u32 random_value(u32 limit);
 bool is_in_tag_battle(void);
 bool clanging_scales_stat(void);
 void revert_form_change_search(struct pokemon* poke);
+u8 get_first_to_strike(u8 bank1, u8 bank2, u8 ignore_priority);
 
 void set_unburden(u8 bank)
 {
@@ -571,7 +572,7 @@ void status_to_effect();
 bool move_effect2_setter(void)
 {
 	u8* move_effect = &battle_communication_struct.move_effect;
-	if (!MOVE_WORKED)
+	if (hitmarker & HITMARKER_IMMOBILE_DUE_TO_STATUS)
 	{
 		*move_effect = 0;
 		return 0;
@@ -703,7 +704,7 @@ bool move_effect2_setter(void)
 			break;
 		case 16: //knock off
 			if (!substitute && applier_bank->held_item && can_lose_item(bank, 1, 1) &&
-					battle_participants[bank_attacker].current_hp)
+					battle_participants[bank_attacker].current_hp  )
 			{
 				last_used_item = applier_bank->held_item;
 				applier_bank->held_item = 0;
@@ -844,7 +845,7 @@ void clear_twoturn(u8 bank)
 void atk49_move_end_turn(void)
 {
 #define INC_END_EVENTS battle_scripting.cmd49_state_tracker++;
-#define case_max 40
+#define case_max 41
 	u8 effect = 0;
 	u16 last_move;
 	if (last_used_move == 0xFFFF)
@@ -974,8 +975,8 @@ void atk49_move_end_turn(void)
 				{
 					u16 attacker_item = get_item_effect(bank_attacker, 1);
 					u16* choice_move = &battle_stuff_ptr->choiced_move[bank_attacker];
-					if (CHOICE_ITEM(attacker_item) && last_used_move != MOVE_STRUGGLE &&
-							(hitmarker & HITMARKER_OBEYS) && (*choice_move == 0 || *choice_move == 0xFFFF))
+					if ((CHOICE_ITEM(attacker_item) || gBankAbilities[bank_attacker]== ABILITY_GORILLA_TACTICS) && last_used_move != MOVE_STRUGGLE &&
+							(hitmarker & HITMARKER_OBEYS) && (*choice_move == 0 || *choice_move == 0xFFFF))//SHUPIAN GORILLA_TACTICS
 					{
 						if ((last_used_move == MOVE_BATON_PASS || last_used_move == MOVE_VOLT_SWITCH ||
 								last_used_move == MOVE_UTURN) && move_outcome.failed)
@@ -1067,6 +1068,16 @@ void atk49_move_end_turn(void)
 						new_battlestruct->various.life_orbed = 1;
 					}
 				}
+				if (new_battlestruct->various.bust_eiscue)
+				{
+					new_battlestruct->various.bust_eiscue = 0;
+					special_statuses[bank_attacker].moveturn_losthp = 0;
+					special_statuses[bank_attacker].moveturn_losthp_physical = 0;
+					if (get_item_effect(bank_attacker, 1) == ITEM_EFFECT_LIFEORB)
+					{
+						new_battlestruct->various.life_orbed = 1;
+					}
+				}				
 				bank_attacker = new_battlestruct->various.cmd49_safeattacker_bank;
 				new_battlestruct->various.magicbounce = 0; //avoids endless loops if magic bounce meets magic bounce or magic coat
 				new_battlestruct->various.protean_msg = 0; //protean message
@@ -1414,6 +1425,31 @@ void atk49_move_end_turn(void)
 				INC_END_EVENTS
 				break;
 			}
+			case 40: //CRAMORANT
+				bank_attacker = new_battlestruct->various.cmd49_safeattacker_bank;
+				if (MOVE_WORKED && (current_move == MOVE_SURF || current_move == MOVE_DIVE) &&
+						!battle_participants[bank_attacker].status2.transformed &&
+						battle_participants[bank_attacker].species == POKE_CRAMORANT)
+				{
+					if (battle_participants[bank_attacker].current_hp && (battle_participants[bank_attacker].current_hp > (battle_participants[bank_attacker].max_hp / 2))) 
+					{
+						effect = 1;
+						new_battlestruct->various.var1 = POKE_CRAMORANT_GULPING;
+					}
+					else if (battle_participants[bank_attacker].current_hp && (battle_participants[bank_attacker].current_hp <= (battle_participants[bank_attacker].max_hp / 2)))
+					{
+						effect = 1;
+						new_battlestruct->various.var1 = POKE_CRAMORANT_GORGING;
+					}
+					if (effect)
+					{
+						new_battlestruct->various.var2 = 0x21E;
+						battle_scripting.active_bank = bank_attacker;
+						bs_push_current(&zen_change_bs);
+					}
+				}
+				INC_END_EVENTS
+				break;			
 			default:
 				battle_scripting.cmd49_state_tracker = case_max;
 		}
@@ -1425,7 +1461,15 @@ void atk49_move_end_turn(void)
 		if (battle_scripting.cmd49_state_tracker >= case_max)
 			break;
 	}
-
+	//Recalculate turn order after move, Gen VIII
+	if (current_move_turn < 2) {
+		for (u8 i = current_move_turn+1; i < no_of_all_banks; i++) {
+			for (u8 j = i+1; j < no_of_all_banks; j++){
+				if (get_first_to_strike(turn_order[i], turn_order[j], 0))
+					sub_803CEDC(i, j);
+			}
+		}
+	}//Hibiki
 	if (battle_scripting.cmd49_state_tracker >= case_max && effect == 0)
 		battlescripts_curr_instruction += 3;
 }
@@ -1526,7 +1570,7 @@ u8 check_if_cannot_attack(void)
 			case 2: //check if frozen
 				if (attacker_struct->status.flags.freeze)
 				{
-					if (percent_chance(20))
+					if  ((percent_chance(20)) || find_move_in_table(current_move, user_thawing_moves))
 					{
 						effect = 2;
 						attacker_struct->status.flags.freeze = 0;
@@ -2424,6 +2468,41 @@ void atk0C_datahpupdate(void)
 				new_battlestruct->various.var2 = 0x24B;
 			}
 		}
+		else if (new_battlestruct->various.bust_eiscue && bank == bank_target && damage_loc == 0)
+		{
+			special_statuses[bank].moveturn_losthp = 1;
+			if (split == 0)
+			{
+				special_statuses[bank].moveturn_losthp_physical = 1;
+			}
+			if (not_impostered(bank))
+			{
+				battle_scripting.active_bank = bank;
+				bs_push_current(BS_MIMIKYU_BUST);
+				new_battlestruct->various.var1 = POKE_EISCUE_NOICE;
+				new_battlestruct->various.var2 = 0x24B;
+			}
+		}
+		//else if (battle_participants[bank].species == POKE_CRAMORANT_GULPING && bank == bank_target) @未完成shupian
+		//{
+			//if (not_impostered(bank))
+			//{
+				//battle_scripting.active_bank = bank;
+				//new_battlestruct->various.var1 = POKE_CRAMORANT;
+				//new_battlestruct->various.var2 = 0x24B;
+				//bs_push_current(BS_MIMIKYU_BUST);				
+			//}
+		//}		
+		//else if (battle_participants[bank].species == POKE_CRAMORANT_GORGING && bank == bank_target)
+		//{
+			//if (not_impostered(bank))
+			//{
+				//battle_scripting.active_bank = bank;
+				//new_battlestruct->various.var1 = POKE_CRAMORANT;
+				//new_battlestruct->various.var2 = 0x24B;
+				//bs_push_current(BS_MIMIKYU_BUST);					
+			//}
+		//}		
 		else
 		{
 			hitmarker &= 0xFFFFFEFF;
@@ -2939,7 +3018,7 @@ void revert_form_change(bool mega_revert, u8 teamID, u8 side, struct pokemon* po
 					{POKE_AEGISLASH_BLADE, POKE_AEGISLASH_SHIELD}, {POKE_DARMANITAN_ZEN, POKE_DARMANITAN},
 					{POKE_MELOETTA_PIROUETTE, POKE_MELOETTA_ARIA}, {POKE_MINIOR_METEOR, POKE_MINIOR_CORE},
 					{POKE_WISHIWASHI_SCHOOL, POKE_WISHIWASHI}, {POKE_ASH_GRENJA, POKE_GRENINJA},
-					{POKE_MIMIKYU_BUSTED, POKE_MIMIKYU}, {0x42b, 0x34D}, {0x421, 0x301}, {0x42a, 0x34c}, {0x422, 0x357},
+					{POKE_MIMIKYU_BUSTED, POKE_MIMIKYU}, {0x42b, 0x34D}, {0x421, 0x301}, {0x42a, 0x34c}, {0x422, 0x357},{POKE_EISCUE_NOICE, POKE_EISCUE},
 					{0xFFFF, 0}};
 			for (u32 i = 0; revert_mapping[i].current_species != 0xFFFF; i++)
 			{
@@ -3420,7 +3499,7 @@ void atk02_attackstring(void)
 	if (!battle_execution_buffer)
 	{
 		u8 type = get_attacking_move_type();
-		if (check_ability(bank_attacker, ABILITY_PROTEAN) && current_move != MOVE_STRUGGLE && !move_outcome.failed &&
+		if ((gBankAbilities[bank_attacker] == ABILITY_PROTEAN || gBankAbilities[bank_attacker] == ABILITY_LIBERO) && current_move != MOVE_STRUGGLE && !move_outcome.failed &&
 				!new_battlestruct->various.protean_msg)
 		{
 			new_battlestruct->various.protean_msg = 1;

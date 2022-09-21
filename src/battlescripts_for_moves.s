@@ -178,7 +178,7 @@ battlescripts_table:
 .word PSYCHIC_SPLITS	@152 Power/Guard Split; no args, read from ID
 .word TELEKINESIS      	@153 Telekinesis
 .word SMACK_DOWN 		@154 Smack Down
-.word CHANGE_TARGET_TYPE_TO	@155 @arg1 is type to change target into; soak
+.word CHANGE_TARGET_TYPE_TO	@155 @arg1 is type to change target into; soak, magic powder
 .word SHELLSMASH		@156 Shell Smash
 .word SKYDROP			@157 Sky Drop
 .word SHIFTGEAR			@158 Shift Gear; changes two stats arg1 stat1, arg2 stat2
@@ -220,6 +220,7 @@ battlescripts_table:
 .word ATTACK_TERRAINCHANGE @194 Z_MEW, Z_LYCANROC, JeremyZ
 .word HITS_TWO_TIMES_FLINCH @195 Double Iron Bash, JeremyZ
 .word EEVEE_ATTACK @196 Glitzy Glow, Baddy Bad, Sappy Seed, Freezy Frost, Sparkly Swirl, JeremyZ
+.word DOUBLE_DAMAGETRAP @197 Attack the target and cause damage.Make the attacker and the target in a state of no escape; Jaw Lock //jifeng
 
 SUNNYDAY_BS:
 	attackcanceler
@@ -2643,3 +2644,9 @@ SAPPY_SEED:
 	printfromtable 0x85CC878
 	waitmessage 0x40
 	goto_cmd ENDTURN
+DOUBLE_DAMAGETRAP: 
+	callasm_cmd 68 @sets the trapped bit
+	callasm_cmd 176 @Make the attacker in a state of no escape
+	printstring 0x8F
+	waitmessage 0x40
+	goto_cmd ATTACKING_MOVE

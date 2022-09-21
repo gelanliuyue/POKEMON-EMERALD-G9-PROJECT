@@ -293,3 +293,34 @@ void check_weather_trio(void) {
 		battle_weather.flags.air_current = 0;
 	}
 }
+
+
+
+void clear_screen(void)//Clear screen, shupian
+{
+	u8 attackers_side = get_bank_side(bank_attacker);
+    u8 targets_side = get_bank_side(bank_target);
+    struct side_affecting_hword* target_side = &side_affecting_halfword[targets_side];
+    struct side_timer* target_timer = &side_timers[targets_side];
+	struct side_affecting_hword* attacker_side = &side_affecting_halfword[attackers_side];
+    struct side_timer* attacker_timer = &side_timers[attackers_side];
+    if (target_side->reflect_on || attacker_side->reflect_on )
+    {
+        target_side->reflect_on = 0;
+        target_timer->reflect_timer = 0;
+		attacker_side->reflect_on = 0;
+        attacker_timer->reflect_timer = 0;
+    }
+    else if (target_side->light_screen_on || attacker_side->light_screen_on )
+    {
+        target_side->light_screen_on = 0;
+        target_timer->lightscreen_timer = 0;
+		attacker_side->light_screen_on = 0;
+        attacker_timer->lightscreen_timer = 0;
+    }
+    else if (new_battlestruct->side_affecting[targets_side].aurora_veil || new_battlestruct->side_affecting[attackers_side].aurora_veil)
+    {
+        new_battlestruct->side_affecting[targets_side].aurora_veil = 0;
+        new_battlestruct->side_affecting[attackers_side].aurora_veil = 0;		
+    }
+}
