@@ -61,10 +61,19 @@
 .word \jumpifnoally_address
 .endm
 
-.macro jumpifuserhasnoHP jumpifuserhasnoHP_address
+.macro jumpifuserhasnoHP jumpifuserhasnoHP_bank jumpifuserhasnoHP_address
 .byte 0x83
 .hword 91
+.byte \jumpifuserhasnoHP_bank
 .word \jumpifuserhasnoHP_address
+.endm
+
+.macro checkfaintpokemon checkfaintpokemon_bank checkfaintpokemon_parameter2 checkfaintpokemon_parameter3
+.byte 0x83
+.hword 184
+.byte \checkfaintpokemon_bank
+.byte \checkfaintpokemon_parameter2
+.word \checkfaintpokemon_parameter3
 .endm
 
 //JeremyZ
@@ -79,6 +88,15 @@
 .byte 0x83
 .hword 172
 .word \jumpifnostockpile_address
+.endm
+
+//Hibiki
+.macro jumpifnomoveforspecies jumpifnomoveforspecies_checkmove jumpifnomoveforspecies_checkspecies jumpifnomoveforspecies_address
+.byte 0x83
+.hword 177
+.hword \jumpifnomoveforspecies_checkmove
+.hword \jumpifnomoveforspecies_checkspecies
+.word \jumpifnomoveforspecies_address
 .endm
 
 ////////////////////////////////// Macro
@@ -498,11 +516,11 @@ jumpifbyte 0x4 0x202427C 0x29 \jumpiftypenotaffected_address
 .word \playanimation_word
 .endm
 
-.macro cmd46 cmd46_bank cmd46_address cmd46_word
+.macro playanimation2 playanimation2_bank playanimation2_address playanimation2_word
 .byte 0x46
-.byte \cmd46_bank
-.word \cmd46_address
-.word \cmd46_word
+.byte \playanimation2_bank
+.word \playanimation2_address
+.word \playanimation2_word
 .endm
 
 .macro set_statchange_values

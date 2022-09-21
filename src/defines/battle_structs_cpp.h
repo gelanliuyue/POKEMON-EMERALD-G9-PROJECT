@@ -85,7 +85,7 @@ struct battle_participant
 	u8 sp_def_buff;
 	u8 acc_buff;
 	u8 evasion_buff;
-	u8 ability_id;//32
+	u8 ability_id;//32  支持0xFFFF个特性
 	u8 type1;
 	u8 type2;
 	u8 padd;

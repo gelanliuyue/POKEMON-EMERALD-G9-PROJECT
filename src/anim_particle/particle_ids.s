@@ -39,3 +39,13 @@
 .equ DRAGON_ASCENT__particle_ID, 0x4D
 @primal ultraburst
 .equ ULTRA_BURSTSYMBOL_particle, 0x4E
+.equ APPLE_particle_ID, 0x4F
+.equ TEATIME_particle_ID, 0x50
+.equ BSWORD_particle_ID, 0x51
+.equ MAGIC_POWDER_particle_ID, 0x52
+.equ PYRO_BALL_particle_ID, 0x53
+.equ BSHEILD_particle_ID, 0x54
+.equ DRAGON_DARTS_particle_ID, 0x55
+.equ BRANCH_POKE_particle_ID, 0x56
+.equ GLACIAL_LANCE_particle_ID, 0x57
+.equ DARK_PULSE_particle_ID, 0x58
