@@ -84,3 +84,4 @@ BtlController_EmitPrintString 08033be4 3
 BtlController_EmitPrintSelectionString 08033cfc 3
 GET_EVO_TABLE 08c60d00 1
 can_evolve 08c60d08 1
+lowest_evo 08c60d10 1
