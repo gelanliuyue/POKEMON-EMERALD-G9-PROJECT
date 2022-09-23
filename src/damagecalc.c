@@ -679,7 +679,7 @@ u16 get_base_power(u16 move, u8 atk_bank, u8 def_bank) {
                 battle_stuff_ptr->dynamic_move_type = TYPE_ELECTRIC + 0x80;
         }
             break;
-        case MOVE_WAKEUP_SLAP:
+        case MOVE_WAKE_UP_SLAP:
             if (battle_participants[def_bank].status.flags.sleep || check_ability(def_bank, ABILITY_COMATOSE)) {
                 base_power *= 2;
             }

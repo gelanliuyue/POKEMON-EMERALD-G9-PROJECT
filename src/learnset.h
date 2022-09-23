@@ -11,11 +11,11 @@
 #pragma pack(push,1)
 struct learnset{
 	u16 move;
-	u8 level;
+	u16 level;
 };
 #pragma pack(pop)
 
-const struct learnset* learnset_table[ALL_POKES];
+extern const struct learnset* learnset_table[ALL_POKES];
 
 
 #endif //ENGINE7_LEARNSETS_H

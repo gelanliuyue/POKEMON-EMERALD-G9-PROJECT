@@ -326,7 +326,7 @@ u16 damage_type_effectiveness_update(u16 move, u8 attacking_type, u8 defending_t
         else if (airstatus > 2 && move != MOVE_THOUSAND_ARROWS)
             effect = 0;
     }
-    else if (move == MOVE_FREEZEDRY && defending_type == TYPE_WATER)
+    else if (move == MOVE_FREEZE_DRY && defending_type == TYPE_WATER)
     {
         effect = 20;
     }

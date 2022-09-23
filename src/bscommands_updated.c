@@ -1123,7 +1123,7 @@ void atk49_move_end_turn(void)
 							(hitmarker & HITMARKER_OBEYS) && (*choice_move == 0 || *choice_move == 0xFFFF))//SHUPIAN GORILLA_TACTICS
 					{
 						if ((last_used_move == MOVE_BATON_PASS || last_used_move == MOVE_VOLT_SWITCH ||
-								last_used_move == MOVE_UTURN) && move_outcome.failed)
+								last_used_move == MOVE_U_TURN) && move_outcome.failed)
 						{
 							INC_END_EVENTS
 							break;
@@ -1667,7 +1667,7 @@ bool healblock_forbidden_moves(u16 move, u8 with_leechseed)
 			,MOVE_JUNGLE_HEALING,MOVE_SLACK_OFF,MOVE_SYNTHESIS,MOVE_SWALLOW,MOVE_STRENGTH_SAP
 			,MOVE_MILK_DRINK,MOVE_HEAL_ORDER,MOVE_INGRAIN,MOVE_LUNAR_DANCE,MOVE_MORNING_SUN
 			,MOVE_MOONLIGHT,MOVE_AQUA_RING,MOVE_HEALING_WISH,MOVE_HEAL_PULSE,MOVE_LIFE_DEW
-			,MOVE_SOFTBOILED,MOVE_REST,MOVE_WISH,MOVE_ROOST,MOVE_RECOVER,MOVE_FLORAL_HEALING
+			,MOVE_SOFT_BOILED,MOVE_REST,MOVE_WISH,MOVE_ROOST,MOVE_RECOVER,MOVE_FLORAL_HEALING
 			,MOVE_SHORE_UP,MOVE_G_MAX_FINALE_PHYS,MOVE_G_MAX_FINALE_SPEC
 			,0xFFFF};
 
