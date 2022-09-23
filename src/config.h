@@ -58,6 +58,6 @@
 #define EM 0
 #define UTRAL 1
 
-#define EM_VERSION UTRAL
+#define EM_VERSION EM
 
 #endif /* CONFIG_H */

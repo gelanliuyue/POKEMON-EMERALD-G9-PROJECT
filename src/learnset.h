@@ -8,12 +8,12 @@
 #define EGG_MOVESET 0x00000000
 #define LEVEL_EVO 0x00
 
-#pragma pack(push,1)
+
 struct learnset{
 	u16 move;
 	u16 level;
 };
-#pragma pack(pop)
+
 
 extern const struct learnset* gLevelUpLearnsets[ALL_POKES];
 

@@ -8,7 +8,7 @@ import binascii
 import textwrap
 import sys
 
-OFFSET_TO_PUT = 0x1d00000
+OFFSET_TO_PUT = 0x1a00000
 CUSTOM_OFFSET = 0x17A0000
 FIX_EVO = False
 
