@@ -53,7 +53,7 @@ bool not_impostered(u8 bank);
 u32 random_value(u32 limit);
 u8 z_protect_affects(u16 move); //JeremyZ
 void check_weather_trio(void);
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 void calculate_stats_pokekmon_withoutHP(struct pokemon* poke);
 void mimicry_change(u8 bank, bool reset_type);
 bool neutralizing_gas_leaving_field(bool reset);
@@ -308,7 +308,7 @@ void moxie_stat_raise(void)//switch_id：0 for ability,1 for move
             raiser = 0x14, bs = BS_ATK_ABILITY_CHANGES_ATK_STAT;
 			if(battle_participants[bank_attacker].species == POKE_CALYREX_BLACK)
 				bs = BS_PRINT_SPECTRIER_ABILITY;
-            record_usage_of_ability(bank_attacker, ABILITY_GRIM_NEIGH);
+//            record_usage_of_ability(bank_attacker, ABILITY_GRIM_NEIGH);
         }
         else if (!switch_id && (raiser = check_beastboost()))
         {
@@ -1058,11 +1058,11 @@ void setthirdtype(void)
     }
 }
 
-const u16 forbidenabilitiestable1[] = {ABILITY_WONDER_GUARD, ABILITY_STANCE_CHANGE, ABILITY_ILLUSION, ABILITY_MULTITYPE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN,ABILITY_DISGUISE, ABILITY_RKS_SYSTEM, ABILITY_BATTLE_BOND, ABILITY_POWER_CONSTRUCT,ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE, 0xFF};//cannot be exchanged
-const u16 forbidenabilitiestable2[] = {ABILITY_MULTITYPE,  ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_DISGUISE, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_ICE_FACE, ABILITY_BATTLE_BOND, ABILITY_AS_ONE, 0xFF}; //cannot be invalid
+const u16 forbidenabilitiestable1[] = {ABILITY_WONDER_GUARD, ABILITY_STANCE_CHANGE, ABILITY_ILLUSION, ABILITY_MULTITYPE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN,ABILITY_DISGUISE, ABILITY_RKS_SYSTEM, ABILITY_BATTLE_BOND, ABILITY_POWER_CONSTRUCT,ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE_ICE_RIDER, 0xFF};//cannot be exchanged
+const u16 forbidenabilitiestable2[] = {ABILITY_MULTITYPE,  ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_DISGUISE, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_ICE_FACE, ABILITY_BATTLE_BOND, ABILITY_AS_ONE_ICE_RIDER, 0xFF}; //cannot be invalid
 const u16 forbidenabilitiestable3[] = {ABILITY_WONDER_GUARD, ABILITY_STANCE_CHANGE,  ABILITY_MULTITYPE, ABILITY_ILLUSION, ABILITY_FLOWER_GIFT, ABILITY_FORECAST, ABILITY_IMPOSTER, ABILITY_TRACE, ABILITY_COMATOSE,
-                                    ABILITY_ZEN_MODE, ABILITY_POWER_OF_ALCHEMY, ABILITY_RECEIVER, ABILITY_DISGUISE, ABILITY_SCHOOLING, ABILITY_SHIELDS_DOWN, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE, 0xFF};//cannot be copied/traced
-const u16 forbidenabilitiestable4[] = {ABILITY_MULTITYPE, ABILITY_TRUANT, ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_DISGUISE, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_AS_ONE, 0xFF};//cannot be cover
+                                    ABILITY_ZEN_MODE, ABILITY_POWER_OF_ALCHEMY, ABILITY_RECEIVER, ABILITY_DISGUISE, ABILITY_SCHOOLING, ABILITY_SHIELDS_DOWN, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE_ICE_RIDER, 0xFF};//cannot be copied/traced
+const u16 forbidenabilitiestable4[] = {ABILITY_MULTITYPE, ABILITY_TRUANT, ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_DISGUISE, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_AS_ONE_ICE_RIDER, 0xFF};//cannot be cover
 
 void ability_change(void)
 { //table goes Swapping/attackers change/targets change
@@ -1336,7 +1336,7 @@ void naturalgift(void)
 {
     u16 item = battle_participants[bank_attacker].held_item;
     u8 effect = 1;
-    if (gBankAbilities[bank_attacker] == ABILITY_KLUTZ || new_battlestruct->bank_affecting[bank_attacker].embargo || new_battlestruct->field_affecting.magic_room || check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank_attacker), 0) || check_field_for_ability(ABILITY_AS_ONE, get_bank_side(bank_attacker), 0))
+    if (gBankAbilities[bank_attacker] == ABILITY_KLUTZ || new_battlestruct->bank_affecting[bank_attacker].embargo || new_battlestruct->field_affecting.magic_room || check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank_attacker), 0) || check_field_for_ability(ABILITY_AS_ONE_ICE_RIDER, get_bank_side(bank_attacker), 0))
         effect = 0;
     if (!effect || !item || get_item_pocket_id(item) != 4)
         battlescripts_curr_instruction = (void*) read_word(battlescripts_curr_instruction);
@@ -2623,7 +2623,7 @@ void canusefling(void)
 {
     u16 item = battle_participants[bank_attacker].held_item;
     if (item == 0 || item == ITEM_REDORB || item == ITEM_BLUEORB || item == ITEM_ABILITYCAPSULE || ((item >= 0x236 && item <= 0x246) || item == 0x24A)
-		|| get_item_pocket_id(item) == 2 || get_item_pocket_id(item) == 3 || (get_item_pocket_id(item) == 4 && (check_ability(bank_target, ABILITY_UNNERVE) || check_ability(bank_target ^ 2, ABILITY_UNNERVE) || check_ability(bank_target, ABILITY_AS_ONE) || check_ability(bank_target ^ 2, ABILITY_AS_ONE)))
+		|| get_item_pocket_id(item) == 2 || get_item_pocket_id(item) == 3 || (get_item_pocket_id(item) == 4 && (check_ability(bank_target, ABILITY_UNNERVE) || check_ability(bank_target ^ 2, ABILITY_UNNERVE) || check_ability(bank_target, ABILITY_AS_ONE_ICE_RIDER) || check_ability(bank_target ^ 2, ABILITY_AS_ONE_ICE_RIDER)))
 		|| !can_lose_item(bank_attacker, 0, 0) || check_ability(bank_attacker, ABILITY_KLUTZ) || new_battlestruct->bank_affecting[bank_attacker].embargo || new_battlestruct->field_affecting.magic_room)
 		battlescripts_curr_instruction = (void*) read_word(battlescripts_curr_instruction);
     else

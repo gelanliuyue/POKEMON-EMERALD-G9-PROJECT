@@ -36,7 +36,7 @@ void bs_execute(void* bs);
 u8 item_force_switching(u8 bank, void* BS_ptr, bool be_attacked);
 u32 random_value(u32 limit);
 u16 get_battle_item_extra_param(u32 bank); //JeremyZ
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 u8 can_lose_item(u8 bank, u8 stickyhold_check, u8 sticky_message);
 void check_weather_trio(void);
 u16 findability_in_table(u16 ability, const u16* table);
@@ -98,7 +98,7 @@ bool has_ability_effect(u8 bank, u8 mold_breaker) {
     return true;
 }
 
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold) {
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold) {
     for (u8 i = 0; i < no_of_all_banks; i++) {
         if (is_bank_present(i) && get_bank_side(i) != side_to_ignore && gBankAbilities[i] == ability &&
             has_ability_effect(i, mold))
@@ -107,7 +107,7 @@ u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mo
     return 0;
 }
 
-enum poke_abilities get_ally_ability(u8 bank, u8 mold) {
+u16 get_ally_ability(u8 bank, u8 mold) {
     u8 ally = bank ^2;
     if (is_bank_present(ally) && has_ability_effect(ally, mold))
         return gBankAbilities[ally];
@@ -1152,13 +1152,13 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         bs_execute(BS_UNNERVE);
                         effect = 1;
                         break;
-					case ABILITY_AS_ONE:
+					case ABILITY_AS_ONE_ICE_RIDER:
                         bank_attacker = bank;
                         bank_target = bank ^ 1;
                         bs_execute(BS_AS_ONE);
                         effect = 1;
                         break;
-					case ABILITY_SCREEN_ClEANER: //shupian
+					case ABILITY_SCREEN_CLEANER: //shupian
 				        effect = 1;	
 						bank_attacker = bank;
                         bs_execute(BS_SCREEN_ClEANER);

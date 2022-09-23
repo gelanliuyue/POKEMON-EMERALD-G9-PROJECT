@@ -882,12 +882,14 @@ struct poke_basestats
 	u8 exp_curve;
 	u8 egg_group1;
 	u8 egg_group2;
-	u8 ability1;
-	u8 ability2;
-	u8 safari_flee_rate;
-	u8 dex_colour;
-	u8 padding1;
-	u8 padding2;
+    u8 flags;
+    u8 bodyColor : 7;
+	u8 noFlip : 1;
+    struct {
+			 u32 a1:10;
+			 u32 a2:10;
+			 u32 a3:10;
+		} abilities;
 };
 
 extern const struct poke_basestats (* basestat_table)[ALL_POKES];

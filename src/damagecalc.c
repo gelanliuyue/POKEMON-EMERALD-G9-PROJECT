@@ -20,7 +20,7 @@ void bs_push_current(void *now);
 bool photon_geyser_special(u16 move); //JeremyZ
 u32 get_item_extra_param(u32 bank);
 u8 z_protect_affects(u16 move); //JeremyZ
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 
 struct natural_gift {
     u8 move_power;

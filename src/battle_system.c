@@ -38,7 +38,7 @@ bool not_impostered(u8 bank);
 struct pokemon* get_bank_poke_ptr(u8 bank); //JeremyZ
 u32 random_value(u32 limit);
 u8 get_bank_side(u8 bank);
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 u8 get_first_to_strike(u8 bank1, u8 bank2, u8 ignore_priority);
 void mimicry_change(u8 bank, bool reset_type);
 

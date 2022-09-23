@@ -13,7 +13,7 @@ void update_rtc(void);
 void prep_string(u16 strID, u8 bank);
 s8 get_priority(u16 move, u8 bank);
 void bs_push_current(void* now);
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
 u8 get_move_table_target(u16 move,u8 atk_bank);
 

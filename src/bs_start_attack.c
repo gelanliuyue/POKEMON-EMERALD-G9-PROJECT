@@ -27,7 +27,7 @@ void reset_multiple_turn_effects(u8 bank);
 bool not_impostered(u8 bank);
 u32 get_battle_item_extra_param(u32 bank);
 bool is_immune_to_powder(u8 bank); //JeremyZ
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 bool is_in_tag_battle(void);
 u8 dragon_darts_target(u8 bank);
 u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);

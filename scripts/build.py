@@ -139,16 +139,7 @@ def main():
     linked = link(itertools.chain.from_iterable(objects))
     objcopy(linked)
 	
-def main_next():
-    globs = [('./src\MoreAbilities\MoreAbilities.c', process_c_next)]
-    # Gather source files and process them
-    objects = itertools.starmap(run_glob_next, globs)
-
-    # Link and extract raw binary
-    linked = link_next(itertools.chain.from_iterable(objects))
-    objcopy_next(linked)
 
 
 if __name__ == '__main__':
     main()
-    main_next()
