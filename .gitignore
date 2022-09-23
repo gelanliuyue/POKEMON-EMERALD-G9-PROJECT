@@ -52,3 +52,4 @@ cmake-build-debug
 *.1bpp
 *.8bpp
 *.ini
+depends.ld
