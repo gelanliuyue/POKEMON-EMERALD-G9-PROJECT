@@ -671,3 +671,4 @@ gBankAbilitiesBackups = 0x0203F010;
 glPokeAbilities = 0x097A0000;
 
 gExperienceTables = 0x831f72c;
+learnset_table = 0x9b2870c;

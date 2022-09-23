@@ -1,25 +1,8 @@
-###learnset_table
-learnset_table 0806E3B4
-learnset_table 080693A0
-learnset_table 08069414
-learnset_table 0806E1F8
-learnset_table 0806E250
-learnset_table 081A00AC
-learnset_table 081A0278
-###learnset_table
 ### bs commands
 bs_commands 0803CD94
 bs_commands 0803DE38
 bs_commands 080458D8
 bs_commands 0803E084
-### ability names repoint
-ability_names_table 080001C0
-ability_names_table 0814F0D4
-ability_names_table 0814F854
-ability_names_table 081C3028
-### ability descriptions repoint
-ability_desc_table 080001C4
-ability_desc_table 081C3078
 ### move animations repoint
 move_animations_table 080A3A44
 ### move names repoint
