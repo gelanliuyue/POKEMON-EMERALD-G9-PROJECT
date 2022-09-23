@@ -887,7 +887,7 @@ struct poke_basestats
 	u8 padding2;
 };
 
-extern const struct poke_basestats (* basestat_table)[ALL_POKES];
+extern const struct poke_basestats (* gBaseStats)[ALL_POKES];
 
 struct battle_info_struct
 {

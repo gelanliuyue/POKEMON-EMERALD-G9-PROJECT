@@ -33,7 +33,7 @@ OBJCOPY = (PATH + PREFIX + 'objcopy')
 SRC = './src'
 BUILD = './build'
 ASFLAGS = [AS, '-mthumb', '-I', SRC]
-LDFLAGS = ['BPEE.ld', '-T', 'linker.ld']
+LDFLAGS = ['BPEE.ld', 'depends.ld' , '-T', 'linker.ld']
 LDFLAGS_next = ['BPEE.ld', '-T', 'linker_next.ld']
 CFLAGS = [CC,'-mthumb', '-mno-thumb-interwork', '-mcpu=arm7tdmi', '-mtune=arm7tdmi',
           '-mno-long-calls', '-march=armv4t', '-Wall','-Wextra', '-Os', '-fira-loop-pressure', '-fipa-pta']

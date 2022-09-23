@@ -3991,7 +3991,7 @@ void evs_update(struct pokemon* poke, u16 defeated_species)
 	{
 		power_item = (u8) get_item_extra_param(item);
 	}
-	const struct poke_basestats* stats = &((*basestat_table)[defeated_species]);
+	const struct poke_basestats* stats = &((*gBaseStats)[defeated_species]);
 	for (u8 curr_stat = 0; curr_stat < 6; curr_stat++)
 	{
 		u8 to_add = 0;
@@ -4078,7 +4078,7 @@ s32 exp_for_poke_limited(struct pokemon* poke, u16 exp_for_poke)  //Hibiki
         }
     }
     if (lv >= BadgeLvTable[BadgeLvSelect]) return 0;
-    u32 LimitedLvlExp = gExperienceTables[(*basestat_table)[get_attributes(poke, ATTR_SPECIES, 0)].exp_curve][ BadgeLvTable[BadgeLvSelect] ];
+    u32 LimitedLvlExp = gExperienceTables[(*gBaseStats)[get_attributes(poke, ATTR_SPECIES, 0)].exp_curve][ BadgeLvTable[BadgeLvSelect] ];
     s32 dest = LimitedLvlExp - get_attributes(poke, ATTR_EXP, 0);
     if (exp_for_poke < dest) dest = exp_for_poke;
     return dest;
@@ -4126,7 +4126,7 @@ void atk23_exp_evs_lvlup(void)
 					sent_in &= ~(BIT_GET(i)); //no exp for that poke
 			}
 			struct battle_participant* oppponent = &battle_participants[bank];
-			u16 exp = (*basestat_table)[oppponent->species].exp_yield * oppponent->level / 7;
+			u16 exp = (*gBaseStats)[oppponent->species].exp_yield * oppponent->level / 7;
 			//exp *= 10;
 			if (EXP_DIVIDE == true && via_expshare)
 			{

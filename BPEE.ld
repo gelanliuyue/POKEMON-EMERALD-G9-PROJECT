@@ -655,7 +655,6 @@ gpu_pal_tags_index_of = 0x8008804|1;
 obj_delete_and_free_tiles = 0x80070E8|1;
 item_table = 0x80001C8;
 evo_table = 0x806D140;
-basestat_table = 0x80001BC;
 poke_name_table = 0x08000144;
 
 /*Expandable tables*/
@@ -671,4 +670,3 @@ gBankAbilitiesBackups = 0x0203F010;
 glPokeAbilities = 0x097A0000;
 
 gExperienceTables = 0x831f72c;
-learnset_table = 0x9b2870c;

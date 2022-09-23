@@ -892,7 +892,7 @@ struct poke_basestats
 		} abilities;
 };
 
-extern const struct poke_basestats (* basestat_table)[ALL_POKES];
+extern const struct poke_basestats (* gBaseStats)[ALL_POKES];
 
 struct battle_info_struct
 {

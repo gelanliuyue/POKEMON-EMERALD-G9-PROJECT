@@ -70,8 +70,8 @@ void mimicry_change(u8 bank, bool reset_type){
 			else if(new_battlestruct->field_affecting.psychic_terrain)
 				set_type(checking_bank, TYPE_PSYCHIC);
 			else if(reset_type){
-				battle_participants[checking_bank].type1 = (*basestat_table)[battle_participants[checking_bank].species].type1;
-				battle_participants[checking_bank].type2 = (*basestat_table)[battle_participants[checking_bank].species].type2;
+				battle_participants[checking_bank].type1 = (*gBaseStats)[battle_participants[checking_bank].species].type1;
+				battle_participants[checking_bank].type2 = (*gBaseStats)[battle_participants[checking_bank].species].type2;
 				new_battlestruct->bank_affecting[checking_bank].type3 = TYPE_EGG;
 			}
 		}

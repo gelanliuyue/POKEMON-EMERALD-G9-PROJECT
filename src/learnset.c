@@ -3,7 +3,7 @@
 
 
 const struct learnset* get_learset_table(struct pokemon* poke){
-	return learnset_table[poke->spieces];
+	return gLevelUpLearnsets[poke->spieces];
 }
 
 
@@ -117,7 +117,7 @@ u8 get_number_of_relearnable_moves(struct pokemon* poke)
 
 u8 learnsanydamagingmove(u16 poke)
 {
-    const struct learnset* const poke_moveset = learnset_table[poke];
+    const struct learnset* const poke_moveset = gLevelUpLearnsets[poke];
     for (u8 i = 0; poke_moveset[i].move != MOVE_BLANK && poke_moveset[i].level != 0xFF; i++)
     {
         if (move_table[poke_moveset[i].move].base_power)

@@ -15,7 +15,7 @@ struct learnset{
 };
 #pragma pack(pop)
 
-extern const struct learnset* learnset_table[ALL_POKES];
+extern const struct learnset* gLevelUpLearnsets[ALL_POKES];
 
 
 #endif //ENGINE7_LEARNSETS_H
