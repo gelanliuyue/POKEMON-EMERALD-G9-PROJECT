@@ -69,11 +69,6 @@ void AnimTask_HideShow_Sprite(u8 taskID)
     move_anim_task_delete(taskID);
 }
 
-bool is_using_two_frame_anim(u16 species)
-{
-    return !(species == POKE_UNOWN || species == POKE_SPINDA || species == POKE_DEOXYS || species == POKE_CASTFORM ||
-            species > POKE_SHAYMIN_LAND);
-}
 
 
 void* sub_0x8108ad4()//玩水
