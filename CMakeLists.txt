@@ -20,7 +20,6 @@ add_executable(POKEMON_EMERALD_G9_PROJECT
         src/megaimages/indicators.h
         src/megaimages/mega_trigger.h
         src/MoreAbilities/Funcs.c
-        src/MoreAbilities/MoreAbilities.c
         src/abcd.c
         src/ability_effects.c
         src/accuracycalc.c
@@ -44,7 +43,6 @@ add_executable(POKEMON_EMERALD_G9_PROJECT
         src/defines.h
         src/display_mega_symbols.c
         src/double_wild_battles.c
-        src/egg_moves.c
         src/gen7_new_move_effect.c
         src/graphics_related.c
         src/helper_functions.c
