@@ -51,14 +51,14 @@ u8 steven_pallete[] __attribute__((aligned(2))) = {
         0x0, 0x0};
 
 const struct img_size trainerthrow_pals[] = {
-        {(void*) 0x8305B60, 0}, // 0 brendan
-        {(void*) 0x83021E0, 1}, // 1 may
-        {(void*) 0x8D77480, 2}, // 2 FR male protag
-        {(void*) 0x8D774A8, 3}, // 3 FR female protag
-        {(void*) 0x8D66130, 4}, // 4 RS brendan
-        {(void*) 0x8D66458, 5}, // 5 RS may
-        {wally_pallete, 6}, // 6 wally
-        {steven_pallete, 7}, // 7 steven
+    {(void*) 0x8D61A30, 0}, // 0 brendan
+    {(void*) 0x8D61D58, 1}, // 1 may
+    {(void*) 0x8D77480, 2}, // 2 FR male protag
+    {(void*) 0x8D774A8, 3}, // 3 FR female protag
+    {(void*) 0x8D66130, 4}, // 4 RS brendan
+    {(void*) 0x8D66458, 5}, // 5 RS may
+    {(void*) 0x8D616E4, 6}, // 6 wally
+    {(void*) 0x8D63E88, 7}, // 7 steven
 };
 
 const struct trainerhrow_position trainerhrow_positions[] = {

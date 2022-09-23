@@ -3,7 +3,7 @@
 
 
 const struct learnset* get_learset_table(struct pokemon* poke){
-	return gLevelUpLearnsets[poke->spieces];
+	return gLevelUpLearnsets[get_attributes(poke, ATTR_SPECIES, 0)];
 }
 
 
