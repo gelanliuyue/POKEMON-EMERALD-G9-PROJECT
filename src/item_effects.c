@@ -44,7 +44,7 @@ u8 get_item_effect(u8 bank, bool check_negating_effects)
     {
         if (check_ability(bank, ABILITY_KLUTZ) || new_battlestruct->field_affecting.magic_room || new_battlestruct->bank_affecting[bank].embargo)
             return ITEM_EFFECT_NOEFFECT;
-        if (get_item_pocket_id(held_item)==4 && (check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE_ICE_RIDER, get_bank_side(bank), 0)))
+        if (get_item_pocket_id(held_item)==4 && (check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE_ICE_RIDER, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE_SHADOW_RIDER, get_bank_side(bank), 0) ))
             return ITEM_EFFECT_NOEFFECT;
     }
     if (held_item == ITEM_ENIGMABERRY)

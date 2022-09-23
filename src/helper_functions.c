@@ -296,17 +296,17 @@ void moxie_stat_raise(void)//switch_id：0 for ability,1 for move
         void* bs = NULL;
         if (switch_id && current_move == MOVE_FELL_STINGER)
             raiser = move_table[current_move].arg1, bs = BS_CHANGE_ATK_STAT_SELFINFLICTED;
-        else if (!switch_id && (check_ability(bank_attacker, ABILITY_MOXIE) || as_one_to_neigh(bank_attacker)==ABILITY_CHILLING_NEIGH) && battle_participants[bank_attacker].atk_buff != 0xC)
+        else if (!switch_id && (check_ability(bank_attacker, ABILITY_MOXIE) || check_ability(bank_attacker, ABILITY_AS_ONE_ICE_RIDER) || check_ability(bank_attacker, ABILITY_CHILLING_NEIGH))  && battle_participants[bank_attacker].atk_buff != 0xC)
         {
             raiser = 0x11, bs = BS_ATK_ABILITY_CHANGES_ATK_STAT;
-			if(battle_participants[bank_attacker].species == POKE_CALYREX_WHITE)
+			if(check_ability(bank_attacker, ABILITY_AS_ONE_ICE_RIDER))
 				bs = BS_PRINT_GLASTRIER_ABILITY;
             record_usage_of_ability(bank_attacker, ABILITY_MOXIE);
         }
-		else if (!switch_id && (check_ability(bank_attacker, ABILITY_GRIM_NEIGH) || as_one_to_neigh(bank_attacker)==ABILITY_GRIM_NEIGH) && battle_participants[bank_attacker].sp_atk_buff != 0xC)
+		else if (!switch_id && (check_ability(bank_attacker, ABILITY_GRIM_NEIGH) || check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER) && battle_participants[bank_attacker].sp_atk_buff != 0xC)
         {
             raiser = 0x14, bs = BS_ATK_ABILITY_CHANGES_ATK_STAT;
-			if(battle_participants[bank_attacker].species == POKE_CALYREX_BLACK)
+			if(check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER))
 				bs = BS_PRINT_SPECTRIER_ABILITY;
 //            record_usage_of_ability(bank_attacker, ABILITY_GRIM_NEIGH);
         }
@@ -1058,11 +1058,11 @@ void setthirdtype(void)
     }
 }
 
-const u16 forbidenabilitiestable1[] = {ABILITY_WONDER_GUARD, ABILITY_STANCE_CHANGE, ABILITY_ILLUSION, ABILITY_MULTITYPE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN,ABILITY_DISGUISE, ABILITY_RKS_SYSTEM, ABILITY_BATTLE_BOND, ABILITY_POWER_CONSTRUCT,ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE_ICE_RIDER, 0xFF};//cannot be exchanged
-const u16 forbidenabilitiestable2[] = {ABILITY_MULTITYPE,  ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_DISGUISE, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_ICE_FACE, ABILITY_BATTLE_BOND, ABILITY_AS_ONE_ICE_RIDER, 0xFF}; //cannot be invalid
+const u16 forbidenabilitiestable1[] = {ABILITY_WONDER_GUARD, ABILITY_STANCE_CHANGE, ABILITY_ILLUSION, ABILITY_MULTITYPE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN,ABILITY_DISGUISE, ABILITY_RKS_SYSTEM, ABILITY_BATTLE_BOND, ABILITY_POWER_CONSTRUCT,ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE_ICE_RIDER, ABILITY_AS_ONE_SHADOW_RIDER, 0xFF};//cannot be exchanged
+const u16 forbidenabilitiestable2[] = {ABILITY_MULTITYPE,  ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_DISGUISE, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_ICE_FACE, ABILITY_BATTLE_BOND, ABILITY_AS_ONE_ICE_RIDER, ABILITY_AS_ONE_SHADOW_RIDER, 0xFF}; //cannot be invalid
 const u16 forbidenabilitiestable3[] = {ABILITY_WONDER_GUARD, ABILITY_STANCE_CHANGE,  ABILITY_MULTITYPE, ABILITY_ILLUSION, ABILITY_FLOWER_GIFT, ABILITY_FORECAST, ABILITY_IMPOSTER, ABILITY_TRACE, ABILITY_COMATOSE,
-                                    ABILITY_ZEN_MODE, ABILITY_POWER_OF_ALCHEMY, ABILITY_RECEIVER, ABILITY_DISGUISE, ABILITY_SCHOOLING, ABILITY_SHIELDS_DOWN, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE_ICE_RIDER, 0xFF};//cannot be copied/traced
-const u16 forbidenabilitiestable4[] = {ABILITY_MULTITYPE, ABILITY_TRUANT, ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_DISGUISE, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_AS_ONE_ICE_RIDER, 0xFF};//cannot be cover
+                                    ABILITY_ZEN_MODE, ABILITY_POWER_OF_ALCHEMY, ABILITY_RECEIVER, ABILITY_DISGUISE, ABILITY_SCHOOLING, ABILITY_SHIELDS_DOWN, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_NEUTRALIZING_GAS,ABILITY_GULP_MISSILE, ABILITY_HUNGER_SWITCH, ABILITY_AS_ONE_ICE_RIDER, ABILITY_AS_ONE_SHADOW_RIDER, 0xFF};//cannot be copied/traced
+const u16 forbidenabilitiestable4[] = {ABILITY_MULTITYPE, ABILITY_TRUANT, ABILITY_STANCE_CHANGE, ABILITY_SCHOOLING, ABILITY_COMATOSE, ABILITY_SHIELDS_DOWN, ABILITY_DISGUISE, ABILITY_BATTLE_BOND, ABILITY_RKS_SYSTEM, ABILITY_POWER_CONSTRUCT, ABILITY_GULP_MISSILE, ABILITY_AS_ONE_ICE_RIDER, ABILITY_AS_ONE_SHADOW_RIDER, 0xFF};//cannot be cover
 
 void ability_change(void)
 { //table goes Swapping/attackers change/targets change
@@ -2623,7 +2623,7 @@ void canusefling(void)
 {
     u16 item = battle_participants[bank_attacker].held_item;
     if (item == 0 || item == ITEM_REDORB || item == ITEM_BLUEORB || item == ITEM_ABILITYCAPSULE || ((item >= 0x236 && item <= 0x246) || item == 0x24A)
-		|| get_item_pocket_id(item) == 2 || get_item_pocket_id(item) == 3 || (get_item_pocket_id(item) == 4 && (check_ability(bank_target, ABILITY_UNNERVE) || check_ability(bank_target ^ 2, ABILITY_UNNERVE) || check_ability(bank_target, ABILITY_AS_ONE_ICE_RIDER) || check_ability(bank_target ^ 2, ABILITY_AS_ONE_ICE_RIDER)))
+		|| get_item_pocket_id(item) == 2 || get_item_pocket_id(item) == 3 || (get_item_pocket_id(item) == 4 && (check_ability(bank_target, ABILITY_UNNERVE) || check_ability(bank_target ^ 2, ABILITY_UNNERVE) || check_ability(bank_target, ABILITY_AS_ONE_ICE_RIDER) || check_ability(bank_target ^ 2, ABILITY_AS_ONE_ICE_RIDER)|| check_ability(bank_target, ABILITY_AS_ONE_SHADOW_RIDER) || check_ability(bank_target ^ 2, ABILITY_AS_ONE_SHADOW_RIDER)))
 		|| !can_lose_item(bank_attacker, 0, 0) || check_ability(bank_attacker, ABILITY_KLUTZ) || new_battlestruct->bank_affecting[bank_attacker].embargo || new_battlestruct->field_affecting.magic_room)
 		battlescripts_curr_instruction = (void*) read_word(battlescripts_curr_instruction);
     else
@@ -2711,7 +2711,7 @@ void in_battle_form_change(u8 bank, bool change_hp, bool change_type)
     struct battle_participant* battle_poke = &battle_participants[bank];
     if(change_type)
     {
-        const struct poke_basestats* PokeStats = &((gBaseStats)[battle_poke->species]);
+        const struct poke_basestats* PokeStats = &((*basestat_table)[battle_poke->species]);
         battle_poke->type1 = PokeStats->type1;
         battle_poke->type2 = PokeStats->type2;
     }
