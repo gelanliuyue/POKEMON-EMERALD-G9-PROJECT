@@ -303,7 +303,7 @@ void moxie_stat_raise(void)//switch_id：0 for ability,1 for move
 				bs = BS_PRINT_GLASTRIER_ABILITY;
             record_usage_of_ability(bank_attacker, ABILITY_MOXIE);
         }
-		else if (!switch_id && (check_ability(bank_attacker, ABILITY_GRIM_NEIGH) || check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER) && battle_participants[bank_attacker].sp_atk_buff != 0xC)
+		else if (!switch_id && (check_ability(bank_attacker, ABILITY_GRIM_NEIGH) || check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER) && battle_participants[bank_attacker].sp_atk_buff != 0xC))
         {
             raiser = 0x14, bs = BS_ATK_ABILITY_CHANGES_ATK_STAT;
 			if(check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER))
