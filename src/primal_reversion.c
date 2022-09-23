@@ -35,7 +35,7 @@ void set_mega_attr(struct battle_participant* bank_struct, u8 bank, struct pokem
 	bank_struct->current_hp = poke_address->current_hp;
 	bank_struct->level = poke_address->level;
 
-	const struct poke_basestats* PokeStats = &((*gBaseStats)[new_species]);
+	const struct poke_basestats* PokeStats = &((gBaseStats)[new_species]);
     bank_struct->type1 = PokeStats->type1;
 	bank_struct->type2 = PokeStats->type2;
 

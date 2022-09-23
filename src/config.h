@@ -1,9 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define ALL_POKES       1200     //number of all pokemon
+#define ALL_POKES       1207     //number of all pokemon
 #define ALL_ITEMS       800     //number of all items
-#define NUM_OF_EVOS     5       //number of evolutions per pokemon
+#define NUM_OF_EVOS     10       //number of evolutions per pokemon
 #define KEYSTONE        0x78     //mega item that the player has to posses in order to mega evolve
 
 #define EXP_CAPTURE         false    //set to false if you don't want to receive exp from catching pokes

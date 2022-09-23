@@ -892,7 +892,7 @@ struct poke_basestats
 		} abilities;
 };
 
-extern const struct poke_basestats (* gBaseStats)[ALL_POKES];
+extern const struct poke_basestats gBaseStats[ALL_POKES];
 
 struct battle_info_struct
 {
@@ -951,7 +951,7 @@ struct evolution_sub
 	u8 pad2;
 };
 
-extern const struct evolution_sub (* evo_table)[ALL_POKES][NUM_OF_EVOS];
+extern const struct evolution_sub gEvolutionTable[ALL_POKES][NUM_OF_EVOS];
 
 struct b_graphics_loc
 {

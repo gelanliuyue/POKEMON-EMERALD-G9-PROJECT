@@ -182,7 +182,7 @@ bool can_change_stat(u8 bank, bool self_inflicted, u8 statchanger)
 
 const struct evolution_sub* GET_EVO_TABLE(u16 species)
 {
-    return (*evo_table)[species];
+    return gEvolutionTable[species];
 }
 
 void __attribute__((long_call)) setflag(u32 flag);
@@ -203,7 +203,7 @@ u16 lowest_evo(u16 species)
     {
         if (count > 6)
             break;
-        const struct evolution_sub* evos = (*evo_table)[lower_poke];
+        const struct evolution_sub* evos = gEvolutionTable[lower_poke];
         for (u8 j = 0; j < 5; j++)
         {
             const struct evolution_sub* evo = &evos[j];

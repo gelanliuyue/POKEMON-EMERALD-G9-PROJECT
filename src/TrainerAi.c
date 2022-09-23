@@ -1059,7 +1059,7 @@ u8 has_any_move_with_split(u8 bank, u8 split)
 u8 get_base_stat(u8 bank, u8 stat)
 {
     u16 species = ai_get_species(bank);
-    const u8* stat_value = stat + &((*gBaseStats)[species].base_hp);
+    const u8* stat_value = stat + &((gBaseStats)[species].base_hp);
     return *stat_value;
 }
 
