@@ -255,7 +255,7 @@ enum trainer_class
 #define OUTCOME_DRAW 0x3
 #define OUTCOME_RAN 0x4
 
-#define POKE_BURMY(species) (species == POKE_BURMY_PLANT || species == POKE_BURMY_SAND || species == POKE_BURMY_TRASH)
+#define POKE_BURMY(species) (species == SPECIES_BURMY || species == SPECIES_BURMY_SANDY_CLOAK || species == SPECIES_BURMY_TRASH_CLOAK)
 
 #define STAT_NEGATIVE 0x80
 #define STAT_MULTIPLE 0x8
@@ -289,8 +289,8 @@ enum trainer_class
 #define TARGET_TURN_DAMAGED (special_statuses[bank_target].moveturn_losthp)
 #define DAMAGING_MOVE(move) (move_table[move].split!=2)
 #define CHOICE_ITEM(effect) (effect == ITEM_EFFECT_CHOICEBAND || effect == ITEM_EFFECT_CHOICESCARF || effect == ITEM_EFFECT_CHOICESPECS)
-#define CHERRIM_ID(species) (species == POKE_CHERRIM || species == POKE_CHERRIM_SUNSHINE)
-#define AEGISLASH_ID(species) (species == POKE_AEGISLASH_BLADE || species == POKE_AEGISLASH_SHIELD)
+#define CHERRIM_ID(species) (species == SPECIES_CHERRIM || species == SPECIES_CHERRIM_SUNSHINE)
+#define AEGISLASH_ID(species) (species == POKE_AEGISLASH_BLADE || species == POKE_AEGISLASH)
 #define SEMI_INVULNERABLE(bank) (status3[bank].underground || status3[bank].underwater || status3[bank].on_air || status3[bank].phantomforce || new_battlestruct->bank_affecting[bank].sky_drop_attacker || new_battlestruct->bank_affecting[bank].sky_drop_target)
 #define MUST_HIT(bank_atk, bank_def) (status3[bank_def].always_hits && disable_structs[bank_def].always_hits_bank == bank_atk)
 #define CHECK_KNOCKED_OFF(bank) (battle_effects_duration.knocked_off_pokes[get_bank_side(bank)] & bits_table[battle_team_id_by_side[bank]])

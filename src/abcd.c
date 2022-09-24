@@ -199,7 +199,7 @@ u16 lowest_evo(u16 species)
         if (count > 6)
             break;
         const struct evolution_sub* evos = gEvolutionTable[lower_poke];
-        for (u8 j = 0; j < 5; j++)
+        for (u8 j = 0; j < NUM_OF_EVOS; j++)
         {
             const struct evolution_sub* evo = &evos[j];
             if (evo->poke == species && evo->method < 0xFA)
