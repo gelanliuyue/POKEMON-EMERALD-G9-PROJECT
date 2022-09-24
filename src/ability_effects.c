@@ -1422,8 +1422,7 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         break;			
 					case ABILITY_MULTITYPE: //JeremyZ
 						if (battle_participants[bank].species == SPECIES_ARCEUS &&
-							battle_participants[bank].held_item >= 0x270 &&
-							battle_participants[bank].held_item <= 0x280) {
+                                ((battle_participants[bank].held_item >= 0x1FA && battle_participants[bank].held_item <= 0x1FE) || (battle_participants[bank].held_item >= 0x2A3 && battle_participants[bank].held_item <= 0x2AE) || (battle_participants[bank].held_item == 0x249))) {
 							common_effect = 1;
 							u32 type = get_battle_item_extra_param(bank);
 							if (type == TYPE_FAIRY)

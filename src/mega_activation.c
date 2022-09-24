@@ -133,7 +133,7 @@ u16 get_mega_species(u8 bank, u8 chosen_method)
 					break;
 				case 0xFA: //Ultra Burst
 					// if(item_effect == ITEM_EFFECT_ZCRYSTAL)
-					if (battle_participants[bank].held_item == 0x283) //JeremyZ
+					if (battle_participants[bank].held_item == ITEM_ULTRANECROZIUMZ) //JeremyZ
 						goto SET_SPECIES;
 					break;
 			}
