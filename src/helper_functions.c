@@ -102,9 +102,9 @@ bool findability_in_table(u16 ability, const u16* table)
     return 0;
 }
 u16 as_one_to_neigh(u8 bank){
-	if(battle_participants[bank].species == POKE_CALYREX_WHITE)
+	if(battle_participants[bank].species == SPECIES_CALYREX_ICE_RIDER)
 		return ABILITY_CHILLING_NEIGH;
-	if(battle_participants[bank].species == POKE_CALYREX_BLACK)
+	if(battle_participants[bank].species == SPECIES_CALYREX_SHADOW_RIDER)
 		return ABILITY_GRIM_NEIGH;
 	return 0;
 }
@@ -303,7 +303,7 @@ void moxie_stat_raise(void)//switch_id：0 for ability,1 for move
 				bs = BS_PRINT_GLASTRIER_ABILITY;
             record_usage_of_ability(bank_attacker, ABILITY_MOXIE);
         }
-		else if (!switch_id && (check_ability(bank_attacker, ABILITY_GRIM_NEIGH) || check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER) && battle_participants[bank_attacker].sp_atk_buff != 0xC))
+		else if (!switch_id && ((check_ability(bank_attacker, ABILITY_GRIM_NEIGH) || check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER)) && battle_participants[bank_attacker].sp_atk_buff != 0xC))
         {
             raiser = 0x14, bs = BS_ATK_ABILITY_CHANGES_ATK_STAT;
 			if(check_ability(bank_attacker, ABILITY_AS_ONE_SHADOW_RIDER))
@@ -2752,7 +2752,7 @@ void ash_greninja_check(void)
     bool side = get_bank_side(bank_attacker);
 	if(!not_impostered(bank_attacker))
 		return;
-    if(battle_participants[bank_attacker].species==POKE_GRENINJA_SPECIAL && check_ability(bank_attacker,ABILITY_BATTLE_BOND) &&
+    if(battle_participants[bank_attacker].species==SPECIES_GRENINJA_BATTLE_BOND && check_ability(bank_attacker,ABILITY_BATTLE_BOND) &&
        (!(side && new_battlestruct->party_bit.battle_bond_ai & bits_table[battle_team_id_by_side[bank_attacker]]) ||
         (!side && new_battlestruct->party_bit.battle_bond_user & bits_table[battle_team_id_by_side[bank_attacker]])))
     {
@@ -2764,7 +2764,7 @@ void ash_greninja_check(void)
         {
             new_battlestruct->party_bit.battle_bond_user |= bits_table[battle_team_id_by_side[bank_attacker]];
         }
-        new_battlestruct->various.var1 = POKE_ASH_GRENJA;
+        new_battlestruct->various.var1 = SPECIES_GRENINJA_ASH;
         battle_scripting.active_bank=bank_attacker;
         new_battlestruct->various.var2 = 0x247;
         bs_push_current(BS_BATTLE_BOND);

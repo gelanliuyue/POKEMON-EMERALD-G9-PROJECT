@@ -188,7 +188,7 @@ void revert_mega_to_normalform_new(u8 opponent_side)
 		u16 species_to_revert = 0;
 		u16 mega_current_species = poke_address->spieces;
 		const struct evolution_sub* evos = GET_EVO_TABLE(mega_current_species);
-		if (mega_current_species == POKE_ULTRA_NECROZMA)
+		if (mega_current_species == SPECIES_NECROZMA_ULTRA)
 			species_to_revert = ((u16*) sav1->balls_pocket)[opponent_side];
 		for (u8 j = 0; j < NUM_OF_EVOS; j++)
 		{

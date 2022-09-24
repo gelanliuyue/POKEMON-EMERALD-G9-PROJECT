@@ -167,7 +167,7 @@ void update_pokenick_in_healthbox(u8 objectID, struct pokemon* poke)
         gender = poke_get_gender(poke);
     }
     //append gender sign unless it's already there
-    if ((species == POKE_NIDORANMALE || species == POKE_NIDORANFEMALE) &&
+    if ((species == SPECIES_NIDORAN_M || species == SPECIES_NIDORAN_F) &&
             compare_two_strings(string_loc, (*poke_name_table)[species]) == 0)
     {
         gender = POKE_GENDERLESS;
@@ -309,7 +309,7 @@ void b_load_sprite(struct pokemon* poke, u8 bank, const struct sprite_poke (*spr
         u16 pal_adder = 256 + bank * 16;
         gpu_pal_apply((struct palette*)(decompression_buffer), pal_adder, 0x20);
         gpu_pal_apply((struct palette*)(decompression_buffer), 0x80 + bank * 16, 0x20);
-        if (species == POKE_CASTFORM)
+        if (species == SPECIES_CASTFORM)
         {
             LZ77UnCompWram(poke_pal, &battle_stuff_ptr->castform_pal);
             gpu_pal_apply(&battle_stuff_ptr->castform_pal[castform_form[bank]], pal_adder, 0x20);

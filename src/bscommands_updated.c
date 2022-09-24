@@ -252,7 +252,7 @@ void atkC8_set_hail(void)
 		battle_weather.int_bw = weather_hail;
 		battle_communication_struct.multistring_chooser = 5;
 		for (u8 i = 0; i < no_of_all_banks; i++){//eiscue revent
-			if(check_ability(i,ABILITY_ICE_FACE) && battle_participants[i].species == POKE_EISCUE_NOICE)
+			if(check_ability(i,ABILITY_ICE_FACE) && battle_participants[i].species == SPECIES_EISCUE_NOICE_FACE)
 				new_battlestruct->bank_affecting[i].hailing_for_eiscue = 1;
 		}
 		if (get_item_effect(bank_attacker, 1) == ITEM_EFFECT_ICYROCK)
@@ -434,7 +434,7 @@ void atk8D_multihit_move_loop_counter(void)
 	{
 		if (check_ability(bank_attacker, ABILITY_SKILL_LINK))
 			multihit_counter = 5;
-		else if (battle_participants[bank_attacker].species == POKE_ASH_GRENJA && current_move == MOVE_WATER_SHURIKEN)
+		else if (battle_participants[bank_attacker].species == SPECIES_GRENINJA_ASH && current_move == MOVE_WATER_SHURIKEN)
 			multihit_counter = 3;
 		else
 		{
@@ -1494,30 +1494,30 @@ void atk49_move_end_turn(void)
 						!battle_participants[bank_attacker].status2.transformed)
 				{
 					u16* species = &battle_participants[bank_attacker].species;
-					if (*species == POKE_MELOETTA_ARIA)
+					if (*species == SPECIES_MELOETTA)
 					{
 						effect = 1;
-						new_battlestruct->various.var1 = POKE_MELOETTA_PIROUETTE;
+						new_battlestruct->various.var1 = SPECIES_MELOETTA_PIROUETTE;
 					}
-					else if (*species == POKE_MELOETTA_PIROUETTE)
+					else if (*species == SPECIES_MELOETTA_PIROUETTE)
 					{
 						effect = 1;
-						new_battlestruct->various.var1 = POKE_MELOETTA_ARIA;
+						new_battlestruct->various.var1 = SPECIES_MELOETTA;
 					}
 				}
 				if (MOVE_WORKED && (current_move == MOVE_SURF || current_move == MOVE_DIVE) &&
 						!battle_participants[bank_attacker].status2.transformed &&
-						battle_participants[bank_attacker].species == POKE_CRAMORANT && check_ability(bank_attacker,ABILITY_GULP_MISSILE))
+						battle_participants[bank_attacker].species == SPECIES_CRAMORANT && check_ability(bank_attacker,ABILITY_GULP_MISSILE))
 				{
 					if (battle_participants[bank_attacker].current_hp && (battle_participants[bank_attacker].current_hp > (battle_participants[bank_attacker].max_hp / 2))) 
 					{
 						effect = 1;
-						new_battlestruct->various.var1 = POKE_CRAMORANT_GULPING;
+						new_battlestruct->various.var1 = SPECIES_CRAMORANT_GULPING;
 					}
 					else if (battle_participants[bank_attacker].current_hp && (battle_participants[bank_attacker].current_hp <= (battle_participants[bank_attacker].max_hp / 2)))
 					{
 						effect = 1;
-						new_battlestruct->various.var1 = POKE_CRAMORANT_GORGING;
+						new_battlestruct->various.var1 = SPECIES_CRAMORANT_GORGING;
 					}
 				}
 				if (effect)
@@ -2800,7 +2800,7 @@ void atk0C_datahpupdate(void)
 			{
 				battle_scripting.active_bank = bank;
 				bs_push_current(BS_MIMIKYU_BUST);
-				new_battlestruct->various.var1 = POKE_MIMIKYU_BUSTED;
+				new_battlestruct->various.var1 = SPECIES_MIMIKYU_BUSTED;
 				new_battlestruct->various.var2 = 0x24B;
 			}
 		}
@@ -2816,7 +2816,7 @@ void atk0C_datahpupdate(void)
 			{
 				battle_scripting.active_bank = bank;
 				bs_push_current(BS_EISCUE_BUST);
-				new_battlestruct->various.var1 = POKE_EISCUE_NOICE;
+				new_battlestruct->various.var1 = SPECIES_EISCUE;
 				new_battlestruct->various.var2 = 0x21E;
 			}
 		}
@@ -3321,9 +3321,9 @@ void revert_form_change(bool mega_revert, u8 teamID, u8 side, struct pokemon* po
 	{
 		u16 current_hp = get_attributes(poke, ATTR_CURRENT_HP, 0);
 		u16 species = get_attributes(poke, ATTR_SPECIES, 0);
-		if (species == POKE_ZYGARDE_100 && battle_outcome) //JeremyZ
+		if (species == SPECIES_ZYGARDE_COMPLETE && battle_outcome) //JeremyZ
 		{
-			u16 base_species = POKE_ZYGARDE_10;
+			u16 base_species = SPECIES_ZYGARDE_10;
 			if ((side && (new_battlestruct->party_bit.is_base_z50_ai & bits_table[teamID])) ||
 					(!side && (new_battlestruct->party_bit.is_base_z50_user & bits_table[teamID])))
 			{
@@ -3335,7 +3335,7 @@ void revert_form_change(bool mega_revert, u8 teamID, u8 side, struct pokemon* po
 				{
 					new_battlestruct->party_bit.is_base_z50_user = 0;
 				}
-				base_species = POKE_ZYGARDE_50_POWER_CONSTRUCT; //JeremyZ
+				base_species = SPECIES_ZYGARDE_50_POWER_CONSTRUCT; //JeremyZ
 			}
 			set_attributes(poke, ATTR_SPECIES, &base_species);
 			calculate_stats_pokekmon(poke);
@@ -3352,18 +3352,26 @@ void revert_form_change(bool mega_revert, u8 teamID, u8 side, struct pokemon* po
 			{
 				return;
 			}
-			static const struct revert_form_struct revert_mapping[] = {{POKE_CHERRIM_SUNSHINE, POKE_CHERRIM},
-					{POKE_AEGISLASH_BLADE, POKE_AEGISLASH_SHIELD}, {POKE_DARMANITAN_ZEN, POKE_DARMANITAN},
-					{POKE_MINIOR_METEOR, POKE_MINIOR_CORE},
-					{POKE_WISHIWASHI_SCHOOL, POKE_WISHIWASHI}, {POKE_ASH_GRENJA, POKE_GRENINJA_SPECIAL},
-					{POKE_MIMIKYU_BUSTED, POKE_MIMIKYU}, {POKE_LUNALA_FULL_MOON, POKE_LUNALA}, {POKE_XERNEAS_ACTIVE, POKE_XERNEAS}, {POKE_SOLGALEO_RADIANT_SUN, POKE_SOLGALEO}, {POKE_MARSHADOW_ATTACK, POKE_MARSHADOW},{POKE_EISCUE_NOICE, POKE_EISCUE},{POKE_CRAMORANT_GULPING,POKE_CRAMORANT},{POKE_CRAMORANT_GORGING,POKE_CRAMORANT},{POKE_MORPEKO_HANGRY,POKE_MORPEKO},
+			static const struct revert_form_struct revert_mapping[] = {{SPECIES_CHERRIM_SUNSHINE, SPECIES_CHERRIM},
+					{SPECIES_AEGISLASH_BLADE, SPECIES_AEGISLASH}, {SPECIES_DARMANITAN_ZEN_MODE, SPECIES_DARMANITAN},
+//					{SPECIES_MINIOR, SPECIES_MINIOR_CORE},
+					{SPECIES_WISHIWASHI_SCHOOL, SPECIES_WISHIWASHI}, {SPECIES_GRENINJA_ASH, SPECIES_GRENINJA_BATTLE_BOND},
+					{SPECIES_MIMIKYU_BUSTED, SPECIES_MIMIKYU},
+					{SPECIES_NECROZMA_DUSK_MANE, SPECIES_LUNALA},
+					{SPECIES_XERNEAS_ACTIVE, SPECIES_XERNEAS},
+					{SPECIES_NECROZMA_DAWN_WINGS, SPECIES_SOLGALEO},
+//					{SPECIES_MARSHADOW_ATTACK, SPECIES_MARSHADOW},
+					{SPECIES_EISCUE_NOICE_FACE, SPECIES_EISCUE},
+					{SPECIES_CRAMORANT_GULPING,SPECIES_CRAMORANT},
+					{SPECIES_CRAMORANT_GORGING,SPECIES_CRAMORANT},
+					{SPECIES_MORPEKO_HANGRY,SPECIES_MORPEKO},
 					{0xFFFF, 0}};
 			for (u32 i = 0; revert_mapping[i].current_species != 0xFFFF; i++)
 			{
 				if (species == revert_mapping[i].current_species)
 				{
 					species = revert_mapping[i].base_form;
-					/*if (species == POKE_MINIOR_CORE)
+					/*if (species == SPECIES_MINIOR_CORE)
 					{
 						u8 change = __umodsi3(get_attributes(poke, ATTR_PID, 0), 7);//random_value(7)
 						if (change)
@@ -4059,7 +4067,7 @@ void evs_update(struct pokemon* poke, u16 defeated_species)
 bool is_poke_usable(struct pokemon* poke)
 {
 	u16 species = get_attributes(poke, ATTR_SPECIES_2, 0);
-	if (species != 0 && species != POKE_EGG && get_attributes(poke, ATTR_CURRENT_HP, 0))
+	if (species != 0 && species != SPECIES_EGG && get_attributes(poke, ATTR_CURRENT_HP, 0))
 		return 1;
 	return 0;
 }

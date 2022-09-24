@@ -41,11 +41,11 @@ void try_burmy_change(u8 id, struct pokemon* poke)
         {
             u16 to_change;
             if (battle_env_bg >= 8)
-                to_change = POKE_BURMY_TRASH;
+                to_change = SPECIES_BURMY_TRASH_CLOAK;
             else if (battle_env_bg == BACKGROUND_SAND || battle_env_bg >= BACKGROUND_ROCK)
-                to_change = POKE_BURMY_SAND;
+                to_change = SPECIES_BURMY_SANDY_CLOAK;
             else
-                to_change = POKE_BURMY_PLANT;
+                to_change = SPECIES_BURMY;
             if (species != to_change)
             {
                 set_attributes(poke, ATTR_SPECIES, &to_change);
@@ -91,8 +91,8 @@ void free_new_struct(void)
 			}
 		}
     }
-	u32* battle_flags = (u32*)0x02022FEC;//battle_flags
-    *battle_flags &= 1024;
+	u32* battle_flags_u32 = (u32*)0x02022FEC;//battle_flags
+    *battle_flags_u32 &= 1024;
     free(battle_stuff_ptr);
     free(new_battlestruct);
 	battle_chosen_bg = 0;

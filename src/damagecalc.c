@@ -495,7 +495,7 @@ u16 get_speed(u8 bank) {
             speed = percent_boost(speed, 50);
             break;
         case ITEM_EFFECT_QUICKPOWDER:
-            if (battle_participants[bank].species == POKE_DITTO && !battle_participants[bank].status2.transformed)
+            if (battle_participants[bank].species == SPECIES_DITTO && !battle_participants[bank].status2.transformed)
                 speed <<= 1;
             break;
     }
@@ -843,7 +843,7 @@ u16 get_base_power(u16 move, u8 atk_bank, u8 def_bank) {
         }
             break;
         case MOVE_WATER_SHURIKEN:
-            if (battle_participants[bank_attacker].species == POKE_ASH_GRENJA)
+            if (battle_participants[bank_attacker].species == SPECIES_GRENINJA_ASH)
                 base_power = 20;
             break;
         case MOVE_STOMPING_TANTRUM: //Stomping Tantrum, JeremyZ
@@ -1094,19 +1094,19 @@ u16 apply_base_power_modifiers(u16 move, u8 move_type, u8 atk_bank, u8 def_bank,
             break;
         case ITEM_EFFECT_LUSTROUSORB:
             if ((move_type == TYPE_WATER || move_type == TYPE_DRAGON) &&
-                battle_participants[atk_bank].species == POKE_PALKIA) {
+                battle_participants[atk_bank].species == SPECIES_PALKIA) {
                 modifier = chain_modifier(modifier, 0x1333);
             }
             break;
         case ITEM_EFFECT_ADAMANTORB:
             if ((move_type == TYPE_STEEL || move_type == TYPE_DRAGON) &&
-                battle_participants[atk_bank].species == POKE_DIALGA) {
+                battle_participants[atk_bank].species == SPECIES_DIALGA) {
                 modifier = chain_modifier(modifier, 0x1333);
             }
             break;
         case ITEM_EFFECT_GRISEOUSORB:
             if ((move_type == TYPE_GHOST || move_type == TYPE_DRAGON) &&
-                (battle_participants[atk_bank].species == POKE_GIRATINA)) {
+                (battle_participants[atk_bank].species == SPECIES_GIRATINA)) {
                 modifier = chain_modifier(modifier, 0x1333);
             }
             break;
@@ -1418,34 +1418,31 @@ u16 get_attack_stat(u16 move, u8 move_type, u8 atk_bank, u8 def_bank) {
         case ITEM_EFFECT_THICKCLUB:
             if (move_split == MOVE_PHYSICAL) {
                 u16 specie = battle_participants[atk_bank].species;
-                if (specie == POKE_MAROWAK || specie == POKE_CUBONE || specie == 0x369)
+                if (specie == SPECIES_MAROWAK || specie == SPECIES_CUBONE || specie == 0x369)
                     modifier = chain_modifier(modifier, 0x2000);
             }
             break;
         case ITEM_EFFECT_DEEPSEATOOTH:
-            if (move_split == MOVE_SPECIAL && (battle_participants[atk_bank].species == POKE_CLAMPERL)) {
+            if (move_split == MOVE_SPECIAL && (battle_participants[atk_bank].species == SPECIES_CLAMPERL)) {
                 modifier = chain_modifier(modifier, 0x2000);
             }
             break;
 		case ITEM_EFFECT_ZCRYSTAL: //Z-Crystals for Ash's Pikachu
 			if (move_split == MOVE_SPECIAL && battle_participants[atk_bank].held_item == ITEM_PIKASHUNIUMZ &&
-			((battle_participants[atk_bank].species >= 0X3DD && battle_participants[atk_bank].species <= 0X3E2) ||
-			battle_participants[atk_bank].species == 0x434)) {
+			(battle_participants[atk_bank].species >= SPECIES_PIKACHU_ORIGINAL_CAP && battle_participants[atk_bank].species <= SPECIES_PIKACHU_ORIGINAL_CAP)) {
 				modifier = chain_modifier(modifier, 0x2000);
 			}
 			break;
         case ITEM_EFFECT_LIGHTBALL:
 
-            if (battle_participants[atk_bank].species == POKE_PIKACHU ||
-                (battle_participants[atk_bank].species >= 0X3DD && battle_participants[atk_bank].species <= 0X3e2) ||
-                (battle_participants[atk_bank].species >= 0x37B && battle_participants[atk_bank].species <= 0x380) ||
-                battle_participants[atk_bank].species == 0x434) {
+            if (battle_participants[atk_bank].species == SPECIES_PIKACHU ||
+                (battle_participants[atk_bank].species >= SPECIES_PIKACHU_COSPLAY && battle_participants[atk_bank].species <= SPECIES_PIKACHU_WORLD_CAP)) {
                 modifier = chain_modifier(modifier, 0x2000);
             }
             break;
         case ITEM_EFFECT_SOULDEW:
-            if (move_split == MOVE_SPECIAL && (battle_participants[atk_bank].species == POKE_LATIAS ||
-                                               battle_participants[atk_bank].species == POKE_LATIOS)) {
+            if (move_split == MOVE_SPECIAL && (battle_participants[atk_bank].species == SPECIES_LATIAS ||
+                                               battle_participants[atk_bank].species == SPECIES_LATIOS)) {
                 modifier = chain_modifier(modifier, 0x1800);
             }
             break;
@@ -1519,13 +1516,13 @@ u16 get_def_stat(u16 move, u8 atk_bank, u8 def_bank) {
 
     switch (get_item_effect(def_bank, 1)) {
         case ITEM_EFFECT_DEEPSEASCALE:
-            if (move_split == MOVE_SPECIAL && battle_participants[def_bank].species == POKE_CLAMPERL) {
+            if (move_split == MOVE_SPECIAL && battle_participants[def_bank].species == SPECIES_CLAMPERL) {
                 modifier = chain_modifier(modifier, 0x1800);
             }
             break;
         case ITEM_EFFECT_SOULDEW:
-            if (move_split == MOVE_SPECIAL && (battle_participants[def_bank].species == POKE_LATIAS ||
-                                               battle_participants[def_bank].species == POKE_LATIOS)) {
+            if (move_split == MOVE_SPECIAL && (battle_participants[def_bank].species == SPECIES_LATIAS ||
+                                               battle_participants[def_bank].species == SPECIES_LATIOS)) {
                 modifier = chain_modifier(modifier, 0x1800);
             }
             break;
@@ -1540,7 +1537,7 @@ u16 get_def_stat(u16 move, u8 atk_bank, u8 def_bank) {
             }
             break;
         case ITEM_EFFECT_METALPOWDER:
-            if (battle_participants[def_bank].species == POKE_DITTO && move_split == MOVE_PHYSICAL &&
+            if (battle_participants[def_bank].species == SPECIES_DITTO && move_split == MOVE_PHYSICAL &&
                 !(battle_participants[def_bank].status2.transformed)) {
                 modifier = chain_modifier(modifier, 0x2000);
             }

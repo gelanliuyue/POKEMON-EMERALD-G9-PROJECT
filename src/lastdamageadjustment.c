@@ -30,7 +30,7 @@ void atk07_final_dmg_calc(void)
     if (battle_execution_buffer) {return;}
     battlescripts_curr_instruction++;
 
-    if(battle_participants[bank_target].species == POKE_MIMIKYU && check_ability(bank_target,ABILITY_DISGUISE)
+    if(battle_participants[bank_target].species == SPECIES_MIMIKYU && check_ability(bank_target,ABILITY_DISGUISE)
        && has_ability_effect(bank_target, 1, 1) && MOVE_WORKED && !affected_by_substitute(bank_target) && not_impostered(bank_target)) //JeremyZ
     {
         new_battlestruct->various.bust_mimikyu = 1;
@@ -39,7 +39,7 @@ void atk07_final_dmg_calc(void)
         move_outcome.not_very_effective = 0;
         move_outcome.one_hit_ko = 0;
     }
-    else if(battle_participants[bank_target].species == POKE_EISCUE && check_ability(bank_target,ABILITY_ICE_FACE)
+    else if(battle_participants[bank_target].species == SPECIES_EISCUE && check_ability(bank_target,ABILITY_ICE_FACE)
        && has_ability_effect(bank_target, 1, 1) && MOVE_WORKED && move_table[current_move].split == MOVE_PHYSICAL && !affected_by_substitute(bank_target) && not_impostered(bank_target)) //shupian
     {
         new_battlestruct->various.bust_eiscue = 1;

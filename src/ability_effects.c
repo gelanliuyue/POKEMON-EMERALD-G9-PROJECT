@@ -200,7 +200,7 @@ static bool HP_half_drop(u8 bank) {
 }
 
 enum CastformForm castform_change(u8 bank) {
-    if (battle_participants[bank].species == POKE_CASTFORM) {
+    if (battle_participants[bank].species == SPECIES_CASTFORM) {
         enum CastformForm form = castform_form[bank];
         bool weather = weather_abilities_effect();
         bool forecast = check_ability(bank, ABILITY_FORECAST);
@@ -246,12 +246,12 @@ enum CherrimForm cherrim_change(u8 bank) {
         enum CherrimForm form = new_battlestruct->bank_affecting[bank].cherrim_form;
         //Check if needs to become normal form
         if (form != CherrimNormal && (!weather || !flowergift || !SUN_WEATHER)) {
-            species_change(bank, POKE_CHERRIM);
+            species_change(bank, SPECIES_CHERRIM);
             return CherrimNormal;
         }
         //check if needs to become sun form
         if (form != CherrimSunny && weather && flowergift && SUN_WEATHER) {
-            species_change(bank, POKE_CHERRIM_SUNSHINE);
+            species_change(bank, SPECIES_CHERRIM);
             return CherrimSunny;
         }
     }
@@ -468,18 +468,18 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                     }
                     break;	
 				case ABILITY_HUNGER_SWITCH: //shupian	
-                        if (battle_participants[bank].species == POKE_MORPEKO
+                        if (battle_participants[bank].species == SPECIES_MORPEKO
                             && (battle_participants[bank].current_hp > 0) && 
 							!battle_participants[bank].status2.transformed ) {
                             common_effect = 1;
-                            new_battlestruct->various.var1 = POKE_MORPEKO_HANGRY;
+                            new_battlestruct->various.var1 = SPECIES_MORPEKO_HANGRY;
                             new_battlestruct->various.var2 = 0x244;
                             script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
                         }
-                        else if (battle_participants[bank].species == POKE_MORPEKO_HANGRY
+                        else if (battle_participants[bank].species == SPECIES_MORPEKO_HANGRY
                             && (battle_participants[bank].current_hp > 0) ) {
                             common_effect = 1;
-                            new_battlestruct->various.var1 = POKE_MORPEKO;
+                            new_battlestruct->various.var1 = SPECIES_MORPEKO;
                             new_battlestruct->various.var2 = 0x244;
                             script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
                         }						
@@ -680,18 +680,18 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
 							bank == bank_target	&& !check_ability(bank_attacker, ABILITY_MAGIC_GUARD) && !battle_participants[bank].status2.transformed) {
 							battle_scripting.active_bank = bank;
 							new_battlestruct->various.var2 = 0x275;	
-							if(battle_participants[bank].species == POKE_CRAMORANT_GULPING){
+							if(battle_participants[bank].species == SPECIES_CRAMORANT_GULPING){
 								bs_push_current(BS_GULP_MISSILE_GULPING);
-								new_battlestruct->various.var1 = POKE_CRAMORANT;
+								new_battlestruct->various.var1 = SPECIES_CRAMORANT;
 								battle_scripting.stat_changer = 0x92;		
 								damage_loc = get_1_4_of_max_hp(bank_attacker);
 								effect = true;
 							}
-							else if(battle_participants[bank].species == POKE_CRAMORANT_GORGING){
+							else if(battle_participants[bank].species == SPECIES_CRAMORANT_GORGING){
 								new_battlestruct->move_effect.effect1 = MOVEEFFECT_PRLZ | MOVEEFFECT_AFFECTSUSER;
 								hitmarker |= HITMAKRER_IGNORE_SAFEGUARD;
 								bs_push_current(BS_GULP_MISSILE_GORGING);	
-								new_battlestruct->various.var1 = POKE_CRAMORANT;
+								new_battlestruct->various.var1 = SPECIES_CRAMORANT;
 								damage_loc = get_1_4_of_max_hp(bank_attacker);
 								effect = true;
 							}
@@ -719,7 +719,7 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                                 case ABILITY_ICE_FACE:
                                     break;
                                 case ABILITY_DISGUISE:
-                                    if (battle_participants[bank_attacker].species == POKE_MIMIKYU)
+                                    if (battle_participants[bank_attacker].species == SPECIES_MIMIKYU)
                                         break;
                                 default:
                                     effect = true;
@@ -749,7 +749,7 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
 								case ABILITY_NEUTRALIZING_GAS:
                                     break;
                                 case ABILITY_DISGUISE:
-                                    if (battle_participants[bank_attacker].species == POKE_MIMIKYU)
+                                    if (battle_participants[bank_attacker].species == SPECIES_MIMIKYU)
                                         break;
                                 default:
                                     effect = true;
@@ -1400,28 +1400,28 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u16 ability_to_check, u8 specia
                         }
                         break;
                     case ABILITY_SHIELDS_DOWN:
-                        if (battle_participants[bank].species == POKE_MINIOR_CORE &&
+                        if (battle_participants[bank].species == SPECIES_MINIOR_CORE_RED &&
                             battle_participants[bank].current_hp >= (battle_participants[bank].max_hp >> 1) &&
                             !battle_participants[bank].status2.transformed) {
-                            new_battlestruct->various.var1 = POKE_MINIOR_METEOR;
+                            new_battlestruct->various.var1 = SPECIES_MINIOR;
                             new_battlestruct->various.var2 = 0x242;
                             script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
                             common_effect = 1;
                             break;
                         }
                     case ABILITY_SCHOOLING:
-                        if (battle_participants[bank].species == POKE_WISHIWASHI &&
+                        if (battle_participants[bank].species == SPECIES_WISHIWASHI &&
                             battle_participants[bank].level >= SCHOOLING_LEVEL
                             && (battle_participants[bank].current_hp >= (battle_participants[bank].max_hp >> 2)) &&
                             !battle_participants[bank].status2.transformed) {
                             common_effect = 1;
-                            new_battlestruct->various.var1 = POKE_WISHIWASHI_SCHOOL;
+                            new_battlestruct->various.var1 = SPECIES_WISHIWASHI_SCHOOL;
                             new_battlestruct->various.var2 = 0x244;
                             script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
                         }
                         break;			
 					case ABILITY_MULTITYPE: //JeremyZ
-						if (battle_participants[bank].species == POKE_ARCEUS &&
+						if (battle_participants[bank].species == SPECIES_ARCEUS &&
 							battle_participants[bank].held_item >= 0x270 &&
 							battle_participants[bank].held_item <= 0x280) {
 							common_effect = 1;
