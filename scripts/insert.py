@@ -10,7 +10,7 @@ import sys
 
 OFFSET_TO_PUT = 0x1a00000
 CUSTOM_OFFSET = 0x17A0000
-FIX_EVO = False
+FIX_EVO = True
 
 PathVar = os.environ.get('Path')
 Paths = PathVar.split(';')
