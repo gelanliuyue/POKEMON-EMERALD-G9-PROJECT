@@ -1418,7 +1418,7 @@ u16 get_attack_stat(u16 move, u8 move_type, u8 atk_bank, u8 def_bank) {
         case ITEM_EFFECT_THICKCLUB:
             if (move_split == MOVE_PHYSICAL) {
                 u16 specie = battle_participants[atk_bank].species;
-                if (specie == SPECIES_MAROWAK || specie == SPECIES_CUBONE || specie == 0x369)
+                if (specie == SPECIES_MAROWAK || specie == SPECIES_CUBONE || specie == 1020)
                     modifier = chain_modifier(modifier, 0x2000);
             }
             break;
