@@ -112,7 +112,7 @@ bool is_poke_ultrabeast(u16 species)
 u32 calc_ball_formula(enum ball_index ball_no, struct battle_participant* catching)
 {
     u8 multiplier = 10;
-    u8 catchrate = (*basestat_table)[catching->species].catch_rate;
+    u8 catchrate = (gBaseStats)[catching->species].catch_rate;
     if (is_poke_ultrabeast(catching->species) && ball_no != BALL_MASTER && ball_no != BALL_BEAST)
         multiplier = 1;
 	else {
@@ -177,7 +177,7 @@ u32 calc_ball_formula(enum ball_index ball_no, struct battle_participant* catchi
         }
         break;
     case BALL_FAST:
-        if ((*basestat_table)[catching->species].base_spd >= 100)
+        if ((gBaseStats)[catching->species].base_spd >= 100)
             multiplier = 40;
         break;
     case BALL_LOVE:

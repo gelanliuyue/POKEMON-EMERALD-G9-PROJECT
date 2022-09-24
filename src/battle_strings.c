@@ -647,7 +647,7 @@ const u8* get_move_name(u16 move)
 	return move_names_table[move];
 }
 
-const u8* get_ability_name_ptr(enum poke_abilities ability)
+const u8* get_ability_name_ptr(u16 ability)
 {
 	return ability_names_table[ability];
 }

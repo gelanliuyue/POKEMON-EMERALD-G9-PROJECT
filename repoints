@@ -1,25 +1,8 @@
-###learnset_table
-learnset_table 0806E3B4
-learnset_table 080693A0
-learnset_table 08069414
-learnset_table 0806E1F8
-learnset_table 0806E250
-learnset_table 081A00AC
-learnset_table 081A0278
-###learnset_table
 ### bs commands
 bs_commands 0803CD94
 bs_commands 0803DE38
 bs_commands 080458D8
 bs_commands 0803E084
-### ability names repoint
-ability_names_table 080001C0
-ability_names_table 0814F0D4
-ability_names_table 0814F854
-ability_names_table 081C3028
-### ability descriptions repoint
-ability_desc_table 080001C4
-ability_desc_table 081C3078
 ### move animations repoint
 move_animations_table 080A3A44
 ### move names repoint
@@ -277,8 +260,6 @@ TAI_SCRIPT_2 082DBF00
 TAI_SCRIPT_3 082DBF04
 TAI_SCRIPT_7 082DBF14
 TAI_SCRIPT_1D 082DBF6C
-### learnsets for PGEscript.py
-learnset_table 0806930C
 ### exp give
 BS_POKE_FAINTS_EXP_SLIDEIN 08041754
 ### trainer throw images
@@ -305,9 +286,6 @@ trainerhrow_positions 0818BEB8
 trainerhrow_positions 081BD3A4
 ## hook into bs that asks you if you want to switch poke
 BS_ASK_FOR_SWITCHING 082DA82E
-##egg_moves
-egg_moves 080703F0
-egg_moves 08070468
 ##correct_0x2ddf6A
 correct_0x2ddf6A 082DDF6A
 

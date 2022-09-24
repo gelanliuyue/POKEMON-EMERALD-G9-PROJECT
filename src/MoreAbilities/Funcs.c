@@ -33,7 +33,12 @@ struct string_inf
  */
 u16 GetAbilityBySpecies(u16 species, u8 slot)
 {
-    return (last_used_ability = glPokeAbilities[species][slot]);
+	if (slot == 0)
+    	return (last_used_ability = (gBaseStats)[species].abilities.a1);
+	if (slot == 1)
+    	return (last_used_ability = (gBaseStats)[species].abilities.a2);
+	else
+    	return (last_used_ability = (gBaseStats)[species].abilities.a3);
 }
 
 /**

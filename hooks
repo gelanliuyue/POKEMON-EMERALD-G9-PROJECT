@@ -67,7 +67,6 @@ is_in_tag_battle 081B1250 0
 tag_wild_prepare_buffer_hook 0803AEC0 0
 bbp2F_trainer_throw 0805CB28 0
 get_battle_bank 0803F3CC 1
-is_using_two_frame_anim 0806F0D4 2
 ##yeren 08100108 0
 sub_0x8108ac0_task 08108ad4 1
 trainer_battle_music 0x806e4a8 3

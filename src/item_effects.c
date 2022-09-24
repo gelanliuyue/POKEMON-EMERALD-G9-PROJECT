@@ -18,7 +18,7 @@ u8 get_attacking_move_type(void);
 void move_to_buff1(u16 move);
 struct pokemon* get_bank_poke_ptr(u8 bank);
 bool can_poke_be_switched_into(u8 index, u8 bank);
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 u8 get_bank_side(u8 bank);
 void bs_push(void* to_return, void* now);
 void bs_push_current(void* now);
@@ -44,7 +44,7 @@ u8 get_item_effect(u8 bank, bool check_negating_effects)
     {
         if (check_ability(bank, ABILITY_KLUTZ) || new_battlestruct->field_affecting.magic_room || new_battlestruct->bank_affecting[bank].embargo)
             return ITEM_EFFECT_NOEFFECT;
-        if (get_item_pocket_id(held_item)==4 && (check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE, get_bank_side(bank), 0)))
+        if (get_item_pocket_id(held_item)==4 && (check_field_for_ability(ABILITY_UNNERVE, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE_ICE_RIDER, get_bank_side(bank), 0) || check_field_for_ability(ABILITY_AS_ONE_SHADOW_RIDER, get_bank_side(bank), 0) ))
             return ITEM_EFFECT_NOEFFECT;
     }
     if (held_item == ITEM_ENIGMABERRY)

@@ -1,1205 +1,1373 @@
 #ifndef POKE_INDICES_H
 #define POKE_INDICES_H
 
-#define	POKE_EMPTYSLOT	0x0
-#define	POKE_BULBASAUR	0x0001	/*妙蛙种子*/
-#define	POKE_IVYSAUR	0x0002	/*妙蛙草*/
-#define	POKE_VENUSAUR	0x0003	/*妙蛙花*/
-#define	POKE_CHARMANDER	0x0004	/*小火龙*/
-#define	POKE_CHARMELEON	0x0005	/*火恐龙*/
-#define	POKE_CHARIZARD	0x0006	/*喷火龙*/
-#define	POKE_SQUIRTLE	0x0007	/*杰尼龟*/
-#define	POKE_WARTORTLE	0x0008	/*卡咪龟*/
-#define	POKE_BLASTOISE	0x0009	/*水箭龟*/
-#define	POKE_CATERPIE	0x000A	/*绿毛虫*/
-#define	POKE_METAPOD	0x000B	/*铁甲蛹*/
-#define	POKE_BUTTERFREE	0x000C	/*巴大蝶*/
-#define	POKE_WEEDLE	0x000D	/*独角虫*/
-#define	POKE_KAKUNA	0x000E	/*铁壳蛹*/
-#define	POKE_BEEDRILL	0x000F	/*大针蜂*/
-#define	POKE_PIDGEY	0x0010	/*波波*/
-#define	POKE_PIDGEOTTO	0x0011	/*比比鸟*/
-#define	POKE_PIDGEOT	0x0012	/*大比鸟*/
-#define	POKE_RATTATA	0x0013	/*小拉达*/
-#define	POKE_RATICATE	0x0014	/*拉达*/
-#define	POKE_SPEARROW	0x0015	/*烈雀*/
-#define	POKE_FEARROW	0x0016	/*大嘴雀*/
-#define	POKE_EKANS	0x0017	/*阿柏蛇*/
-#define	POKE_ARBOK	0x0018	/*阿柏怪*/
-#define	POKE_PIKACHU	0x0019	/*皮卡丘*/
-#define	POKE_RAICHU	0x001A	/*雷丘*/
-#define	POKE_SANDSHREW	0x001B	/*穿山鼠*/
-#define	POKE_SANDSLASH	0x001C	/*穿山王*/
-#define	POKE_NIDORANFEMALE	0x001D	/*尼多兰*/
-#define	POKE_NIDORINA	0x001E	/*尼多娜*/
-#define	POKE_NIDOQUEEN	0x001F	/*尼多后*/
-#define	POKE_NIDORANMALE	0x0020	/*尼多朗*/
-#define	POKE_NIDORINO	0x0021	/*尼多力诺*/
-#define	POKE_NIDOKING	0x0022	/*尼多王*/
-#define	POKE_CLEFAIRY	0x0023	/*皮皮*/
-#define	POKE_CLEFABLE	0x0024	/*皮可西*/
-#define	POKE_VULPIX	0x0025	/*六尾*/
-#define	POKE_NINETALES	0x0026	/*九尾*/
-#define	POKE_JIGGLYPUFF	0x0027	/*胖丁*/
-#define	POKE_WIGGLYTUFF	0x0028	/*胖可丁*/
-#define	POKE_ZUBAT	0x0029	/*超音蝠*/
-#define	POKE_GOLBAT	0x002A	/*大嘴蝠*/
-#define	POKE_ODDISH	0x002B	/*走路草*/
-#define	POKE_GLOOM	0x002C	/*臭臭花*/
-#define	POKE_VILEPLUME	0x002D	/*霸王花*/
-#define	POKE_PARAS	0x002E	/*派拉斯*/
-#define	POKE_PARASECT	0x002F	/*派拉斯特*/
-#define	POKE_VENONAT	0x0030	/*毛球*/
-#define	POKE_VENOMOTH	0x0031	/*摩鲁蛾*/
-#define	POKE_DIGLETT	0x0032	/*地鼠*/
-#define	POKE_DUGTRIO	0x0033	/*三地鼠*/
-#define	POKE_MEOWTH	0x0034	/*喵喵*/
-#define	POKE_PERSIAN	0x0035	/*猫老大*/
-#define	POKE_PSYDUCK	0x0036	/*可达鸭*/
-#define	POKE_GOLDUCK	0x0037	/*哥达鸭*/
-#define	POKE_MANKEY	0x0038	/*猴怪*/
-#define	POKE_PRIMAPE	0x0039	/*火暴猴*/
-#define	POKE_GROWLITHE	0x003A	/*卡蒂狗*/
-#define	POKE_ARCANINE	0x003B	/*风速狗*/
-#define	POKE_POLIWAG	0x003C	/*蚊香蝌蚪*/
-#define	POKE_POLIWHIRL	0x003D	/*蚊香君*/
-#define	POKE_POLIWRATH	0x003E	/*蚊香泳士*/
-#define	POKE_ABRA	0x003F	/*凯西*/
-#define	POKE_KADABRA	0x0040	/*勇基拉*/
-#define	POKE_ALAKAZAM	0x0041	/*胡地*/
-#define	POKE_MACHOP	0x0042	/*腕力*/
-#define	POKE_MACHOKE	0x0043	/*豪力*/
-#define	POKE_MACHAMP	0x0044	/*怪力*/
-#define	POKE_BELLSPROUT	0x0045	/*喇叭芽*/
-#define	POKE_WEEPINBELL	0x0046	/*口呆花*/
-#define	POKE_VICTREEBEL	0x0047	/*大食花*/
-#define	POKE_TENTACOOL	0x0048	/*玛瑙水母*/
-#define	POKE_TENTACRUEL	0x0049	/*毒刺水母*/
-#define	POKE_GEODUDE	0x004A	/*小拳石*/
-#define	POKE_GRAVELER	0x004B	/*隆隆石*/
-#define	POKE_GOLEM	0x004C	/*隆隆岩*/
-#define	POKE_PONYTA	0x004D	/*小火马*/
-#define	POKE_RAPIDASH	0x004E	/*烈焰马*/
-#define	POKE_SLOWPOKE	0x004F	/*呆呆兽*/
-#define	POKE_SLOWBRO	0x0050	/*呆壳兽*/
-#define	POKE_MAGNEMITE	0x0051	/*小磁怪*/
-#define	POKE_MAGNETON	0x0052	/*三合一磁怪*/
-#define	POKE_FARFETCHD	0x0053	/*大葱鸭*/
-#define	POKE_DODUO	0x0054	/*嘟嘟*/
-#define	POKE_DODRIO	0x0055	/*嘟嘟利*/
-#define	POKE_SEEL	0x0056	/*小海狮*/
-#define	POKE_DEWGONG	0x0057	/*白海狮*/
-#define	POKE_GRIMER	0x0058	/*臭泥*/
-#define	POKE_MUK	0x0059	/*臭臭泥*/
-#define	POKE_SHELLDER	0x005A	/*大舌贝*/
-#define	POKE_CLOYSTER	0x005B	/*刺甲贝*/
-#define	POKE_GASTLY	0x005C	/*鬼斯*/
-#define	POKE_HAUNTER	0x005D	/*鬼斯通*/
-#define	POKE_GENGAR	0x005E	/*耿鬼*/
-#define	POKE_ONIX	0x005F	/*大岩蛇*/
-#define	POKE_DROWZEE	0x0060	/*催眠貘*/
-#define	POKE_HYPNO	0x0061	/*引梦貘人*/
-#define	POKE_KRABBY	0x0062	/*大钳蟹*/
-#define	POKE_KINGLER	0x0063	/*巨钳蟹*/
-#define	POKE_VOLTORB	0x0064	/*霹雳电球*/
-#define	POKE_ELECTRODE	0x0065	/*顽皮雷弹*/
-#define	POKE_EXEGGCUTE	0x0066	/*蛋蛋*/
-#define	POKE_EXEGGUTOR	0x0067	/*椰蛋树*/
-#define	POKE_CUBONE	0x0068	/*卡拉卡拉*/
-#define	POKE_MAROWAK	0x0069	/*嘎啦嘎啦*/
-#define	POKE_HITMONLEE	0x006A	/*飞腿郎*/
-#define	POKE_HITMONCHAN	0x006B	/*快拳郎*/
-#define	POKE_LICKITUNG	0x006C	/*大舌头*/
-#define	POKE_KOFFING	0x006D	/*瓦斯弹*/
-#define	POKE_WEEZING	0x006E	/*双弹瓦斯*/
-#define	POKE_RHYHORN	0x006F	/*独角犀牛*/
-#define	POKE_RHYDON	0x0070	/*钻角犀兽*/
-#define	POKE_CHANSEY	0x0071	/*吉利蛋*/
-#define	POKE_TANGELA	0x0072	/*蔓藤怪*/
-#define	POKE_KANGASKHAN	0x0073	/*袋兽*/
-#define	POKE_HORSEA	0x0074	/*墨海马*/
-#define	POKE_SEADRA	0x0075	/*海刺龙*/
-#define	POKE_GOLDEEN	0x0076	/*角金鱼*/
-#define	POKE_SEAKING	0x0077	/*金鱼王*/
-#define	POKE_STARYU	0x0078	/*海星星*/
-#define	POKE_STARMIE	0x0079	/*宝石海星*/
-#define	POKE_MRMIME	0x007A	/*魔墙人偶*/
-#define	POKE_SCYTHER	0x007B	/*飞天螳螂*/
-#define	POKE_JYNX	0x007C	/*迷唇姐*/
-#define	POKE_ELECTABUZZ	0x007D	/*电击兽*/
-#define	POKE_MAGMAR	0x007E	/*鸭嘴火兽*/
-#define	POKE_PINSIR	0x007F	/*凯罗斯*/
-#define	POKE_TAUROS	0x0080	/*肯泰罗*/
-#define	POKE_MAGIKARP	0x0081	/*鲤鱼王*/
-#define	POKE_GYARADOS	0x0082	/*暴鲤龙*/
-#define	POKE_LAPRAS	0x0083	/*拉普拉斯*/
-#define	POKE_DITTO	0x0084	/*百变怪*/
-#define	POKE_EEVEE	0x0085	/*伊布*/
-#define	POKE_VAPOREON	0x0086	/*水伊布*/
-#define	POKE_JOLTEON	0x0087	/*雷伊布*/
-#define	POKE_FLAREON	0x0088	/*火伊布*/
-#define	POKE_PORYGON	0x0089	/*多边兽*/
-#define	POKE_OMANYTE	0x008A	/*菊石兽*/
-#define	POKE_OMASTAR	0x008B	/*多刺菊石兽*/
-#define	POKE_KABUTO	0x008C	/*化石盔*/
-#define	POKE_KABUTOPS	0x008D	/*镰刀盔*/
-#define	POKE_AERODACTYL	0x008E	/*化石翼龙*/
-#define	POKE_SNORLAX	0x008F	/*卡比兽*/
-#define	POKE_ARTICUNO	0x0090	/*急冻鸟*/
-#define	POKE_ZAPDOS	0x0091	/*闪电鸟*/
-#define	POKE_MOLTRES	0x0092	/*火焰鸟*/
-#define	POKE_DRATINI	0x0093	/*迷你龙*/
-#define	POKE_DRAGONAIR	0x0094	/*哈克龙*/
-#define	POKE_DRAGONITE	0x0095	/*快龙*/
-#define	POKE_MEWTWO	0x0096	/*超梦*/
-#define	POKE_MEW	0x0097	/*梦幻*/
-#define	POKE_CHIKORITA	0x0098	/*菊草叶*/
-#define	POKE_BAYLEEF	0x0099	/*月桂叶*/
-#define	POKE_MEGANIUM	0x009A	/*大竺葵*/
-#define	POKE_CYNDAQUIL	0x009B	/*火球鼠*/
-#define	POKE_QUILAVA	0x009C	/*火岩鼠*/
-#define	POKE_TYPHLOSION	0x009D	/*火暴兽*/
-#define	POKE_TOTODILE	0x009E	/*小锯鳄*/
-#define	POKE_CROCONAW	0x009F	/*蓝鳄*/
-#define	POKE_FERALIGATR	0x00A0	/*大力鳄*/
-#define	POKE_SENTRET	0x00A1	/*尾立*/
-#define	POKE_FURRET	0x00A2	/*大尾立*/
-#define	POKE_HOOTHOOT	0x00A3	/*咕咕*/
-#define	POKE_NOCTOWL	0x00A4	/*猫头夜鹰*/
-#define	POKE_LEDYBA	0x00A5	/*芭瓢虫*/
-#define	POKE_LEDIAN	0x00A6	/*安瓢虫*/
-#define	POKE_SPINARAK	0x00A7	/*圆丝蛛*/
-#define	POKE_ARIADOS	0x00A8	/*阿利多斯*/
-#define	POKE_CROBAT	0x00A9	/*叉字蝠*/
-#define	POKE_CHINCHOU	0x00AA	/*灯笼鱼*/
-#define	POKE_LANTURN	0x00AB	/*电灯怪*/
-#define	POKE_PICHU	0x00AC	/*皮丘*/
-#define	POKE_CLEFFA	0x00AD	/*皮宝宝*/
-#define	POKE_IGGLYBUFF	0x00AE	/*宝宝丁*/
-#define	POKE_TOGEPI	0x00AF	/*波克比*/
-#define	POKE_TOGETIC	0x00B0	/*波克基古*/
-#define	POKE_NATU	0x00B1	/*天然雀*/
-#define	POKE_XATU	0x00B2	/*天然鸟*/
-#define	POKE_MAREEP	0x00B3	/*咩利羊*/
-#define	POKE_FLAAFFY	0x00B4	/*茸茸羊*/
-#define	POKE_AMPHAROS	0x00B5	/*电龙*/
-#define	POKE_BELLOSSOM	0x00B6	/*美丽花*/
-#define	POKE_MARILL	0x00B7	/*玛力露*/
-#define	POKE_AZUMARILL	0x00B8	/*玛力露丽*/
-#define	POKE_SUDOWOODO	0x00B9	/*树才怪*/
-#define	POKE_POLITOED	0x00BA	/*蚊香蛙皇*/
-#define	POKE_HOPPIP	0x00BB	/*毽子草*/
-#define	POKE_SKIPLOOM	0x00BC	/*毽子花*/
-#define	POKE_JUMPLUFF	0x00BD	/*毽子棉*/
-#define	POKE_AIPOM	0x00BE	/*长尾怪手*/
-#define	POKE_SUNKERN	0x00BF	/*向日种子*/
-#define	POKE_SUNFLORA	0x00C0	/*向日花怪*/
-#define	POKE_YANMA	0x00C1	/*蜻蜻蜓*/
-#define	POKE_WOOPER	0x00C2	/*乌波*/
-#define	POKE_QUAGSIRE	0x00C3	/*沼王*/
-#define	POKE_ESPEON	0x00C4	/*太阳伊布*/
-#define	POKE_UMBREON	0x00C5	/*月亮伊布*/
-#define	POKE_MURKROW	0x00C6	/*黑暗鸦*/
-#define	POKE_SLOWKING	0x00C7	/*呆呆王*/
-#define	POKE_MISDREAVUS	0x00C8	/*梦妖*/
-#define	POKE_UNOWN	0x00C9	/*未知图腾*/
-#define	POKE_WOBBUFFET	0x00CA	/*果然翁*/
-#define	POKE_GIRAFARIG	0x00CB	/*麒麟奇*/
-#define	POKE_PINECO	0x00CC	/*榛果球*/
-#define	POKE_FORRETRESS	0x00CD	/*佛烈托斯*/
-#define	POKE_DUNSPARCE	0x00CE	/*土龙弟弟*/
-#define	POKE_GLIGAR	0x00CF	/*天蝎*/
-#define	POKE_STEELIX	0x00D0	/*大钢蛇*/
-#define	POKE_SNUBBULL	0x00D1	/*布鲁*/
-#define	POKE_GRANBULL	0x00D2	/*布鲁皇*/
-#define	POKE_QWILFISH	0x00D3	/*千针鱼*/
-#define	POKE_SCIZOR	0x00D4	/*巨钳螳螂*/
-#define	POKE_SHUCKLE	0x00D5	/*壶壶*/
-#define	POKE_HERACROSS	0x00D6	/*赫拉克罗斯*/
-#define	POKE_SNEASEL	0x00D7	/*狃拉*/
-#define	POKE_TEDDIURSA	0x00D8	/*熊宝宝*/
-#define	POKE_URSARING	0x00D9	/*圈圈熊*/
-#define	POKE_SLUGMA	0x00DA	/*熔岩虫*/
-#define	POKE_MAGCARGO	0x00DB	/*熔岩蜗牛*/
-#define	POKE_SWINUB	0x00DC	/*小山猪*/
-#define	POKE_PILOSWINE	0x00DD	/*长毛猪*/
-#define	POKE_CORSOLA	0x00DE	/*太阳珊瑚*/
-#define	POKE_REMORAID	0x00DF	/*铁炮鱼*/
-#define	POKE_OCTILLERY	0x00E0	/*章鱼桶*/
-#define	POKE_DELIBIRD	0x00E1	/*信使鸟*/
-#define	POKE_MANTINE	0x00E2	/*巨翅飞鱼*/
-#define	POKE_SKARMORY	0x00E3	/*盔甲鸟*/
-#define	POKE_HOUNDOUR	0x00E4	/*戴鲁比*/
-#define	POKE_HOUNDOOM	0x00E5	/*黑鲁加*/
-#define	POKE_KINGDRA	0x00E6	/*刺龙王*/
-#define	POKE_PHANPY	0x00E7	/*小小象*/
-#define	POKE_DONPHAN	0x00E8	/*顿甲*/
-#define	POKE_PORYGON2	0x00E9	/*多边兽Ⅱ*/
-#define	POKE_STANTLER	0x00EA	/*惊角鹿*/
-#define	POKE_SMEARGLE	0x00EB	/*图图犬*/
-#define	POKE_TYROGUE	0x00EC	/*无畏小子*/
-#define	POKE_HITMONTOP	0x00ED	/*战舞郎*/
-#define	POKE_SMOOCHUM	0x00EE	/*迷唇娃*/
-#define	POKE_ELEKID	0x00EF	/*电击怪*/
-#define	POKE_MAGBY	0x00F0	/*鸭嘴宝宝*/
-#define	POKE_MILTANK	0x00F1	/*大奶罐*/
-#define	POKE_BLISSEY	0x00F2	/*幸福蛋*/
-#define	POKE_RAIKOU	0x00F3	/*雷公*/
-#define	POKE_ENTEI	0x00F4	/*炎帝*/
-#define	POKE_SUICUNE	0x00F5	/*水君*/
-#define	POKE_LARVITAR	0x00F6	/*幼基拉斯*/
-#define	POKE_PUPITAR	0x00F7	/*沙基拉斯*/
-#define	POKE_TYRANITAR	0x00F8	/*班基拉斯*/
-#define	POKE_LUGIA	0x00F9	/*洛奇亚*/
-#define	POKE_HOOH	0x00FA	/*凤王*/
-#define	POKE_CELEBI	0x00FB	/*时拉比*/
-#define	POKE_CHARIZARD_DYNAMAX	0x00FC	/*喷火龙(超级巨)*/
-#define	POKE_BLASTOISE_DYNAMAX	0x00FD	/*水箭龟(超级巨)*/
-#define	POKE_VENUSAUR_DYNAMAX	0x00FE	/*妙蛙花(超级巨)*/
-#define	POKE_PIKACHU_DYNAMAX	0x00FF	/*皮卡丘(超级巨)*/
-#define	POKE_MACHAMP_DYNAMAX	0x0100	/*怪力(超级巨)*/
-#define	POKE_KINGLER_DYNAMAX	0x0101	/*巨钳蟹(超级巨)*/
-#define	POKE_LAPRAS_DYNAMAX	0x0102	/*拉普拉斯(超级巨)*/
-#define	POKE_BUTTERFREE_DYNAMAX	0x0103	/*巴大蝶(超级巨)*/
-#define	POKE_MEOWTH_DYNAMAX	0x0104	/*喵喵(超级巨)*/
-#define	POKE_EEVEE_DYNAMAX	0x0105	/*伊布(超级巨)*/
-#define	POKE_SNORLAX_DYNAMAX	0x0106	/*卡比兽(超级巨)*/
-#define	POKE_GENGAR_DYNAMAX	0x0107	/*耿鬼(超级巨)*/
-#define	POKE_ORBEETLE_DYNAMAX	0x0108	/*以欧路普(超级巨)*/
-#define	POKE_CORVIKNIGHT_DYNAMAX	0x0109	/*钢铠鸦(超级巨)*/
-#define	POKE_COALOSSAL_DYNAMAX	0x010A	/*巨炭山(超级巨)*/
-#define	POKE_HATTERENE_DYNAMAX	0x010B	/*布莉姆温(超级巨)*/
-#define	POKE_GRIMMSNARL_DYNAMAX	0x010C	/*长毛巨魔(超级巨)*/
-#define	POKE_FLAPPLE_DYNAMAX	0x010D	/*苹裹龙(超级巨)*/
-#define	POKE_APPLETUN_DYNAMAX	0x010E	/*丰蜜龙(超级巨)*/
-#define	POKE_MELMETAL_DYNAMAX	0x010F	/*美录梅塔(超级巨)*/
-#define	POKE_SANDACONDA_DYNAMAX	0x0110	/*沙螺蟒(超级巨)*/
-#define	POKE_COPPERAJAH_DYNAMAX	0x0111	/*大王铜象(超级巨)*/
-#define	POKE_DURALUDON_DYNAMAX	0x0112	/*铝钢龙(超级巨)*/
-#define	POKE_TOXTRICITY_DYNAMAX	0x0113	/*颤弦蝾螈(低调)(超级巨)*/
-#define	POKE_TOXTRICITY_COOL_DYNAMAX	0x0114	/*颤弦蝾螈(高调)(超级巨)*/
-#define	POKE_TREECKO	0x0115	/*木守宫*/
-#define	POKE_GROVYLE	0x0116	/*森林蜥蜴*/
-#define	POKE_SCEPTILE	0x0117	/*蜥蜴王*/
-#define	POKE_TORCHIC	0x0118	/*火稚鸡*/
-#define	POKE_COMBUSKEN	0x0119	/*力壮鸡*/
-#define	POKE_BLAZIKEN	0x011A	/*火焰鸡*/
-#define	POKE_MUDKIP	0x011B	/*水跃鱼*/
-#define	POKE_MARSHTOMP	0x011C	/*沼跃鱼*/
-#define	POKE_SWAMPERT	0x011D	/*巨沼怪*/
-#define	POKE_POOCHYENA	0x011E	/*土狼犬*/
-#define	POKE_MIGHTYENA	0x011F	/*大狼犬*/
-#define	POKE_ZIGZAGOON	0x0120	/*蛇纹熊*/
-#define	POKE_LINOONE	0x0121	/*直冲熊*/
-#define	POKE_WURMPLE	0x0122	/*刺尾虫*/
-#define	POKE_SILCOON	0x0123	/*甲壳茧*/
-#define	POKE_BEAUTIFLY	0x0124	/*狩猎凤蝶*/
-#define	POKE_CASCOON	0x0125	/*盾甲茧*/
-#define	POKE_DUSTOX	0x0126	/*毒粉蛾*/
-#define	POKE_LOTAD	0x0127	/*莲叶童子*/
-#define	POKE_LOMBRE	0x0128	/*莲帽小童*/
-#define	POKE_LUDICOLO	0x0129	/*乐天河童*/
-#define	POKE_SEEDOT	0x012A	/*橡实果*/
-#define	POKE_NUZLEAF	0x012B	/*长鼻叶*/
-#define	POKE_SHIFTRY	0x012C	/*狡猾天狗*/
-#define	POKE_NINCADA	0x012D	/*土居忍士*/
-#define	POKE_NINJASK	0x012E	/*铁面忍者*/
-#define	POKE_SHEDINJA	0x012F	/*脱壳忍者*/
-#define	POKE_TAILLOW	0x0130	/*傲骨燕*/
-#define	POKE_SWELLOW	0x0131	/*大王燕*/
-#define	POKE_SHROOMISH	0x0132	/*蘑蘑菇*/
-#define	POKE_BRELOOM	0x0133	/*斗笠菇*/
-#define	POKE_SPINDA	0x0134	/*晃晃斑*/
-#define	POKE_WINGULL	0x0135	/*长翅鸥*/
-#define	POKE_PELIPPER	0x0136	/*大嘴鸥*/
-#define	POKE_SURSKIT	0x0137	/*溜溜糖球*/
-#define	POKE_MASQUERAIN	0x0138	/*雨翅蛾*/
-#define	POKE_WAILMER	0x0139	/*吼吼鲸*/
-#define	POKE_WAILORD	0x013A	/*吼鲸王*/
-#define	POKE_SKITTY	0x013B	/*向尾喵*/
-#define	POKE_DELCATTY	0x013C	/*优雅猫*/
-#define	POKE_KECLEON	0x013D	/*变隐龙*/
-#define	POKE_BALTOY	0x013E	/*天秤偶*/
-#define	POKE_CLAYDOL	0x013F	/*念力土偶*/
-#define	POKE_NOSEPASS	0x0140	/*朝北鼻*/
-#define	POKE_TORKOAL	0x0141	/*煤炭龟*/
-#define	POKE_SABLEYE	0x0142	/*勾魂眼*/
-#define	POKE_BARBOACH	0x0143	/*泥泥鳅*/
-#define	POKE_WHISCASH	0x0144	/*鲶鱼王*/
-#define	POKE_LUVDISC	0x0145	/*爱心鱼*/
-#define	POKE_CORPHISH	0x0146	/*龙虾小兵*/
-#define	POKE_CRAWDAUNT	0x0147	/*铁螯龙虾*/
-#define	POKE_FEEBAS	0x0148	/*丑丑鱼*/
-#define	POKE_MILOTIC	0x0149	/*美纳斯*/
-#define	POKE_CARVANHA	0x014A	/*利牙鱼*/
-#define	POKE_SHARPEDO	0x014B	/*巨牙鲨*/
-#define	POKE_TRAPINCH	0x014C	/*大颚蚁*/
-#define	POKE_VIBRAVA	0x014D	/*超音波幼虫*/
-#define	POKE_FLYGON	0x014E	/*沙漠蜻蜓*/
-#define	POKE_MAKUHITA	0x014F	/*幕下力士*/
-#define	POKE_HARIYAMA	0x0150	/*铁掌力士*/
-#define	POKE_ELECTRIKE	0x0151	/*落雷兽*/
-#define	POKE_MANECTRIC	0x0152	/*雷电兽*/
-#define	POKE_NUMEL	0x0153	/*呆火驼*/
-#define	POKE_CAMERUPT	0x0154	/*喷火驼*/
-#define	POKE_SPHEAL	0x0155	/*海豹球*/
-#define	POKE_SEALEO	0x0156	/*海魔狮*/
-#define	POKE_WALREIN	0x0157	/*帝牙海狮*/
-#define	POKE_CACNEA	0x0158	/*刺球仙人掌*/
-#define	POKE_CACTURNE	0x0159	/*梦歌仙人掌*/
-#define	POKE_SNORUNT	0x015A	/*雪童子*/
-#define	POKE_GLALIE	0x015B	/*冰鬼护*/
-#define	POKE_LUNATONE	0x015C	/*月石*/
-#define	POKE_SOLROCK	0x015D	/*太阳岩*/
-#define	POKE_AZURILL	0x015E	/*露力丽*/
-#define	POKE_SPOINK	0x015F	/*跳跳猪*/
-#define	POKE_GRUMPIG	0x0160	/*噗噗猪*/
-#define	POKE_PLUSLE	0x0161	/*正电拍拍*/
-#define	POKE_MINUM	0x0162	/*负电拍拍*/
-#define	POKE_MAWILE	0x0163	/*大嘴娃*/
-#define	POKE_MEDITITE	0x0164	/*玛沙那*/
-#define	POKE_MEDICHAM	0x0165	/*恰雷姆*/
-#define	POKE_SWABLU	0x0166	/*青绵鸟*/
-#define	POKE_ALTARIA	0x0167	/*七夕青鸟*/
-#define	POKE_WYNAUT	0x0168	/*小果然*/
-#define	POKE_DUSKULL	0x0169	/*夜巡灵*/
-#define	POKE_DUSCLOPS	0x016A	/*彷徨夜灵*/
-#define	POKE_ROSELIA	0x016B	/*毒蔷薇*/
-#define	POKE_SLAKOTH	0x016C	/*懒人獭*/
-#define	POKE_VIGOROTH	0x016D	/*过动猿*/
-#define	POKE_SLAKING	0x016E	/*请假王*/
-#define	POKE_GULPIN	0x016F	/*溶食兽*/
-#define	POKE_SWALOT	0x0170	/*吞食兽*/
-#define	POKE_TROPIUS	0x0171	/*热带龙*/
-#define	POKE_WHISMUR	0x0172	/*咕妞妞*/
-#define	POKE_LOUDRED	0x0173	/*吼爆弹*/
-#define	POKE_EXPLOUD	0x0174	/*爆音怪*/
-#define	POKE_CLAMPERL	0x0175	/*珍珠贝*/
-#define	POKE_HUNTAIL	0x0176	/*猎斑鱼*/
-#define	POKE_GOREBYSS	0x0177	/*樱花鱼*/
-#define	POKE_ABSOL	0x0178	/*阿勃梭鲁*/
-#define	POKE_SHUPPET	0x0179	/*怨影娃娃*/
-#define	POKE_BANETTE	0x017A	/*诅咒娃娃*/
-#define	POKE_SEVIPER	0x017B	/*饭匙蛇*/
-#define	POKE_ZANGOOSE	0x017C	/*猫鼬斩*/
-#define	POKE_RELICANTH	0x017D	/*古空棘鱼*/
-#define	POKE_ARON	0x017E	/*可可多拉*/
-#define	POKE_LAIRON	0x017F	/*可多拉*/
-#define	POKE_AGGRON	0x0180	/*波士可多拉*/
-#define	POKE_CASTFORM	0x0181	/*飘浮泡泡*/
-#define	POKE_VOLBEAT	0x0182	/*电萤虫*/
-#define	POKE_ILLUMISE	0x0183	/*甜甜萤*/
-#define	POKE_LILEEP	0x0184	/*触手百合*/
-#define	POKE_CRADILY	0x0185	/*摇篮百合*/
-#define	POKE_ANORITH	0x0186	/*太古羽虫*/
-#define	POKE_ARMALDO	0x0187	/*太古盔甲*/
-#define	POKE_RALTS	0x0188	/*拉鲁拉丝*/
-#define	POKE_KIRLIA	0x0189	/*奇鲁莉安*/
-#define	POKE_GARDEVOIR	0x018A	/*沙奈朵*/
-#define	POKE_BAGON	0x018B	/*宝贝龙*/
-#define	POKE_SHELGON	0x018C	/*甲壳龙*/
-#define	POKE_SALAMENCE	0x018D	/*暴飞龙*/
-#define	POKE_BELDUM	0x018E	/*铁哑铃*/
-#define	POKE_METANG	0x018F	/*金属怪*/
-#define	POKE_METAGROSS	0x0190	/*巨金怪*/
-#define	POKE_REGIROCK	0x0191	/*雷吉洛克*/
-#define	POKE_REGICE	0x0192	/*雷吉艾斯*/
-#define	POKE_REGISTEEL	0x0193	/*雷吉斯奇鲁*/
-#define	POKE_KYOGRE	0x0194	/*盖欧卡*/
-#define	POKE_GROUDON	0x0195	/*固拉多*/
-#define	POKE_RAYQUAZA	0x0196	/*烈空坐*/
-#define	POKE_LATIAS	0x0197	/*拉帝亚斯*/
-#define	POKE_LATIOS	0x0198	/*拉帝欧斯*/
-#define	POKE_JIRACHI	0x0199	/*基拉祈*/
-#define	POKE_DEOXYS	0x019A	/*代欧奇希斯(速度形态)*/
-#define	POKE_CHIMECHO	0x019B	/*风铃铃*/
-#define	POKE_EGG	0x019C	/*蛋*/
-#define	POKE_UNOWN_B	0x019D	/*未知图腾B*/
-#define	POKE_UNOWN_C	0x019E	/*未知图腾C*/
-#define	POKE_UNOWN_D	0x019F	/*未知图腾D*/
-#define	POKE_UNOWN_E	0x01A0	/*未知图腾E*/
-#define	POKE_UNOWN_F	0x01A1	/*未知图腾F*/
-#define	POKE_UNOWN_G	0x01A2	/*未知图腾G*/
-#define	POKE_UNOWN_H	0x01A3	/*未知图腾H*/
-#define	POKE_UNOWN_I	0x01A4	/*未知图腾I*/
-#define	POKE_UNOWN_J	0x01A5	/*未知图腾J*/
-#define	POKE_UNOWN_K	0x01A6	/*未知图腾K*/
-#define	POKE_UNOWN_L	0x01A7	/*未知图腾L*/
-#define	POKE_UNOWN_M	0x01A8	/*未知图腾M*/
-#define	POKE_UNOWN_N	0x01A9	/*未知图腾N*/
-#define	POKE_UNOWN_O	0x01AA	/*未知图腾O*/
-#define	POKE_UNOWN_P	0x01AB	/*未知图腾P*/
-#define	POKE_UNOWN_Q	0x01AC	/*未知图腾Q*/
-#define	POKE_UNOWN_R	0x01AD	/*未知图腾R*/
-#define	POKE_UNOWN_S	0x01AE	/*未知图腾S*/
-#define	POKE_UNOWN_T	0x01AF	/*未知图腾T*/
-#define	POKE_UNOWN_U	0x01B0	/*未知图腾U*/
-#define	POKE_UNOWN_V	0x01B1	/*未知图腾V*/
-#define	POKE_UNOWN_W	0x01B2	/*未知图腾W*/
-#define	POKE_UNOWN_X	0x01B3	/*未知图腾X*/
-#define	POKE_UNOWN_Y	0x01B4	/*未知图腾Y*/
-#define	POKE_UNOWN_Z	0x01B5	/*未知图腾Z*/
-#define	POKE_UNOWN_EMARK	0x01B6	/*未知图腾!*/
-#define	POKE_UNOWN_QMARK	0x01B7	/*未知图腾？*/
-#define	POKE_TURTWIG	0x01B8	/*草苗龟*/
-#define	POKE_GROTLE	0x01B9	/*树林龟*/
-#define	POKE_TORTERRA	0x01BA	/*土台龟*/
-#define	POKE_CHIMCHAR	0x01BB	/*小火焰猴*/
-#define	POKE_MONFERNO	0x01BC	/*猛火猴*/
-#define	POKE_INFERNAPE	0x01BD	/*烈焰猴*/
-#define	POKE_PIPLUP	0x01BE	/*波加曼*/
-#define	POKE_PRINPLUP	0x01BF	/*波皇子*/
-#define	POKE_EMPOLEON	0x01C0	/*帝王拿波*/
-#define	POKE_STARLY	0x01C1	/*姆克儿*/
-#define	POKE_STARAVIA	0x01C2	/*姆克鸟*/
-#define	POKE_STARAPTOR	0x01C3	/*姆克鹰*/
-#define	POKE_BIDOOF	0x01C4	/*大牙狸*/
-#define	POKE_BIBAREL	0x01C5	/*大尾狸*/
-#define	POKE_KRICKETOT	0x01C6	/*圆法师*/
-#define	POKE_KRICKETUNE	0x01C7	/*音箱蟀*/
-#define	POKE_SHINX	0x01C8	/*小猫怪*/
-#define	POKE_LUXIO	0x01C9	/*勒克猫*/
-#define	POKE_LUXRAY	0x01CA	/*伦琴猫*/
-#define	POKE_BUDEW	0x01CB	/*含羞苞*/
-#define	POKE_ROSERADE	0x01CC	/*罗丝雷朵*/
-#define	POKE_CRANIDOS	0x01CD	/*头盖龙*/
-#define	POKE_RAMPARDOS	0x01CE	/*战槌龙*/
-#define	POKE_SHIELDON	0x01CF	/*盾甲龙*/
-#define	POKE_BASTIODON	0x01D0	/*护城龙*/
-#define	POKE_BURMY_PLANT	0x01D1	/*结草儿(草木蓑衣)*/
-#define	POKE_WORMADAM_PLANT	0x01D2	/*结草贵妇(草木蓑衣)*/
-#define	POKE_MOTHIM	0x01D3	/*绅士蛾*/
-#define	POKE_COMBEE	0x01D4	/*三蜜蜂*/
-#define	POKE_VESPIQUEN	0x01D5	/*蜂女王*/
-#define	POKE_PACHIRISU	0x01D6	/*帕奇利兹*/
-#define	POKE_BUIZEL	0x01D7	/*泳圈鼬*/
-#define	POKE_FLOATZEL	0x01D8	/*浮潜鼬*/
-#define	POKE_CHERUBI	0x01D9	/*樱花宝*/
-#define	POKE_CHERRIM	0x01DA	/*樱花儿*/
-#define	POKE_SHELLOS_BLUE	0x01DB	/*无壳海兔(东海)*/
-#define	POKE_GASTRODON_BLUE	0x01DC	/*海兔兽(东海)*/
-#define	POKE_AMBIPOM	0x01DD	/*双尾怪手*/
-#define	POKE_DRIFLOON	0x01DE	/*飘飘球*/
-#define	POKE_DRIFBLIM	0x01DF	/*随风球*/
-#define	POKE_BUNEARY	0x01E0	/*卷卷耳*/
-#define	POKE_LOPUNNY	0x01E1	/*长耳兔*/
-#define	POKE_MISMAGIUS	0x01E2	/*梦妖魔*/
-#define	POKE_HONCHKROW	0x01E3	/*乌鸦头头*/
-#define	POKE_GLAMEOW	0x01E4	/*魅力喵*/
-#define	POKE_PURUGLY	0x01E5	/*东施喵*/
-#define	POKE_CHINGLING	0x01E6	/*铃铛响*/
-#define	POKE_STUNKY	0x01E7	/*臭鼬噗*/
-#define	POKE_SKUNTANK	0x01E8	/*坦克臭鼬*/
-#define	POKE_BRONZOR	0x01E9	/*铜镜怪*/
-#define	POKE_BRONZONG	0x01EA	/*青铜钟*/
-#define	POKE_BONSLY	0x01EB	/*盆才怪*/
-#define	POKE_MIMEJR	0x01EC	/*魔尼尼*/
-#define	POKE_HAPPINY	0x01ED	/*小福蛋*/
-#define	POKE_CHATOT	0x01EE	/*聒噪鸟*/
-#define	POKE_SPIRITOMB	0x01EF	/*花岩怪*/
-#define	POKE_GIBLE	0x01F0	/*圆陆鲨*/
-#define	POKE_GABITE	0x01F1	/*尖牙陆鲨*/
-#define	POKE_GARCHOMP	0x01F2	/*烈咬陆鲨*/
-#define	POKE_MUNCHLAX	0x01F3	/*小卡比兽*/
-#define	POKE_RIOLU	0x01F4	/*利欧路*/
-#define	POKE_LUCARIO	0x01F5	/*路卡利欧*/
-#define	POKE_HIPPOPOTAS	0x01F6	/*沙河马*/
-#define	POKE_HIPPOWDON	0x01F7	/*河马兽*/
-#define	POKE_SKORUPI	0x01F8	/*钳尾蝎*/
-#define	POKE_DRAPION	0x01F9	/*龙王蝎*/
-#define	POKE_CROAGUNK	0x01FA	/*不良蛙*/
-#define	POKE_TOXICROAK	0x01FB	/*毒骷蛙*/
-#define	POKE_CARNIVINE	0x01FC	/*尖牙笼*/
-#define	POKE_FINNEON	0x01FD	/*荧光鱼*/
-#define	POKE_LUMINEON	0x01FE	/*霓虹鱼*/
-#define	POKE_MANTYKE	0x01FF	/*小球飞鱼*/
-#define	POKE_SNOVER	0x0200	/*雪笠怪*/
-#define	POKE_ABOMASNOW	0x0201	/*暴雪王*/
-#define	POKE_WEAVILE	0x0202	/*玛狃拉*/
-#define	POKE_MAGNEZONE	0x0203	/*自爆磁怪*/
-#define	POKE_LICKILICKY	0x0204	/*大舌舔*/
-#define	POKE_RHYPERIOR	0x0205	/*超甲狂犀*/
-#define	POKE_TANGROWTH	0x0206	/*巨蔓藤*/
-#define	POKE_ELECTIVIRE	0x0207	/*电击魔兽*/
-#define	POKE_MAGMORTAR	0x0208	/*鸭嘴炎兽*/
-#define	POKE_TOGEKISS	0x0209	/*波克基斯*/
-#define	POKE_YANMEGA	0x020A	/*远古巨蜓*/
-#define	POKE_LEAFEON	0x020B	/*叶伊布*/
-#define	POKE_GLACEON	0x020C	/*冰伊布*/
-#define	POKE_GLISCOR	0x020D	/*天蝎王*/
-#define	POKE_MAMOSWINE	0x020E	/*象牙猪*/
-#define	POKE_PORYGONZ	0x020F	/*多边兽Ｚ*/
-#define	POKE_GALLADE	0x0210	/*艾路雷朵*/
-#define	POKE_PROBOPASS	0x0211	/*大朝北鼻*/
-#define	POKE_DUSKNOIR	0x0212	/*黑夜魔灵*/
-#define	POKE_FROSLASS	0x0213	/*雪妖女*/
-#define	POKE_ROTOM	0x0214	/*洛托姆*/
-#define	POKE_UXIE	0x0215	/*由克希*/
-#define	POKE_MESPRIT	0x0216	/*艾姆利多*/
-#define	POKE_AZELF	0x0217	/*亚克诺姆*/
-#define	POKE_DIALGA	0x0218	/*帝牙卢卡*/
-#define	POKE_PALKIA	0x0219	/*帕路奇亚*/
-#define	POKE_HEATRAN	0x021A	/*席多蓝恩*/
-#define	POKE_REGIGIGAS	0x021B	/*雷吉奇卡斯*/
-#define	POKE_GIRATINA	0x021C	/*骑拉帝纳(别种形态)*/
-#define	POKE_CRESSELIA	0x021D	/*克雷色利亚*/
-#define	POKE_PHIONE	0x021E	/*霏欧纳*/
-#define	POKE_MANAPHY	0x021F	/*玛纳霏*/
-#define	POKE_DARKRAI	0x0220	/*达克莱伊*/
-#define	POKE_SHAYMIN_LAND	0x0221	/*谢米(陆上形态)*/
-#define	POKE_ARCEUS	0x0222	/*阿尔宙斯*/
-#define	POKE_VICTINI	0x0223	/*比克提尼*/
-#define	POKE_SNIVY	0x0224	/*藤藤蛇*/
-#define	POKE_SERVINE	0x0225	/*青藤蛇*/
-#define	POKE_SERPERIOR	0x0226	/*君主蛇*/
-#define	POKE_TEPIG	0x0227	/*暖暖猪*/
-#define	POKE_PIGNITE	0x0228	/*炒炒猪*/
-#define	POKE_EMBOAR	0x0229	/*炎武王*/
-#define	POKE_OSHAWOTT	0x022A	/*水水獭*/
-#define	POKE_DEWOTT	0x022B	/*双刃丸*/
-#define	POKE_SAMUROTT	0x022C	/*大剑鬼*/
-#define	POKE_PATRAT	0x022D	/*探探鼠*/
-#define	POKE_WATCHOG	0x022E	/*步哨鼠*/
-#define	POKE_LILLIPUP	0x022F	/*小约克*/
-#define	POKE_HERDIER	0x0230	/*哈约克*/
-#define	POKE_STOUTLAND	0x0231	/*长毛狗*/
-#define	POKE_PURRLOIN	0x0232	/*扒手猫*/
-#define	POKE_LIEPARD	0x0233	/*酷豹*/
-#define	POKE_PANSAGE	0x0234	/*花椰猴*/
-#define	POKE_SIMISAGE	0x0235	/*花椰猿*/
-#define	POKE_PANSEAR	0x0236	/*爆香猴*/
-#define	POKE_SIMISEAR	0x0237	/*爆香猿*/
-#define	POKE_PANPOUR	0x0238	/*冷水猴*/
-#define	POKE_SIMIPOUR	0x0239	/*冷水猿*/
-#define	POKE_MUNNA	0x023A	/*食梦梦*/
-#define	POKE_MUSHARNA	0x023B	/*梦梦蚀*/
-#define	POKE_PIDOVE	0x023C	/*豆豆鸽*/
-#define	POKE_TRANQUILL	0x023D	/*咕咕鸽*/
-#define	POKE_UNFEZANT_MALE	0x023E	/*高傲雉鸡♂*/
-#define	POKE_BLITZLE	0x023F	/*斑斑马*/
-#define	POKE_ZEBSTRIKA	0x0240	/*雷电斑马*/
-#define	POKE_ROGGENROLA	0x0241	/*石丸子*/
-#define	POKE_BOLDORE	0x0242	/*地幔岩*/
-#define	POKE_GIGALITH	0x0243	/*庞岩怪*/
-#define	POKE_WOOBAT	0x0244	/*滚滚蝙蝠*/
-#define	POKE_SWOOBAT	0x0245	/*心蝙蝠*/
-#define	POKE_DRILBUR	0x0246	/*螺钉地鼠*/
-#define	POKE_EXCADRILL	0x0247	/*龙头地鼠*/
-#define	POKE_AUDINO	0x0248	/*差不多娃娃*/
-#define	POKE_TIMBURR	0x0249	/*搬运小匠*/
-#define	POKE_GURDURR	0x024A	/*铁骨土人*/
-#define	POKE_CONKELDURR	0x024B	/*修建老匠*/
-#define	POKE_TYMPOLE	0x024C	/*圆蝌蚪*/
-#define	POKE_PALPITOAD	0x024D	/*蓝蟾蜍*/
-#define	POKE_SEISMITOAD	0x024E	/*蟾蜍王*/
-#define	POKE_THROH	0x024F	/*投摔鬼*/
-#define	POKE_SAWK	0x0250	/*打击鬼*/
-#define	POKE_SEWADDLE	0x0251	/*虫宝包*/
-#define	POKE_SWADLOON	0x0252	/*宝包茧*/
-#define	POKE_LEAVANNY	0x0253	/*保姆虫*/
-#define	POKE_VENIPEDE	0x0254	/*百足蜈蚣*/
-#define	POKE_WHIRLIPEDE	0x0255	/*车轮球*/
-#define	POKE_SCOLIPEDE	0x0256	/*蜈蚣王*/
-#define	POKE_COTTONEE	0x0257	/*木棉球*/
-#define	POKE_WHIMSICOTT	0x0258	/*风妖精*/
-#define	POKE_PETILIL	0x0259	/*百合根娃娃*/
-#define	POKE_LILLIGANT	0x025A	/*裙儿小姐*/
-#define	POKE_BASCULIN_RED	0x025B	/*野蛮鲈鱼(红条纹的样子)*/
-#define	POKE_SANDILE	0x025C	/*黑眼鳄*/
-#define	POKE_KROKOROK	0x025D	/*混混鳄*/
-#define	POKE_KROOKODILE	0x025E	/*流氓鳄*/
-#define	POKE_DARUMAKA	0x025F	/*火红不倒翁*/
-#define	POKE_DARMANITAN	0x0260	/*达摩狒狒(普通模式)*/
-#define	POKE_MARACTUS	0x0261	/*沙铃仙人掌*/
-#define	POKE_DWEBBLE	0x0262	/*石居蟹*/
-#define	POKE_CRUSTLE	0x0263	/*岩殿居蟹*/
-#define	POKE_SCRAGGY	0x0264	/*滑滑小子*/
-#define	POKE_SCRAFTY	0x0265	/*头巾混混*/
-#define	POKE_SIGILYPH	0x0266	/*象征鸟*/
-#define	POKE_YAMASK	0x0267	/*哭哭面具*/
-#define	POKE_COFAGRIGUS	0x0268	/*死神棺*/
-#define	POKE_TIRTOUGA	0x0269	/*原盖海龟*/
-#define	POKE_CARRACOSTA	0x026A	/*肋骨海龟*/
-#define	POKE_ARCHEN	0x026B	/*始祖小鸟*/
-#define	POKE_ARCHEOPS	0x026C	/*始祖大鸟*/
-#define	POKE_TRUBBISH	0x026D	/*破破袋*/
-#define	POKE_GARBODOR	0x026E	/*灰尘山*/
-#define	POKE_ZORUA	0x026F	/*索罗亚*/
-#define	POKE_ZOROARK	0x0270	/*索罗亚克*/
-#define	POKE_MINCCINO	0x0271	/*泡沫栗鼠*/
-#define	POKE_CINCCINO	0x0272	/*奇诺栗鼠*/
-#define	POKE_GOTHITA	0x0273	/*哥德宝宝*/
-#define	POKE_GOTHORITA	0x0274	/*哥德小童*/
-#define	POKE_GOTHITELLE	0x0275	/*哥德小姐*/
-#define	POKE_SOLOSIS	0x0276	/*单卵细胞球*/
-#define	POKE_DUOSION	0x0277	/*双卵细胞球*/
-#define	POKE_REUNICLUS	0x0278	/*人造细胞卵*/
-#define	POKE_DUCKLETT	0x0279	/*鸭宝宝*/
-#define	POKE_SWANNA	0x027A	/*舞天鹅*/
-#define	POKE_VANILLITE	0x027B	/*迷你冰*/
-#define	POKE_VANILLISH	0x027C	/*多多冰*/
-#define	POKE_VANILLUXE	0x027D	/*双倍多多冰*/
-#define	POKE_DEERLING_SPRING	0x027E	/*四季鹿(春)*/
-#define	POKE_SAWSBUCK_SPRING	0x027F	/*萌芽鹿(春)*/
-#define	POKE_EMOLGA	0x0280	/*电飞鼠*/
-#define	POKE_KARRABLAST	0x0281	/*盖盖虫*/
-#define	POKE_ESCAVALIER	0x0282	/*骑士蜗牛*/
-#define	POKE_FOONGUS	0x0283	/*哎呀球菇*/
-#define	POKE_AMOONGUSS	0x0284	/*败露球菇*/
-#define	POKE_FRILLISH_MALE	0x0285	/*轻飘飘(蓝)*/
-#define	POKE_JELLICENT_MALE	0x0286	/*胖嘟嘟(蓝)*/
-#define	POKE_ALOMOMOLA	0x0287	/*保姆曼波*/
-#define	POKE_JOLTIK	0x0288	/*电电虫*/
-#define	POKE_GALVANTULA	0x0289	/*电蜘蛛*/
-#define	POKE_FERROSEED	0x028A	/*种子铁球*/
-#define	POKE_FERROTHORN	0x028B	/*坚果哑铃*/
-#define	POKE_KLINK	0x028C	/*齿轮儿*/
-#define	POKE_KLANG	0x028D	/*齿轮组*/
-#define	POKE_KLINKLANG	0x028E	/*齿轮怪*/
-#define	POKE_TYNAMO	0x028F	/*麻麻小鱼*/
-#define	POKE_EELEKTRIK	0x0290	/*麻麻鳗*/
-#define	POKE_EELEKTROSS	0x0291	/*麻麻鳗鱼王*/
-#define	POKE_ELGYEM	0x0292	/*小灰怪*/
-#define	POKE_BEHEEYEM	0x0293	/*大宇怪*/
-#define	POKE_LITWICK	0x0294	/*烛光灵*/
-#define	POKE_LAMPENT	0x0295	/*灯火幽灵*/
-#define	POKE_CHANDELURE	0x0296	/*水晶灯火灵*/
-#define	POKE_AXEW	0x0297	/*牙牙*/
-#define	POKE_FRAXURE	0x0298	/*斧牙龙*/
-#define	POKE_HAXORUS	0x0299	/*双斧战龙*/
-#define	POKE_CUBCHOO	0x029A	/*喷嚏熊*/
-#define	POKE_BEARTIC	0x029B	/*冻原熊*/
-#define	POKE_CRYOGONAL	0x029C	/*几何雪花*/
-#define	POKE_SHELMET	0x029D	/*小嘴蜗*/
-#define	POKE_ACCELGOR	0x029E	/*敏捷虫*/
-#define	POKE_STUNFISK	0x029F	/*泥巴鱼*/
-#define	POKE_MIENFOO	0x02A0	/*功夫鼬*/
-#define	POKE_MIENSHAO	0x02A1	/*师父鼬*/
-#define	POKE_DRUDDIGON	0x02A2	/*赤面龙*/
-#define	POKE_GOLETT	0x02A3	/*泥偶小人*/
-#define	POKE_GOLURK	0x02A4	/*泥偶巨人*/
-#define	POKE_PAWNIARD	0x02A5	/*驹刀小兵*/
-#define	POKE_BISHARP	0x02A6	/*劈斩司令*/
-#define	POKE_BOUFFALANT	0x02A7	/*爆炸头水牛*/
-#define	POKE_RUFFLET	0x02A8	/*毛头小鹰*/
-#define	POKE_BRAVIARY	0x02A9	/*勇士雄鹰*/
-#define	POKE_VULLABY	0x02AA	/*秃鹰丫头*/
-#define	POKE_MANDIBUZZ	0x02AB	/*秃鹰娜*/
-#define	POKE_HEATMOR	0x02AC	/*熔蚁兽*/
-#define	POKE_DURANT	0x02AD	/*铁蚁*/
-#define	POKE_DEINO	0x02AE	/*单首龙*/
-#define	POKE_ZWEILOUS	0x02AF	/*双首暴龙*/
-#define	POKE_HYDREIGON	0x02B0	/*三首恶龙*/
-#define	POKE_LARVESTA	0x02B1	/*燃烧虫*/
-#define	POKE_VOLCARONA	0x02B2	/*火神蛾*/
-#define	POKE_COBALION	0x02B3	/*勾帕路翁*/
-#define	POKE_TERRAKION	0x02B4	/*代拉基翁*/
-#define	POKE_VIRIZION	0x02B5	/*毕力吉翁*/
-#define	POKE_TORNADUS	0x02B6	/*龙卷云(化身形态)*/
-#define	POKE_THUNDURUS	0x02B7	/*雷电云(化身形态)*/
-#define	POKE_RESHIRAM	0x02B8	/*莱希拉姆*/
-#define	POKE_ZEKROM	0x02B9	/*捷克罗姆*/
-#define	POKE_LANDORUS	0x02BA	/*土地云(化身形态)*/
-#define	POKE_KYUREM	0x02BB	/*酋雷姆*/
-#define	POKE_KELDEO	0x02BC	/*凯路迪欧*/
-#define	POKE_MELOETTA_ARIA	0x02BD	/*美洛耶塔(歌声形态)*/
-#define	POKE_GENESECT	0x02BE	/*盖诺赛克特*/
-#define	POKE_CHESPIN	0x02BF	/*哈力栗*/
-#define	POKE_QUILLADIN	0x02C0	/*胖胖哈力*/
-#define	POKE_CHESNAUGHT	0x02C1	/*布里卡隆*/
-#define	POKE_FENNEKIN	0x02C2	/*火狐狸*/
-#define	POKE_BRAIXEN	0x02C3	/*长尾火狐*/
-#define	POKE_DELPHOX	0x02C4	/*妖火红狐*/
-#define	POKE_FROAKIE	0x02C5	/*呱呱泡蛙*/
-#define	POKE_FROGADIER	0x02C6	/*呱头蛙*/
-#define	POKE_GRENINJA	0x02C7	/*甲贺忍蛙*/
-#define	POKE_BUNNELBY	0x02C8	/*掘掘兔*/
-#define	POKE_DIGGERSBY	0x02C9	/*掘地兔*/
-#define	POKE_FLETCHLING	0x02CA	/*小箭雀*/
-#define	POKE_FLETCHINDER	0x02CB	/*火箭雀*/
-#define	POKE_TALONFLAME	0x02CC	/*烈箭鹰*/
-#define	POKE_SCATTERBUG	0x02CD	/*粉蝶虫*/
-#define	POKE_SPEWPA	0x02CE	/*粉蝶蛹*/
-#define	POKE_VIVILLON_MEADOW	0x02CF	/*彩粉蝶(花园花纹)*/
-#define	POKE_LITLEO	0x02D0	/*小狮狮*/
-#define	POKE_PYROAR_MALE	0x02D1	/*火炎狮♂*/
-#define	POKE_FLABEBE_RED	0x02D2	/*花蓓蓓(红)*/
-#define	POKE_FLOETTE_RED	0x02D3	/*花叶蒂(红)*/
-#define	POKE_FLORGES_RED	0x02D4	/*花洁夫人(红)*/
-#define	POKE_SKIDDO	0x02D5	/*坐骑小羊*/
-#define	POKE_GOGOAT	0x02D6	/*坐骑山羊*/
-#define	POKE_PANCHAM	0x02D7	/*顽皮熊猫*/
-#define	POKE_PANGORO	0x02D8	/*流氓熊猫*/
-#define	POKE_FURFROU	0x02D9	/*多丽米亚*/
-#define	POKE_ESPURR	0x02DA	/*妙喵*/
-#define	POKE_MEOWSTIC_MALE	0x02DB	/*超能妙喵♂*/
-#define	POKE_HONEDGE	0x02DC	/*独剑鞘*/
-#define	POKE_DOUBLADE	0x02DD	/*双剑鞘*/
-#define	POKE_AEGISLASH_SHIELD	0x02DE	/*坚盾剑怪(盾牌形态)*/
-#define	POKE_SPRITZEE	0x02DF	/*粉香香*/
-#define	POKE_AROMATISSE	0x02E0	/*芳香精*/
-#define	POKE_SWIRLIX	0x02E1	/*绵绵泡芙*/
-#define	POKE_SLURPUFF	0x02E2	/*胖甜妮*/
-#define	POKE_INKAY	0x02E3	/*好啦鱿*/
-#define	POKE_MALAMAR	0x02E4	/*乌贼王*/
-#define	POKE_BINACLE	0x02E5	/*龟脚脚*/
-#define	POKE_BARBARACLE	0x02E6	/*龟足巨铠*/
-#define	POKE_SKRELP	0x02E7	/*垃垃藻*/
-#define	POKE_DRAGALGE	0x02E8	/*毒藻龙*/
-#define	POKE_CLAUNCHER	0x02E9	/*铁臂枪虾*/
-#define	POKE_CLAWITZER	0x02EA	/*钢炮臂虾*/
-#define	POKE_HELIOPTILE	0x02EB	/*伞电蜥*/
-#define	POKE_HELIOLISK	0x02EC	/*光电伞蜥*/
-#define	POKE_TYRUNT	0x02ED	/*宝宝暴龙*/
-#define	POKE_TYRANTRUM	0x02EE	/*怪颚龙*/
-#define	POKE_AMAURA	0x02EF	/*冰雪龙*/
-#define	POKE_AURORUS	0x02F0	/*冰雪巨龙*/
-#define	POKE_SYLVEON	0x02F1	/*仙子伊布*/
-#define	POKE_HAWLUCHA	0x02F2	/*摔角鹰人*/
-#define	POKE_DEDENNE	0x02F3	/*咚咚鼠*/
-#define	POKE_CARBINK	0x02F4	/*小碎钻*/
-#define	POKE_GOOMY	0x02F5	/*黏黏宝*/
-#define	POKE_SLIGGOO	0x02F6	/*黏美儿*/
-#define	POKE_GOODRA	0x02F7	/*黏美龙*/
-#define	POKE_KLEFKI	0x02F8	/*钥圈儿*/
-#define	POKE_PHANTUMP	0x02F9	/*小木灵*/
-#define	POKE_TREVENANT	0x02FA	/*朽木妖*/
-#define	POKE_PUMPKABOO	0x02FB	/*南瓜精(普通尺寸)*/
-#define	POKE_GOURGEIST	0x02FC	/*南瓜怪人(普通尺寸)*/
-#define	POKE_BERGMITE	0x02FD	/*冰宝*/
-#define	POKE_AVALUGG	0x02FE	/*冰岩怪*/
-#define	POKE_NOIBAT	0x02FF	/*嗡蝠*/
-#define	POKE_NOIVERN	0x0300	/*音波龙*/
-#define	POKE_XERNEAS	0x0301	/*哲尔尼亚斯(通常形态)*/
-#define	POKE_YVELTAL	0x0302	/*伊裴尔塔尔*/
-#define	POKE_ZYGARDE_50	0x0303	/*基格尔德(５０％形态)*/
-#define	POKE_DIANCIE	0x0304	/*蒂安希*/
-#define	POKE_HOOPA_CONFINED	0x0305	/*胡帕(惩戒胡帕)*/
-#define	POKE_VOLCANION	0x0306	/*波尔凯尼恩‎*/
-#define	POKE_ROWLET	0x0307	/*木木枭*/
-#define	POKE_DARTRIX	0x0308	/*投羽枭*/
-#define	POKE_DECIDUEYE	0x0309	/*狙射树枭*/
-#define	POKE_LITTEN	0x030A	/*火斑喵*/
-#define	POKE_TORRACAT	0x030B	/*炎热喵*/
-#define	POKE_INCINEROAR	0x030C	/*炽焰咆哮虎*/
-#define	POKE_POPPLIO	0x030D	/*球球海狮*/
-#define	POKE_BRIONNE	0x030E	/*花漾海狮*/
-#define	POKE_PRIMARINA	0x030F	/*西狮海壬*/
-#define	POKE_PIKIPEK	0x0310	/*小笃儿*/
-#define	POKE_TRUMBEAK	0x0311	/*喇叭啄鸟*/
-#define	POKE_TOUCANNON	0x0312	/*铳嘴大鸟*/
-#define	POKE_YUNGOOS	0x0313	/*猫鼬少*/
-#define	POKE_GUMSHOOS	0x0314	/*猫鼬探长*/
-#define	POKE_GRUBBIN	0x0315	/*强颚鸡母虫*/
-#define	POKE_CHARJABUG	0x0316	/*虫电宝*/
-#define	POKE_VIKAVOLT	0x0317	/*锹农炮虫*/
-#define	POKE_CRABRAWLER	0x0318	/*好胜蟹*/
-#define	POKE_CRABOMINABLE	0x0319	/*好胜毛蟹*/
-#define	POKE_ORICORIO_META	0x031A	/*花舞鸟(火)*/
-#define	POKE_CUTIEFLY	0x031B	/*萌虻*/
-#define	POKE_RIBOMBEE	0x031C	/*蝶结萌虻*/
-#define	POKE_ROCKRUFF	0x031D	/*岩狗狗*/
-#define	POKE_LYCANROC_MIDDAY	0x031E	/*鬃岩狼人(白昼的样子)*/
-#define	POKE_WISHIWASHI	0x031F	/*弱丁鱼(单独的样子)*/
-#define	POKE_MAREANIE	0x0320	/*好坏星*/
-#define	POKE_TOXAPEX	0x0321	/*超坏星*/
-#define	POKE_MUDBRAY	0x0322	/*泥驴仔*/
-#define	POKE_MUDSDALE	0x0323	/*重泥挽马*/
-#define	POKE_DEWPIDER	0x0324	/*滴蛛*/
-#define	POKE_ARAQUANID	0x0325	/*滴蛛霸*/
-#define	POKE_FOMANTIS	0x0326	/*伪螳草*/
-#define	POKE_LURANTIS	0x0327	/*兰螳花*/
-#define	POKE_MORELULL	0x0328	/*睡睡菇*/
-#define	POKE_SHIINOTIC	0x0329	/*灯罩夜菇*/
-#define	POKE_SALANDIT	0x032A	/*夜盗火蜥*/
-#define	POKE_SALAZZLE	0x032B	/*焰后蜥*/
-#define	POKE_STUFFUL	0x032C	/*童偶熊*/
-#define	POKE_BEWEAR	0x032D	/*穿着熊*/
-#define	POKE_BOUNSWEET	0x032E	/*甜竹竹*/
-#define	POKE_STEENEE	0x032F	/*甜舞妮*/
-#define	POKE_TSAREENA	0x0330	/*甜冷美后*/
-#define	POKE_COMFEY	0x0331	/*花疗环环*/
-#define	POKE_ORANGURU	0x0332	/*智挥猩*/
-#define	POKE_PASSIMIAN	0x0333	/*投掷猴*/
-#define	POKE_WIMPOD	0x0334	/*胆小虫*/
-#define	POKE_GOLISOPOD	0x0335	/*具甲武者*/
-#define	POKE_SANDYGAST	0x0336	/*沙丘娃*/
-#define	POKE_PALLOSOAND	0x0337	/*噬沙堡爷*/
-#define	POKE_PYUKUMUKU	0x0338	/*拳海参*/
-#define	POKE_TYPE_NULL	0x0339	/*属性：空*/
-#define	POKE_SILVALLY	0x033A	/*银伴战兽*/
-#define	POKE_MINIOR_METEOR	0x033B	/*小陨星(流星的样子)*/
-#define	POKE_KOMALA	0x033C	/*树枕尾熊*/
-#define	POKE_TURTONATOR	0x033D	/*爆焰龟兽*/
-#define	POKE_TOGEDAMARU	0x033E	/*托戈德玛尔*/
-#define	POKE_MIMIKYU	0x033F	/*谜拟Ｑ*/
-#define	POKE_BRUXISH	0x0340	/*磨牙彩皮鱼*/
-#define	POKE_DRAMPA	0x0341	/*老翁龙*/
-#define	POKE_DHELMISE	0x0342	/*破破舵轮*/
-#define	POKE_JANGMOO	0x0343	/*心鳞宝*/
-#define	POKE_HAKAMOO	0x0344	/*鳞甲龙*/
-#define	POKE_KOMMOO	0x0345	/*杖尾鳞甲龙*/
-#define	POKE_TAPU_KOKO	0x0346	/*卡璞・鸣鸣*/
-#define	POKE_TAPU_LELE	0x0347	/*卡璞・蝶蝶*/
-#define	POKE_TAPU_BULU	0x0348	/*卡璞・哞哞*/
-#define	POKE_TAPU_FINI	0x0349	/*卡璞・鳍鳍*/
-#define	POKE_COSMOG	0x034A	/*科斯莫古*/
-#define	POKE_COSMOEM	0x034B	/*科斯莫姆*/
-#define	POKE_SOLGALEO	0x034C	/*索尔迦雷欧*/
-#define	POKE_LUNALA	0x034D	/*露奈雅拉*/
-#define	POKE_NIHILEGO	0x034E	/*虚吾伊德*/
-#define	POKE_BUZZWOLE	0x034F	/*爆肌蚊*/
-#define	POKE_PHEROMOSA	0x0350	/*费洛美螂*/
-#define	POKE_XURKITREE	0x0351	/*电束木*/
-#define	POKE_CELESTEELA	0x0352	/*铁火辉夜*/
-#define	POKE_KARTANA	0x0353	/*纸御剑*/
-#define	POKE_GUZZLORD	0x0354	/*恶食大王*/
-#define	POKE_NECROZMA	0x0355	/*奈克洛兹玛*/
-#define	POKE_MAGEARNA	0x0356	/*玛机雅娜*/
-#define	POKE_MARSHADOW	0x0357	/*玛夏多*/
-#define	POKE_ALOLA_RATTATA	0x0358	/*小拉达(阿罗拉的样子)*/
-#define	POKE_ALOLA_RATICATE	0x0359	/*拉达(阿罗拉的样子)*/
-#define	POKE_ALOLA_RAICHU	0x035A	/*雷丘(阿罗拉的样子)*/
-#define	POKE_ALOLA_SANDSHREW	0x035B	/*穿山鼠(阿罗拉的样子)*/
-#define	POKE_ALOLA_SANDSLASH	0x035C	/*穿山王(阿罗拉的样子)*/
-#define	POKE_ALOLA_VULPIX	0x035D	/*六尾(阿罗拉的样子)*/
-#define	POKE_ALOLA_NINETALES	0x035E	/*九尾(阿罗拉的样子)*/
-#define	POKE_ALOLA_DIGLETT	0x035F	/*地鼠(阿罗拉的样子)*/
-#define	POKE_ALOLA_DUGTRIO	0x0360	/*三地鼠(阿罗拉的样子)*/
-#define	POKE_ALOLA_MEOWTH	0x0361	/*喵喵(阿罗拉的样子)*/
-#define	POKE_ALOLA_PERSIAN	0x0362	/*猫老大(阿罗拉的样子)*/
-#define	POKE_ALOLA_GEODUDE	0x0363	/*小拳石(阿罗拉的样子)*/
-#define	POKE_ALOLA_GRAVELER	0x0364	/*隆隆石(阿罗拉的样子)*/
-#define	POKE_ALOLA_GOLEM	0x0365	/*隆隆岩(阿罗拉的样子)*/
-#define	POKE_ALOLA_GRIMER	0x0366	/*臭泥(阿罗拉的样子)*/
-#define	POKE_ALOLA_MUK	0x0367	/*臭臭泥(阿罗拉的样子)*/
-#define	POKE_ALOLA_EXEGGUTOR	0x0368	/*椰蛋树(阿罗拉的样子)*/
-#define	POKE_ALOLA_MAROWAK	0x0369	/*嘎啦嘎啦(阿罗拉的样子)*/
-#define	POKE_ARCEUS_FIGHTING	0x036A	/*阿尔宙斯(格)*/
-#define	POKE_ARCEUS_FLYING	0x036B	/*阿尔宙斯(飞)*/
-#define	POKE_ARCEUS_POISON	0x036C	/*阿尔宙斯(毒)*/
-#define	POKE_ARCEUS_GROUND	0x036D	/*阿尔宙斯(地)*/
-#define	POKE_ARCEUS_ROCK	0x036E	/*阿尔宙斯(岩)*/
-#define	POKE_ARCEUS_BUG	0x036F	/*阿尔宙斯(虫)*/
-#define	POKE_ARCEUS_GHOST	0x0370	/*阿尔宙斯(鬼)*/
-#define	POKE_ARCEUS_STEEL	0x0371	/*阿尔宙斯(钢)*/
-#define	POKE_ARCEUS_FIRE	0x0372	/*阿尔宙斯(火)*/
-#define	POKE_ARCEUS_WATER	0x0373	/*阿尔宙斯(水)*/
-#define	POKE_ARCEUS_GRASS	0x0374	/*阿尔宙斯(草)*/
-#define	POKE_ARCEUS_ELECTRIC	0x0375	/*阿尔宙斯(电)*/
-#define	POKE_ARCEUS_PSYCHIC	0x0376	/*阿尔宙斯(超)*/
-#define	POKE_ARCEUS_ICE	0x0377	/*阿尔宙斯(冰)*/
-#define	POKE_ARCEUS_DRAGON	0x0378	/*阿尔宙斯(龙)*/
-#define	POKE_ARCEUS_DARK	0x0379	/*阿尔宙斯(恶)*/
-#define	POKE_ARCEUS_FAIRY	0x037A	/*阿尔宙斯(仙)*/
-#define	POKE_PIKACHU_POP_STAR	0x037B	/*皮卡丘(偶像)*/
-#define	POKE_PIKACHU_BELLE	0x037C	/*皮卡丘(贵妇)*/
-#define	POKE_PIKACHU_ROCK_STAR	0x037D	/*皮卡丘(摇滚)*/
-#define	POKE_PIKACHU_PHD	0x037E	/*皮卡丘(博士)*/
-#define	POKE_PIKACHU_LIBRE	0x037F	/*皮卡丘(假面)*/
-#define	POKE_PIKACHU_COSPLAY	0x0380	/*皮卡丘(换装)*/
-#define	POKE_SHAYMIN_SKY	0x0381	/*谢米(天空形态)*/
-#define	POKE_GIRATINA_ORIGIN	0x0382	/*骑拉帝纳(起源形态)*/
-#define	POKE_TORNADUS_THERIAN	0x0383	/*龙卷云(灵兽形态)*/
-#define	POKE_THUNDURUS_THERIAN	0x0384	/*雷电云(灵兽形态)*/
-#define	POKE_LANDORUS_THERIAN	0x0385	/*土地云(灵兽形态)*/
-#define	POKE_VENUSAUR_MEGA	0x0386	/*妙蛙花(超级进化)*/
-#define	POKE_CHARIZARD_X	0x0387	/*喷火龙(超级喷火龙Ｘ)*/
-#define	POKE_CHARIZARD_Y	0x0388	/*喷火龙(超级喷火龙Ｙ)*/
-#define	POKE_BLASTOISE_MEGA	0x0389	/*水箭龟(超级进化)*/
-#define	POKE_BEEDRILL_MEGA	0x038A	/*大针蜂(超级进化)*/
-#define	POKE_PIDGEOT_MEGA	0x038B	/*大比鸟(超级进化)*/
-#define	POKE_ALAKAZAM_MEGA	0x038C	/*胡地(超级进化)*/
-#define	POKE_SLOWBRO_MEGA	0x038D	/*呆壳兽(超级进化)*/
-#define	POKE_GENGAR_MEGA	0x038E	/*耿鬼(超级进化)*/
-#define	POKE_KANGASKHAN_MEGA	0x038F	/*袋兽(超级进化)*/
-#define	POKE_PINSIR_MEGA	0x0390	/*凯罗斯(超级进化)*/
-#define	POKE_GYARADOS_MEGA	0x0391	/*暴鲤龙(超级进化)*/
-#define	POKE_AERODACTYL_MEGA	0x0392	/*化石翼龙(超级进化)*/
-#define	POKE_MEWTWO_X	0x0393	/*超梦(超级超梦Ｘ)*/
-#define	POKE_MEWTWO_Y	0x0394	/*超梦(超级超梦Ｙ)*/
-#define	POKE_AMPHAROS_MEGA	0x0395	/*电龙(超级进化)*/
-#define	POKE_STEELIX_MEGA	0x0396	/*大钢蛇(超级进化)*/
-#define	POKE_SCIZOR_MEGA	0x0397	/*巨钳螳螂(超级进化)*/
-#define	POKE_HERACROSS_MEGA	0x0398	/*赫拉克罗斯(超级进化)*/
-#define	POKE_HOUNDOOM_MEGA	0x0399	/*黑鲁加(超级进化)*/
-#define	POKE_TYRANITAR_MEGA	0x039A	/*班基拉斯(超级进化)*/
-#define	POKE_SCEPTILE_MEGA	0x039B	/*蜥蜴王(超级进化)*/
-#define	POKE_BLAZIKEN_MEGA	0x039C	/*火焰鸡(超级进化)*/
-#define	POKE_SWAMPERT_MEGA	0x039D	/*巨沼怪(超级进化)*/
-#define	POKE_GARDEVOIR_MEGA	0x039E	/*沙奈朵(超级进化)*/
-#define	POKE_SABLEYE_MEGA	0x039F	/*勾魂眼(超级进化)*/
-#define	POKE_MAWILE_MEGA	0x03A0	/*大嘴娃(超级进化)*/
-#define	POKE_AGGRON_MEGA	0x03A1	/*波士可多拉(超级进化)*/
-#define	POKE_MEDICHAM_MEGA	0x03A2	/*恰雷姆(超级进化)*/
-#define	POKE_MANECTRIC_MEGA	0x03A3	/*雷电兽(超级进化)*/
-#define	POKE_SHARPEDO_MEGA	0x03A4	/*巨牙鲨(超级进化)*/
-#define	POKE_CAMERUPT_MEGA	0x03A5	/*喷火驼(超级进化)*/
-#define	POKE_ALTARIA_MEGA	0x03A6	/*七夕青鸟(超级进化)*/
-#define	POKE_BANETTE_MEGA	0x03A7	/*诅咒娃娃(超级进化)*/
-#define	POKE_ABSOL_MEGA	0x03A8	/*阿勃梭鲁(超级进化)*/
-#define	POKE_GLALIE_MEGA	0x03A9	/*冰鬼护(超级进化)*/
-#define	POKE_SALAMENCE_MEGA	0x03AA	/*暴飞龙(超级进化)*/
-#define	POKE_METAGROSS_MEGA	0x03AB	/*巨金怪(超级进化)*/
-#define	POKE_LATIAS_MEGA	0x03AC	/*拉帝亚斯(超级进化)*/
-#define	POKE_LATIOS_MEGA	0x03AD	/*拉帝欧斯(超级进化)*/
-#define	POKE_KYOGRE_PRIMAL	0x03AE	/*盖欧卡(原始回归的样子)*/
-#define	POKE_GROUDON_PRIMAL	0x03AF	/*固拉多(原始回归的样子)*/
-#define	POKE_RAYQUAZA_MEGA	0x03B0	/*烈空坐(超级进化)*/
-#define	POKE_LOPUNNY_MEGA	0x03B1	/*长耳兔(超级进化)*/
-#define	POKE_GARCHOMP_MEGA	0x03B2	/*烈咬陆鲨(超级进化)*/
-#define	POKE_LUCARIO_MEGA	0x03B3	/*路卡利欧(超级进化)*/
-#define	POKE_ABOMASNOW_MEGA	0x03B4	/*暴雪王(超级进化)*/
-#define	POKE_GALLADE_MEGA	0x03B5	/*艾路雷朵(超级进化)*/
-#define	POKE_AUDINO_MEGA	0x03B6	/*差不多娃娃(超级进化)*/
-#define	POKE_DIANCIE_MEGA	0x03B7	/*蒂安希(超级进化)*/
-#define	POKE_DEOXYS_ATTACK	0x03B8	/*代欧奇希斯(攻击形态)*/
-#define	POKE_DEOXYS_NORMAL	0x03B9	/*代欧奇希斯(普通形态)*/
-#define	POKE_DEOXYS_DEFENSE	0x03BA	/*代欧奇希斯(防御形态)*/
-#define	POKE_HEAT_ROTOM	0x03BB	/*洛托姆(加热洛托姆)*/
-#define	POKE_WASH_ROTOM	0x03BC	/*洛托姆(清洗洛托姆)*/
-#define	POKE_FROST_ROTOM	0x03BD	/*洛托姆(结冰洛托姆)*/
-#define	POKE_FAN_ROTOM	0x03BE	/*洛托姆(旋转洛托姆)*/
-#define	POKE_MOW_ROTOM	0x03BF	/*洛托姆(切割洛托姆)*/
-#define	POKE_AEGISLASH_BLADE	0x03C0	/*坚盾剑怪(刀剑形态)*/
-#define	POKE_DARMANITAN_ZEN	0x03C1	/*达摩狒狒(达摩模式)*/
-#define	POKE_WISHIWASHI_SCHOOL	0x03C2	/*弱丁鱼(鱼群的样子)*/
-#define	POKE_ASH_GRENJA	0x03C3	/*甲贺忍蛙(小智版甲贺忍蛙)*/
-#define	POKE_MEOWSTIC_FEMALE	0x03C4	/*超能妙喵♀*/
-#define	POKE_MELOETTA_PIROUETTE	0x03C5	/*美洛耶塔(舞步形态)*/
-#define	POKE_BASCULIN_BLUE	0x03C6	/*野蛮鲈鱼(蓝条纹的样子)*/
-#define	POKE_ZYGARDE_100	0x03C7	/*基格尔德(完全体形态)*/
-#define	POKE_ZYGARDE_10	0x03C8	/*基格尔德(１０％形态)*/
-#define	POKE_HOOPA_UNBOUND	0x03C9	/*胡帕(解放胡帕)*/
-#define	POKE_LYCANROC_MIDNIGHT	0x03CA	/*鬃岩狼人(黑夜的样子)*/
-#define	POKE_MINIOR_CORE	0x03CB	/*小陨星(核心红)*/
-#define	POKE_ORICORIO_PACHI	0x03CC	/*花舞鸟(电)*/
-#define	POKE_ORICORIO_FURA	0x03CD	/*花舞鸟(超能)*/
-#define	POKE_ORICORIO_MAI	0x03CE	/*花舞鸟(幽灵)*/
-#define	POKE_GENESECT_WATER	0x03CF	/*盖诺赛克特(水)*/
-#define	POKE_GENESECT_ELECTRIC	0x03D0	/*盖诺赛克特(电)*/
-#define	POKE_GENESECT_FIRE	0x03D1	/*盖诺赛克特(火)*/
-#define	POKE_GENESECT_ICE	0x03D2	/*盖诺赛克特(冰)*/
-#define	POKE_BURMY_TRASH	0x03D3	/*结草儿(垃圾蓑衣)*/
-#define	POKE_BURMY_SAND	0x03D4	/*结草儿(砂土蓑衣)*/
-#define	POKE_WORMADAM_TRASH	0x03D5	/*结草贵妇(垃圾蓑衣)*/
-#define	POKE_WORMADAM_SAND	0x03D6	/*结草贵妇(砂土蓑衣)*/
-#define	POKE_CHERRIM_SUNSHINE	0x03D7	/*樱花儿(晴天)*/
-#define	POKE_SHELLOS_PINK	0x03D8	/*无壳海兔(西海)*/
-#define	POKE_GASTRODON_PINK	0x03D9	/*海兔兽(西海)*/
-#define	POKE_KELDEO_RESOLUTE	0x03DA	/*凯路迪欧(觉悟形态)*/
-#define	POKE_FRILLISH_FEMALE	0x03DB	/*轻飘飘(粉)*/
-#define	POKE_JELLICENT_FEMALE	0x03DC	/*胖嘟嘟(粉)*/
-#define	POKE_PIKACHU_ORIGINAL	0x03DD	/*皮卡丘(初代帽子)*/
-#define	POKE_PIKACHU_HOENN	0x03DE	/*皮卡丘(丰缘帽子)*/
-#define	POKE_PIKACHU_SINNOH	0x03DF	/*皮卡丘(神奥帽子)*/
-#define	POKE_PIKACHU_UNOVA	0x03E0	/*皮卡丘(合众帽子)*/
-#define	POKE_PIKACHU_KALOS	0x03E1	/*皮卡丘(卡洛斯帽子)*/
-#define	POKE_PIKACHU_ALOLA	0x03E2	/*皮卡丘(阿罗拉帽子)*/
-#define	POKE_KYUREM_WHITE	0x03E3	/*酋雷姆(焰白酋雷姆)*/
-#define	POKE_KYUREM_BLACK	0x03E4	/*酋雷姆(暗黑酋雷姆)*/
-#define	POKE_MIMIKYU_BUSTED	0x03E5	/*谜拟Ｑ(现型)*/
-#define	POKE_LYCANROC_DUSK	0x03E6	/*鬃岩狼人(黄昏的样子)*/
-#define	POKE_PYROAR_FEMALE	0x03E7	/*火炎狮♀*/
-#define	POKE_MAGEARNA_ORIGINAL	0x03E8	/*玛机雅娜(500年前)*/
-#define	POKE_ETERNAL_FLOWER	0x03E9	/*花叶蒂(永恒之花)*/
-#define	POKE_SPIKY_EARED_PICHU	0x03EA	/*皮丘(刺刺耳)*/
-#define	POKE_RILLABOOM_DYNAMAX	0x03EB	/*轰擂金刚猩(超级巨)*/
-#define	POKE_CINDERACE_DYNAMAX	0x03EC	/*闪焰王牌(超级巨)*/
-#define	POKE_INTELEON_DYNAMAX	0x03ED	/*千面避役(超级巨)*/
-#define	POKE_DREDNAW_DYNAMAX	0x03EE	/*暴噬龟(超级巨)*/
-#define	POKE_URSHIFU_KO_DYNAMAX	0x03EF	/*武道熊师(一击流)(超级巨)*/
-#define	POKE_URSHIFU_RAPID_DYNAMAX	0x03F0	/*武道熊师(连击流)(超级巨)*/
-#define	POKE_ZYGARDE_50_POWER_CONSTRUCT	0x03F1	/*基格尔德(群聚变形５０％形态)*/
-#define	POKE_ROCKRUFF_SPECIAL	0x03F2	/*岩狗狗(我行我素)*/
-#define	POKE_GRENINJA_SPECIAL	0x03F3	/*甲贺忍蛙(特殊甲贺忍蛙)*/
-#define	POKE_GARBODOR_DYNAMAX	0x03F4	/*灰尘山(超级巨)*/
-#define	POKE_ALCREMIE_DYNAMAX	0x03F5	/*霜奶仙(超级巨)*/
-#define	POKE_CENTISKORCH_DYNAMAX	0x03F6	/*焚焰蚣(超级巨)*/
-#define	POKE_VIVILLON_MODERN	0x03F7	/*彩粉蝶(摩登花纹)*/
-#define	POKE_VIVILLON_MARINE	0x03F8	/*彩粉蝶(大海花纹)*/
-#define	POKE_VIVILLON_ARCHIPELAGO	0x03F9	/*彩粉蝶(群岛花纹)*/
-#define	POKE_VIVILLON_HIGH_PLAINS	0x03FA	/*彩粉蝶(荒野花纹)*/
-#define	POKE_VIVILLON_SANDSTORM	0x03FB	/*彩粉蝶(沙尘花纹)*/
-#define	POKE_VIVILLON_RIVER	0x03FC	/*彩粉蝶(大河花纹)*/
-#define	POKE_VIVILLON_MONSOON	0x03FD	/*彩粉蝶(骤雨花纹)*/
-#define	POKE_VIVILLON_SAVANNA	0x03FE	/*彩粉蝶(热带草原)*/
-#define	POKE_VIVILLON_SUN	0x03FF	/*彩粉蝶(太阳花纹)*/
-#define	POKE_VIVILLON_OCEAN	0x0400	/*彩粉蝶(大洋花纹)*/
-#define	POKE_VIVILLON_JUNGLE	0x0401	/*彩粉蝶(热带雨林)*/
-#define	POKE_VIVILLON_POKEBALL	0x0402	/*彩粉蝶(球球花纹)*/
-#define	POKE_VIVILLON_FANCY	0x0403	/*彩粉蝶(幻彩花纹)*/
-#define	POKE_SLOWPOKE_GALAR	0x0404	/*呆呆兽(伽勒尔的样子)*/
-#define	POKE_SLOWBRO_GALAR	0x0405	/*呆壳兽(伽勒尔的样子)*/
-#define	POKE_SLOWKING_GALAR	0x0406	/*呆呆王(伽勒尔的样子)*/
-#define	POKE_MOLTRES_GALAR	0x0407	/*火焰鸟(伽勒尔的样子)*/
-#define	POKE_ZAPDOS_GALAR	0x0408	/*闪电鸟(伽勒尔的样子)*/
-#define	POKE_ARTICUNO_GALAR	0x0409	/*急冻鸟(伽勒尔的样子)*/
-#define	POKE_KUBFU	0x040A	/*熊徒弟*/
-#define	POKE_URSHIFU_KO	0x040B	/*武道熊师(一击流)*/
-#define	POKE_URSHIFU_RAPID	0x040C	/*武道熊师(连击流)*/
-#define	POKE_ZARUDE	0x040D	/*萨戮德*/
-#define	POKE_REGIELEKI	0x040E	/*雷吉艾勒奇*/
-#define	POKE_REGIDRAGO	0x040F	/*雷吉铎拉戈*/
-#define	POKE_SILVALLY_FIGHTING	0x0410	/*银伴战兽(格斗)*/
-#define	POKE_SILVALLY_FLYING	0x0411	/*银伴战兽(飞行)*/
-#define	POKE_SILVALLY_POISON	0x0412	/*银伴战兽(毒)*/
-#define	POKE_SILVALLY_GROUND	0x0413	/*银伴战兽(地面)*/
-#define	POKE_SILVALLY_ROCK	0x0414	/*银伴战兽(岩石)*/
-#define	POKE_SILVALLY_BUG	0x0415	/*银伴战兽(虫)*/
-#define	POKE_SILVALLY_GHOST	0x0416	/*银伴战兽(幽灵)*/
-#define	POKE_SILVALLY_STEEL	0x0417	/*银伴战兽(钢)*/
-#define	POKE_SILVALLY_FIRE	0x0418	/*银伴战兽(火)*/
-#define	POKE_SILVALLY_WATER	0x0419	/*银伴战兽(水)*/
-#define	POKE_SILVALLY_GRASS	0x041A	/*银伴战兽(草)*/
-#define	POKE_SILVALLY_ELECTRIC	0x041B	/*银伴战兽(电)*/
-#define	POKE_SILVALLY_PSYCHIC	0x041C	/*银伴战兽(超能)*/
-#define	POKE_SILVALLY_ICE	0x041D	/*银伴战兽(冰)*/
-#define	POKE_SILVALLY_DRAGON	0x041E	/*银伴战兽(龙)*/
-#define	POKE_SILVALLY_DARK	0x041F	/*银伴战兽(恶)*/
-#define	POKE_SILVALLY_FAIRY	0x0420	/*银伴战兽(妖精)*/
-#define	POKE_XERNEAS_ACTIVE	0x0421	/*哲尔尼亚斯(活跃形态)*/
-#define	POKE_MARSHADOW_ATTACK	0x0422	/*玛夏多(用技能)*/
-#define	POKE_DEERLING_SUMMER	0x0423	/*四季鹿(夏)*/
-#define	POKE_DEERLING_AUTUMN	0x0424	/*四季鹿(秋)*/
-#define	POKE_DEERLING_WINTER	0x0425	/*四季鹿(冬)*/
-#define	POKE_SAWSBUCK_SUMMER	0x0426	/*萌芽鹿(夏)*/
-#define	POKE_SAWSBUCK_AUTUMN	0x0427	/*萌芽鹿(秋)*/
-#define	POKE_SAWSBUCK_WINTER	0x0428	/*萌芽鹿(冬)*/
-#define	POKE_UNFEZANT_FEMALE	0x0429	/*高傲雉鸡♀*/
-#define	POKE_SOLGALEO_RADIANT_SUN	0x042A	/*索尔迦雷欧(旭日)*/
-#define	POKE_LUNALA_FULL_MOON	0x042B	/*露奈雅拉(满月)*/
-#define	POKE_DUSK_MANE	0x042C	/*奈克洛兹玛(黄昏之鬃)*/
-#define	POKE_DAWN_WINGS	0x042D	/*奈克洛兹玛(拂晓之翼)*/
-#define	POKE_ULTRA_NECROZMA	0x042E	/*奈克洛兹玛(究极奈克洛兹玛)*/
-#define	POKE_POIPOLE	0x042F	/*毒贝比*/
-#define	POKE_NAGANADEL	0x0430	/*四颚针龙*/
-#define	POKE_STAKATAKA	0x0431	/*垒磊石*/
-#define	POKE_BLACEPHALON	0x0432	/*砰头小丑*/
-#define	POKE_ZERAORA	0x0433	/*捷拉奥拉*/
-#define	POKE_PIKACHU_20	0x0434	/*皮卡丘(20周年)*/
-#define	POKE_CRAMORANT	0x0435	/*古月鸟*/
-#define	POKE_CRAMORANT_GORGING	0x0436	/*古月鸟(大口吞)*/
-#define	POKE_SHADOW_LUGIA	0x0437	/*洛奇亚(暗黑)*/
-#define	POKE_YAMASK_GALAR	0x0438	/*哭哭面具(伽勒尔的样子)*/
-#define	POKE_MRMIME_GALAR	0x0439	/*魔墙人偶(伽勒尔的样子)*/
-#define	POKE_STUNFISK_GALAR	0x043A	/*泥巴鱼(伽勒尔的样子)*/
-#define	POKE_WEEZING_GALAR	0x043B	/*双弹瓦斯(伽勒尔的样子)*/
-#define	POKE_CORSOLA_GALAR	0x043C	/*太阳珊瑚(伽勒尔的样子)*/
-#define	POKE_INDEEDEE_MALE	0x043D	/*爱管侍♂*/
-#define	POKE_EISCUE	0x043E	/*冰砌鹅(结冻头)*/
-#define	POKE_MORPEKO	0x043F	/*莫鲁贝可(满腹花纹)*/
-#define	POKE_GLASTRIER	0x0440	/*雪暴马*/
-#define	POKE_SPECTRIER	0x0441	/*灵幽马*/
-#define	POKE_ULTRA_NECROZMA_LUNA	0x0442	/*奈克洛兹玛(究极奈克洛兹玛)(释放)*/
-#define	POKE_ZYGARDE_100_AURA_BREAK	0x0443	/*基格尔德(气场破坏完全体形态)*/
-#define	POKE_MELTAN	0x0444	/*美录坦*/
-#define	POKE_MELMETAL	0x0445	/*美录梅塔*/
-#define	POKE_PIKACHU_PARTNER	0x0446	/*搭档皮卡丘*/
-#define	POKE_EEVEE_PARTNER	0x0447	/*搭档伊布*/
-#define	POKE_CRYSTAL_ONIX	0x0448	/*大岩蛇(水晶)*/
-#define	POKE_MEWTWO_ARMOR	0x0449	/*超梦(铠甲)*/
-#define	POKE_CALYREX	0x044A	/*蕾冠王*/
-#define	POKE_CALYREX_WHITE	0x044B	/*蕾冠王(白马)*/
-#define	POKE_CALYREX_BLACK	0x044C	/*蕾冠王(黑马)*/
-#define	POKE_ZIGZAGOON_GALAR	0x044D	/*蛇纹熊(伽勒尔的样子)*/
-#define	POKE_LINOONE_GALAR	0x044E	/*直冲熊(伽勒尔的样子)*/
-#define	POKE_OBSTAGOON	0x044F	/*堵拦熊*/
-#define	POKE_PONYTA_GALAR	0x0450	/*小火马(伽勒尔的样子)*/
-#define	POKE_RAPIDASH_GALAR	0x0451	/*烈焰马(伽勒尔的样子)*/
-#define	POKE_FLYGON_MEGA	0x0452	/*沙漠蜻蜓(超级进化)*/
-#define	POKE_MEOWTH_GALAR	0x0453	/*喵喵(伽勒尔的样子)*/
-#define	POKE_FARFETCHD_GALAR	0x0454	/*大葱鸭(伽勒尔的样子)*/
-#define	POKE_GROOKEY	0x0455	/*敲音猴*/
-#define	POKE_THWACKEY	0x0456	/*啪咚猴*/
-#define	POKE_RILLABOOM	0x0457	/*轰擂金刚猩*/
-#define	POKE_SCORBUNNY	0x0458	/*炎兔儿*/
-#define	POKE_RABOOT	0x0459	/*腾蹴小将*/
-#define	POKE_CINDERACE	0x045A	/*闪焰王牌*/
-#define	POKE_SOBBLE	0x045B	/*泪眼蜥*/
-#define	POKE_DRIZZILE	0x045C	/*变涩蜥*/
-#define	POKE_INTELEON	0x045D	/*千面避役*/
-#define	POKE_MEWTWO_FULLARMOR	0x045E	/*超梦(全装甲)*/
-#define	POKE_KYUREM_CHAOS	0x045F	/*酋雷姆(合众酋雷姆)*/
-#define	POKE_SKWOVET	0x0460	/*贪心栗鼠*/
-#define	POKE_GREEDENT	0x0461	/*藏饱栗鼠*/
-#define	POKE_ROOKIDEE	0x0462	/*稚山雀*/
-#define	POKE_CORVISQUIRE	0x0463	/*蓝鸦*/
-#define	POKE_CORVIKNIGHT	0x0464	/*钢铠鸦*/
-#define	POKE_BLIPBUG	0x0465	/*索侦虫*/
-#define	POKE_DOTTLER	0x0466	/*天罩虫*/
-#define	POKE_ORBEETLE	0x0467	/*以欧路普*/
-#define	POKE_NICKIT	0x0468	/*偷儿狐*/
-#define	POKE_THIEVUL	0x0469	/*狐大盗*/
-#define	POKE_GOSSIFLEUR	0x046A	/*幼棉棉*/
-#define	POKE_ELDEGOSS	0x046B	/*白蓬蓬*/
-#define	POKE_WOOLOO	0x046C	/*毛辫羊*/
-#define	POKE_DUBWOOL	0x046D	/*毛毛角羊*/
-#define	POKE_CHEWTLE	0x046E	/*咬咬龟*/
-#define	POKE_DREDNAW	0x046F	/*暴噬龟*/
-#define	POKE_YAMPER	0x0470	/*来电汪*/
-#define	POKE_BOLTUND	0x0471	/*逐电犬*/
-#define	POKE_ROLYCOLY	0x0472	/*小炭仔*/
-#define	POKE_CARKOL	0x0473	/*大炭车*/
-#define	POKE_COALOSSAL	0x0474	/*巨炭山*/
-#define	POKE_APPLIN	0x0475	/*啃果虫*/
-#define	POKE_FLAPPLE	0x0476	/*苹裹龙*/
-#define	POKE_APPLETUN	0x0477	/*丰蜜龙*/
-#define	POKE_SILICOBRA	0x0478	/*沙包蛇*/
-#define	POKE_SANDACONDA	0x0479	/*沙螺蟒*/
-#define	POKE_CRAMORANT_GULPING	0x047A	/*古月鸟(一口吞)*/
-#define	POKE_ARROKUDA	0x047B	/*刺梭鱼*/
-#define	POKE_BARRASKEWDA	0x047C	/*戽斗尖梭*/
-#define	POKE_TOXEL	0x047D	/*毒电婴*/
-#define	POKE_TOXTRICITY_HIGH	0x047E	/*颤弦蝾螈(低调)*/
-#define	POKE_TOXTRICITY_LOW	0x047F	/*颤弦蝾螈(高调)*/
-#define	POKE_SIZZLIPEDE	0x0480	/*烧火蚣*/
-#define	POKE_CENTISKORCH	0x0481	/*焚焰蚣*/
-#define	POKE_CLOBBOPUS	0x0482	/*拳拳蛸*/
-#define	POKE_GRAPPLOCT	0x0483	/*八爪武师*/
-#define	POKE_SINISTEA	0x0484	/*来悲茶*/
-#define	POKE_POLTEAGEIST	0x0485	/*怖思壶*/
-#define	POKE_HATENNA	0x0486	/*迷布莉姆*/
-#define	POKE_HATTREM	0x0487	/*提布莉姆*/
-#define	POKE_HATTERENE	0x0488	/*布莉姆温*/
-#define	POKE_IMPIDIMP	0x0489	/*捣蛋小妖*/
-#define	POKE_MORGREM	0x048A	/*诈唬魔*/
-#define	POKE_GRIMMSNARL	0x048B	/*长毛巨魔*/
-#define	POKE_PERRSERKER	0x048C	/*喵头目*/
-#define	POKE_CURSOLA	0x048D	/*魔灵珊瑚*/
-#define	POKE_SIRFETCHD	0x048E	/*葱游兵*/
-#define	POKE_MRRIME	0x048F	/*踏冰人偶*/
-#define	POKE_RUNERIGUS	0x0490	/*死神板*/
-#define	POKE_MILCERY	0x0491	/*小仙奶*/
-#define	POKE_ALCREMIE	0x0492	/*霜奶仙*/
-#define	POKE_FALINKS	0x0493	/*列阵兵*/
-#define	POKE_PINCURCHIN	0x0494	/*啪嚓海胆*/
-#define	POKE_SNOM	0x0495	/*雪吞虫*/
-#define	POKE_FROSMOTH	0x0496	/*雪绒蛾*/
-#define	POKE_GHOSTGARA	0x0497	/*亡灵*/
-#define	POKE_STONJOURNER	0x0498	/*巨石丁*/
-#define	POKE_EISCUE_NOICE	0x0499	/*冰砌鹅(解冻头)*/
-#define	POKE_INDEEDEE_FEMALE	0x049A	/*爱管侍♀*/
-#define	POKE_MORPEKO_HANGRY	0x049B	/*莫鲁贝可(空腹花纹)*/
-#define	POKE_CUFANT	0x049C	/*铜象*/
-#define	POKE_COPPERAJAH	0x049D	/*大王铜象*/
-#define	POKE_DRACOZOLT	0x049E	/*雷鸟龙*/
-#define	POKE_ARCTOZOLT	0x049F	/*雷鸟海兽*/
-#define	POKE_DRACOVISH	0x04A0	/*鳃鱼龙*/
-#define	POKE_ARCTOVISH	0x04A1	/*鳃鱼海兽*/
-#define	POKE_DURALUDON	0x04A2	/*铝钢龙*/
-#define	POKE_DREEPY	0x04A3	/*多龙梅西亚*/
-#define	POKE_DRAKLOAK	0x04A4	/*多龙奇*/
-#define	POKE_DRAGAPULT	0x04A5	/*多龙巴鲁托*/
-#define	POKE_ZACIAN	0x04A6	/*苍响*/
-#define	POKE_ZAMAZENTA	0x04A7	/*藏玛然特*/
-#define	POKE_ETERNATUS	0x04A8	/*无极汰那*/
-#define	POKE_ZACIAN_BATTLE	0x04A9	/*苍响(剑之王)*/
-#define	POKE_ZAMAZENTA_BATTLE	0x04AA	/*藏玛然特(盾之王)*/
-#define	POKE_ETERNATUS_DYNAMAX	0x04AB	/*无极汰那(无极巨化)*/
-#define	POKE_DARUMAKA_GALAR	0x04AC	/*火红不倒翁(伽勒尔的样子)*/
-#define	POKE_DARMANITAN_GALAR	0x04AD	/*达摩狒狒(伽勒尔的样子)*/
-#define	POKE_DARMANITAN_ZEN_GALAR	0x04AE	/*达摩狒狒(伽勒尔的样子)(达摩模式)*/
+#define SPECIES_NONE 0
+#define SPECIES_BULBASAUR 1
+#define SPECIES_IVYSAUR 2
+#define SPECIES_VENUSAUR 3
+#define SPECIES_CHARMANDER 4
+#define SPECIES_CHARMELEON 5
+#define SPECIES_CHARIZARD 6
+#define SPECIES_SQUIRTLE 7
+#define SPECIES_WARTORTLE 8
+#define SPECIES_BLASTOISE 9
+#define SPECIES_CATERPIE 10
+#define SPECIES_METAPOD 11
+#define SPECIES_BUTTERFREE 12
+#define SPECIES_WEEDLE 13
+#define SPECIES_KAKUNA 14
+#define SPECIES_BEEDRILL 15
+#define SPECIES_PIDGEY 16
+#define SPECIES_PIDGEOTTO 17
+#define SPECIES_PIDGEOT 18
+#define SPECIES_RATTATA 19
+#define SPECIES_RATICATE 20
+#define SPECIES_SPEAROW 21
+#define SPECIES_FEAROW 22
+#define SPECIES_EKANS 23
+#define SPECIES_ARBOK 24
+#define SPECIES_PIKACHU 25
+#define SPECIES_RAICHU 26
+#define SPECIES_SANDSHREW 27
+#define SPECIES_SANDSLASH 28
+#define SPECIES_NIDORAN_F 29
+#define SPECIES_NIDORINA 30
+#define SPECIES_NIDOQUEEN 31
+#define SPECIES_NIDORAN_M 32
+#define SPECIES_NIDORINO 33
+#define SPECIES_NIDOKING 34
+#define SPECIES_CLEFAIRY 35
+#define SPECIES_CLEFABLE 36
+#define SPECIES_VULPIX 37
+#define SPECIES_NINETALES 38
+#define SPECIES_JIGGLYPUFF 39
+#define SPECIES_WIGGLYTUFF 40
+#define SPECIES_ZUBAT 41
+#define SPECIES_GOLBAT 42
+#define SPECIES_ODDISH 43
+#define SPECIES_GLOOM 44
+#define SPECIES_VILEPLUME 45
+#define SPECIES_PARAS 46
+#define SPECIES_PARASECT 47
+#define SPECIES_VENONAT 48
+#define SPECIES_VENOMOTH 49
+#define SPECIES_DIGLETT 50
+#define SPECIES_DUGTRIO 51
+#define SPECIES_MEOWTH 52
+#define SPECIES_PERSIAN 53
+#define SPECIES_PSYDUCK 54
+#define SPECIES_GOLDUCK 55
+#define SPECIES_MANKEY 56
+#define SPECIES_PRIMEAPE 57
+#define SPECIES_GROWLITHE 58
+#define SPECIES_ARCANINE 59
+#define SPECIES_POLIWAG 60
+#define SPECIES_POLIWHIRL 61
+#define SPECIES_POLIWRATH 62
+#define SPECIES_ABRA 63
+#define SPECIES_KADABRA 64
+#define SPECIES_ALAKAZAM 65
+#define SPECIES_MACHOP 66
+#define SPECIES_MACHOKE 67
+#define SPECIES_MACHAMP 68
+#define SPECIES_BELLSPROUT 69
+#define SPECIES_WEEPINBELL 70
+#define SPECIES_VICTREEBEL 71
+#define SPECIES_TENTACOOL 72
+#define SPECIES_TENTACRUEL 73
+#define SPECIES_GEODUDE 74
+#define SPECIES_GRAVELER 75
+#define SPECIES_GOLEM 76
+#define SPECIES_PONYTA 77
+#define SPECIES_RAPIDASH 78
+#define SPECIES_SLOWPOKE 79
+#define SPECIES_SLOWBRO 80
+#define SPECIES_MAGNEMITE 81
+#define SPECIES_MAGNETON 82
+#define SPECIES_FARFETCHD 83
+#define SPECIES_DODUO 84
+#define SPECIES_DODRIO 85
+#define SPECIES_SEEL 86
+#define SPECIES_DEWGONG 87
+#define SPECIES_GRIMER 88
+#define SPECIES_MUK 89
+#define SPECIES_SHELLDER 90
+#define SPECIES_CLOYSTER 91
+#define SPECIES_GASTLY 92
+#define SPECIES_HAUNTER 93
+#define SPECIES_GENGAR 94
+#define SPECIES_ONIX 95
+#define SPECIES_DROWZEE 96
+#define SPECIES_HYPNO 97
+#define SPECIES_KRABBY 98
+#define SPECIES_KINGLER 99
+#define SPECIES_VOLTORB 100
+#define SPECIES_ELECTRODE 101
+#define SPECIES_EXEGGCUTE 102
+#define SPECIES_EXEGGUTOR 103
+#define SPECIES_CUBONE 104
+#define SPECIES_MAROWAK 105
+#define SPECIES_HITMONLEE 106
+#define SPECIES_HITMONCHAN 107
+#define SPECIES_LICKITUNG 108
+#define SPECIES_KOFFING 109
+#define SPECIES_WEEZING 110
+#define SPECIES_RHYHORN 111
+#define SPECIES_RHYDON 112
+#define SPECIES_CHANSEY 113
+#define SPECIES_TANGELA 114
+#define SPECIES_KANGASKHAN 115
+#define SPECIES_HORSEA 116
+#define SPECIES_SEADRA 117
+#define SPECIES_GOLDEEN 118
+#define SPECIES_SEAKING 119
+#define SPECIES_STARYU 120
+#define SPECIES_STARMIE 121
+#define SPECIES_MR_MIME 122
+#define SPECIES_SCYTHER 123
+#define SPECIES_JYNX 124
+#define SPECIES_ELECTABUZZ 125
+#define SPECIES_MAGMAR 126
+#define SPECIES_PINSIR 127
+#define SPECIES_TAUROS 128
+#define SPECIES_MAGIKARP 129
+#define SPECIES_GYARADOS 130
+#define SPECIES_LAPRAS 131
+#define SPECIES_DITTO 132
+#define SPECIES_EEVEE 133
+#define SPECIES_VAPOREON 134
+#define SPECIES_JOLTEON 135
+#define SPECIES_FLAREON 136
+#define SPECIES_PORYGON 137
+#define SPECIES_OMANYTE 138
+#define SPECIES_OMASTAR 139
+#define SPECIES_KABUTO 140
+#define SPECIES_KABUTOPS 141
+#define SPECIES_AERODACTYL 142
+#define SPECIES_SNORLAX 143
+#define SPECIES_ARTICUNO 144
+#define SPECIES_ZAPDOS 145
+#define SPECIES_MOLTRES 146
+#define SPECIES_DRATINI 147
+#define SPECIES_DRAGONAIR 148
+#define SPECIES_DRAGONITE 149
+#define SPECIES_MEWTWO 150
+#define SPECIES_MEW 151
+#define SPECIES_CHIKORITA 152
+#define SPECIES_BAYLEEF 153
+#define SPECIES_MEGANIUM 154
+#define SPECIES_CYNDAQUIL 155
+#define SPECIES_QUILAVA 156
+#define SPECIES_TYPHLOSION 157
+#define SPECIES_TOTODILE 158
+#define SPECIES_CROCONAW 159
+#define SPECIES_FERALIGATR 160
+#define SPECIES_SENTRET 161
+#define SPECIES_FURRET 162
+#define SPECIES_HOOTHOOT 163
+#define SPECIES_NOCTOWL 164
+#define SPECIES_LEDYBA 165
+#define SPECIES_LEDIAN 166
+#define SPECIES_SPINARAK 167
+#define SPECIES_ARIADOS 168
+#define SPECIES_CROBAT 169
+#define SPECIES_CHINCHOU 170
+#define SPECIES_LANTURN 171
+#define SPECIES_PICHU 172
+#define SPECIES_CLEFFA 173
+#define SPECIES_IGGLYBUFF 174
+#define SPECIES_TOGEPI 175
+#define SPECIES_TOGETIC 176
+#define SPECIES_NATU 177
+#define SPECIES_XATU 178
+#define SPECIES_MAREEP 179
+#define SPECIES_FLAAFFY 180
+#define SPECIES_AMPHAROS 181
+#define SPECIES_BELLOSSOM 182
+#define SPECIES_MARILL 183
+#define SPECIES_AZUMARILL 184
+#define SPECIES_SUDOWOODO 185
+#define SPECIES_POLITOED 186
+#define SPECIES_HOPPIP 187
+#define SPECIES_SKIPLOOM 188
+#define SPECIES_JUMPLUFF 189
+#define SPECIES_AIPOM 190
+#define SPECIES_SUNKERN 191
+#define SPECIES_SUNFLORA 192
+#define SPECIES_YANMA 193
+#define SPECIES_WOOPER 194
+#define SPECIES_QUAGSIRE 195
+#define SPECIES_ESPEON 196
+#define SPECIES_UMBREON 197
+#define SPECIES_MURKROW 198
+#define SPECIES_SLOWKING 199
+#define SPECIES_MISDREAVUS 200
+#define SPECIES_UNOWN 201
+#define SPECIES_WOBBUFFET 202
+#define SPECIES_GIRAFARIG 203
+#define SPECIES_PINECO 204
+#define SPECIES_FORRETRESS 205
+#define SPECIES_DUNSPARCE 206
+#define SPECIES_GLIGAR 207
+#define SPECIES_STEELIX 208
+#define SPECIES_SNUBBULL 209
+#define SPECIES_GRANBULL 210
+#define SPECIES_QWILFISH 211
+#define SPECIES_SCIZOR 212
+#define SPECIES_SHUCKLE 213
+#define SPECIES_HERACROSS 214
+#define SPECIES_SNEASEL 215
+#define SPECIES_TEDDIURSA 216
+#define SPECIES_URSARING 217
+#define SPECIES_SLUGMA 218
+#define SPECIES_MAGCARGO 219
+#define SPECIES_SWINUB 220
+#define SPECIES_PILOSWINE 221
+#define SPECIES_CORSOLA 222
+#define SPECIES_REMORAID 223
+#define SPECIES_OCTILLERY 224
+#define SPECIES_DELIBIRD 225
+#define SPECIES_MANTINE 226
+#define SPECIES_SKARMORY 227
+#define SPECIES_HOUNDOUR 228
+#define SPECIES_HOUNDOOM 229
+#define SPECIES_KINGDRA 230
+#define SPECIES_PHANPY 231
+#define SPECIES_DONPHAN 232
+#define SPECIES_PORYGON2 233
+#define SPECIES_STANTLER 234
+#define SPECIES_SMEARGLE 235
+#define SPECIES_TYROGUE 236
+#define SPECIES_HITMONTOP 237
+#define SPECIES_SMOOCHUM 238
+#define SPECIES_ELEKID 239
+#define SPECIES_MAGBY 240
+#define SPECIES_MILTANK 241
+#define SPECIES_BLISSEY 242
+#define SPECIES_RAIKOU 243
+#define SPECIES_ENTEI 244
+#define SPECIES_SUICUNE 245
+#define SPECIES_LARVITAR 246
+#define SPECIES_PUPITAR 247
+#define SPECIES_TYRANITAR 248
+#define SPECIES_LUGIA 249
+#define SPECIES_HO_OH 250
+#define SPECIES_CELEBI 251
 
+#define SPECIES_OLD_UNOWN_B 252
+#define SPECIES_OLD_UNOWN_C 253
+#define SPECIES_OLD_UNOWN_D 254
+#define SPECIES_OLD_UNOWN_E 255
+#define SPECIES_OLD_UNOWN_F 256
+#define SPECIES_OLD_UNOWN_G 257
+#define SPECIES_OLD_UNOWN_H 258
+#define SPECIES_OLD_UNOWN_I 259
+#define SPECIES_OLD_UNOWN_J 260
+#define SPECIES_OLD_UNOWN_K 261
+#define SPECIES_OLD_UNOWN_L 262
+#define SPECIES_OLD_UNOWN_M 263
+#define SPECIES_OLD_UNOWN_N 264
+#define SPECIES_OLD_UNOWN_O 265
+#define SPECIES_OLD_UNOWN_P 266
+#define SPECIES_OLD_UNOWN_Q 267
+#define SPECIES_OLD_UNOWN_R 268
+#define SPECIES_OLD_UNOWN_S 269
+#define SPECIES_OLD_UNOWN_T 270
+#define SPECIES_OLD_UNOWN_U 271
+#define SPECIES_OLD_UNOWN_V 272
+#define SPECIES_OLD_UNOWN_W 273
+#define SPECIES_OLD_UNOWN_X 274
+#define SPECIES_OLD_UNOWN_Y 275
+#define SPECIES_OLD_UNOWN_Z 276
+
+#define SPECIES_TREECKO 277
+#define SPECIES_GROVYLE 278
+#define SPECIES_SCEPTILE 279
+#define SPECIES_TORCHIC 280
+#define SPECIES_COMBUSKEN 281
+#define SPECIES_BLAZIKEN 282
+#define SPECIES_MUDKIP 283
+#define SPECIES_MARSHTOMP 284
+#define SPECIES_SWAMPERT 285
+#define SPECIES_POOCHYENA 286
+#define SPECIES_MIGHTYENA 287
+#define SPECIES_ZIGZAGOON 288
+#define SPECIES_LINOONE 289
+#define SPECIES_WURMPLE 290
+#define SPECIES_SILCOON 291
+#define SPECIES_BEAUTIFLY 292
+#define SPECIES_CASCOON 293
+#define SPECIES_DUSTOX 294
+#define SPECIES_LOTAD 295
+#define SPECIES_LOMBRE 296
+#define SPECIES_LUDICOLO 297
+#define SPECIES_SEEDOT 298
+#define SPECIES_NUZLEAF 299
+#define SPECIES_SHIFTRY 300
+#define SPECIES_NINCADA 301
+#define SPECIES_NINJASK 302
+#define SPECIES_SHEDINJA 303
+#define SPECIES_TAILLOW 304
+#define SPECIES_SWELLOW 305
+#define SPECIES_SHROOMISH 306
+#define SPECIES_BRELOOM 307
+#define SPECIES_SPINDA 308
+#define SPECIES_WINGULL 309
+#define SPECIES_PELIPPER 310
+#define SPECIES_SURSKIT 311
+#define SPECIES_MASQUERAIN 312
+#define SPECIES_WAILMER 313
+#define SPECIES_WAILORD 314
+#define SPECIES_SKITTY 315
+#define SPECIES_DELCATTY 316
+#define SPECIES_KECLEON 317
+#define SPECIES_BALTOY 318
+#define SPECIES_CLAYDOL 319
+#define SPECIES_NOSEPASS 320
+#define SPECIES_TORKOAL 321
+#define SPECIES_SABLEYE 322
+#define SPECIES_BARBOACH 323
+#define SPECIES_WHISCASH 324
+#define SPECIES_LUVDISC 325
+#define SPECIES_CORPHISH 326
+#define SPECIES_CRAWDAUNT 327
+#define SPECIES_FEEBAS 328
+#define SPECIES_MILOTIC 329
+#define SPECIES_CARVANHA 330
+#define SPECIES_SHARPEDO 331
+#define SPECIES_TRAPINCH 332
+#define SPECIES_VIBRAVA 333
+#define SPECIES_FLYGON 334
+#define SPECIES_MAKUHITA 335
+#define SPECIES_HARIYAMA 336
+#define SPECIES_ELECTRIKE 337
+#define SPECIES_MANECTRIC 338
+#define SPECIES_NUMEL 339
+#define SPECIES_CAMERUPT 340
+#define SPECIES_SPHEAL 341
+#define SPECIES_SEALEO 342
+#define SPECIES_WALREIN 343
+#define SPECIES_CACNEA 344
+#define SPECIES_CACTURNE 345
+#define SPECIES_SNORUNT 346
+#define SPECIES_GLALIE 347
+#define SPECIES_LUNATONE 348
+#define SPECIES_SOLROCK 349
+#define SPECIES_AZURILL 350
+#define SPECIES_SPOINK 351
+#define SPECIES_GRUMPIG 352
+#define SPECIES_PLUSLE 353
+#define SPECIES_MINUN 354
+#define SPECIES_MAWILE 355
+#define SPECIES_MEDITITE 356
+#define SPECIES_MEDICHAM 357
+#define SPECIES_SWABLU 358
+#define SPECIES_ALTARIA 359
+#define SPECIES_WYNAUT 360
+#define SPECIES_DUSKULL 361
+#define SPECIES_DUSCLOPS 362
+#define SPECIES_ROSELIA 363
+#define SPECIES_SLAKOTH 364
+#define SPECIES_VIGOROTH 365
+#define SPECIES_SLAKING 366
+#define SPECIES_GULPIN 367
+#define SPECIES_SWALOT 368
+#define SPECIES_TROPIUS 369
+#define SPECIES_WHISMUR 370
+#define SPECIES_LOUDRED 371
+#define SPECIES_EXPLOUD 372
+#define SPECIES_CLAMPERL 373
+#define SPECIES_HUNTAIL 374
+#define SPECIES_GOREBYSS 375
+#define SPECIES_ABSOL 376
+#define SPECIES_SHUPPET 377
+#define SPECIES_BANETTE 378
+#define SPECIES_SEVIPER 379
+#define SPECIES_ZANGOOSE 380
+#define SPECIES_RELICANTH 381
+#define SPECIES_ARON 382
+#define SPECIES_LAIRON 383
+#define SPECIES_AGGRON 384
+#define SPECIES_CASTFORM 385
+#define SPECIES_VOLBEAT 386
+#define SPECIES_ILLUMISE 387
+#define SPECIES_LILEEP 388
+#define SPECIES_CRADILY 389
+#define SPECIES_ANORITH 390
+#define SPECIES_ARMALDO 391
+#define SPECIES_RALTS 392
+#define SPECIES_KIRLIA 393
+#define SPECIES_GARDEVOIR 394
+#define SPECIES_BAGON 395
+#define SPECIES_SHELGON 396
+#define SPECIES_SALAMENCE 397
+#define SPECIES_BELDUM 398
+#define SPECIES_METANG 399
+#define SPECIES_METAGROSS 400
+#define SPECIES_REGIROCK 401
+#define SPECIES_REGICE 402
+#define SPECIES_REGISTEEL 403
+#define SPECIES_KYOGRE 404
+#define SPECIES_GROUDON 405
+#define SPECIES_RAYQUAZA 406
+#define SPECIES_LATIAS 407
+#define SPECIES_LATIOS 408
+#define SPECIES_JIRACHI 409
+#define SPECIES_DEOXYS 410
+#define SPECIES_CHIMECHO 411
+#define SPECIES_EGG 412
+
+#define SPECIES_UNOWN_B 413
+#define SPECIES_UNOWN_C 414
+#define SPECIES_UNOWN_D 415
+#define SPECIES_UNOWN_E 416
+#define SPECIES_UNOWN_F 417
+#define SPECIES_UNOWN_G 418
+#define SPECIES_UNOWN_H 419
+#define SPECIES_UNOWN_I 420
+#define SPECIES_UNOWN_J 421
+#define SPECIES_UNOWN_K 422
+#define SPECIES_UNOWN_L 423
+#define SPECIES_UNOWN_M 424
+#define SPECIES_UNOWN_N 425
+#define SPECIES_UNOWN_O 426
+#define SPECIES_UNOWN_P 427
+#define SPECIES_UNOWN_Q 428
+#define SPECIES_UNOWN_R 429
+#define SPECIES_UNOWN_S 430
+#define SPECIES_UNOWN_T 431
+#define SPECIES_UNOWN_U 432
+#define SPECIES_UNOWN_V 433
+#define SPECIES_UNOWN_W 434
+#define SPECIES_UNOWN_X 435
+#define SPECIES_UNOWN_Y 436
+#define SPECIES_UNOWN_Z 437
+#define SPECIES_UNOWN_EMARK 438
+#define SPECIES_UNOWN_QMARK 439
+#define SPECIES_TURTWIG 440
+#define SPECIES_GROTLE 441
+#define SPECIES_TORTERRA 442
+#define SPECIES_CHIMCHAR 443
+#define SPECIES_MONFERNO 444
+#define SPECIES_INFERNAPE 445
+#define SPECIES_PIPLUP 446
+#define SPECIES_PRINPLUP 447
+#define SPECIES_EMPOLEON 448
+#define SPECIES_STARLY 449
+#define SPECIES_STARAVIA 450
+#define SPECIES_STARAPTOR 451
+#define SPECIES_BIDOOF 452
+#define SPECIES_BIBAREL 453
+#define SPECIES_KRICKETOT 454
+#define SPECIES_KRICKETUNE 455
+#define SPECIES_SHINX 456
+#define SPECIES_LUXIO 457
+#define SPECIES_LUXRAY 458
+#define SPECIES_BUDEW 459
+#define SPECIES_ROSERADE 460
+#define SPECIES_CRANIDOS 461
+#define SPECIES_RAMPARDOS 462
+#define SPECIES_SHIELDON 463
+#define SPECIES_BASTIODON 464
+#define SPECIES_BURMY 465
+#define SPECIES_WORMADAM 466
+#define SPECIES_MOTHIM 467
+#define SPECIES_COMBEE 468
+#define SPECIES_VESPIQUEN 469
+#define SPECIES_PACHIRISU 470
+#define SPECIES_BUIZEL 471
+#define SPECIES_FLOATZEL 472
+#define SPECIES_CHERUBI 473
+#define SPECIES_CHERRIM 474
+#define SPECIES_SHELLOS 475
+#define SPECIES_GASTRODON 476
+#define SPECIES_AMBIPOM 477
+#define SPECIES_DRIFLOON 478
+#define SPECIES_DRIFBLIM 479
+#define SPECIES_BUNEARY 480
+#define SPECIES_LOPUNNY 481
+#define SPECIES_MISMAGIUS 482
+#define SPECIES_HONCHKROW 483
+#define SPECIES_GLAMEOW 484
+#define SPECIES_PURUGLY 485
+#define SPECIES_CHINGLING 486
+#define SPECIES_STUNKY 487
+#define SPECIES_SKUNTANK 488
+#define SPECIES_BRONZOR 489
+#define SPECIES_BRONZONG 490
+#define SPECIES_BONSLY 491
+#define SPECIES_MIME_JR 492
+#define SPECIES_HAPPINY 493
+#define SPECIES_CHATOT 494
+#define SPECIES_SPIRITOMB 495
+#define SPECIES_GIBLE 496
+#define SPECIES_GABITE 497
+#define SPECIES_GARCHOMP 498
+#define SPECIES_MUNCHLAX 499
+#define SPECIES_RIOLU 500
+#define SPECIES_LUCARIO 501
+#define SPECIES_HIPPOPOTAS 502
+#define SPECIES_HIPPOWDON 503
+#define SPECIES_SKORUPI 504
+#define SPECIES_DRAPION 505
+#define SPECIES_CROAGUNK 506
+#define SPECIES_TOXICROAK 507
+#define SPECIES_CARNIVINE 508
+#define SPECIES_FINNEON 509
+#define SPECIES_LUMINEON 510
+#define SPECIES_MANTYKE 511
+#define SPECIES_SNOVER 512
+#define SPECIES_ABOMASNOW 513
+#define SPECIES_WEAVILE 514
+#define SPECIES_MAGNEZONE 515
+#define SPECIES_LICKILICKY 516
+#define SPECIES_RHYPERIOR 517
+#define SPECIES_TANGROWTH 518
+#define SPECIES_ELECTIVIRE 519
+#define SPECIES_MAGMORTAR 520
+#define SPECIES_TOGEKISS 521
+#define SPECIES_YANMEGA 522
+#define SPECIES_LEAFEON 523
+#define SPECIES_GLACEON 524
+#define SPECIES_GLISCOR 525
+#define SPECIES_MAMOSWINE 526
+#define SPECIES_PORYGON_Z 527
+#define SPECIES_GALLADE 528
+#define SPECIES_PROBOPASS 529
+#define SPECIES_DUSKNOIR 530
+#define SPECIES_FROSLASS 531
+#define SPECIES_ROTOM 532
+#define SPECIES_UXIE 533
+#define SPECIES_MESPRIT 534
+#define SPECIES_AZELF 535
+#define SPECIES_DIALGA 536
+#define SPECIES_PALKIA 537
+#define SPECIES_HEATRAN 538
+#define SPECIES_REGIGIGAS 539
+#define SPECIES_GIRATINA 540
+#define SPECIES_CRESSELIA 541
+#define SPECIES_PHIONE 542
+#define SPECIES_MANAPHY 543
+#define SPECIES_DARKRAI 544
+#define SPECIES_SHAYMIN 545
+#define SPECIES_ARCEUS 546
+#define SPECIES_VICTINI 547
+#define SPECIES_SNIVY 548
+#define SPECIES_SERVINE 549
+#define SPECIES_SERPERIOR 550
+#define SPECIES_TEPIG 551
+#define SPECIES_PIGNITE 552
+#define SPECIES_EMBOAR 553
+#define SPECIES_OSHAWOTT 554
+#define SPECIES_DEWOTT 555
+#define SPECIES_SAMUROTT 556
+#define SPECIES_PATRAT 557
+#define SPECIES_WATCHOG 558
+#define SPECIES_LILLIPUP 559
+#define SPECIES_HERDIER 560
+#define SPECIES_STOUTLAND 561
+#define SPECIES_PURRLOIN 562
+#define SPECIES_LIEPARD 563
+#define SPECIES_PANSAGE 564
+#define SPECIES_SIMISAGE 565
+#define SPECIES_PANSEAR 566
+#define SPECIES_SIMISEAR 567
+#define SPECIES_PANPOUR 568
+#define SPECIES_SIMIPOUR 569
+#define SPECIES_MUNNA 570
+#define SPECIES_MUSHARNA 571
+#define SPECIES_PIDOVE 572
+#define SPECIES_TRANQUILL 573
+#define SPECIES_UNFEZANT 574
+#define SPECIES_BLITZLE 575
+#define SPECIES_ZEBSTRIKA 576
+#define SPECIES_ROGGENROLA 577
+#define SPECIES_BOLDORE 578
+#define SPECIES_GIGALITH 579
+#define SPECIES_WOOBAT 580
+#define SPECIES_SWOOBAT 581
+#define SPECIES_DRILBUR 582
+#define SPECIES_EXCADRILL 583
+#define SPECIES_AUDINO 584
+#define SPECIES_TIMBURR 585
+#define SPECIES_GURDURR 586
+#define SPECIES_CONKELDURR 587
+#define SPECIES_TYMPOLE 588
+#define SPECIES_PALPITOAD 589
+#define SPECIES_SEISMITOAD 590
+#define SPECIES_THROH 591
+#define SPECIES_SAWK 592
+#define SPECIES_SEWADDLE 593
+#define SPECIES_SWADLOON 594
+#define SPECIES_LEAVANNY 595
+#define SPECIES_VENIPEDE 596
+#define SPECIES_WHIRLIPEDE 597
+#define SPECIES_SCOLIPEDE 598
+#define SPECIES_COTTONEE 599
+#define SPECIES_WHIMSICOTT 600
+#define SPECIES_PETILIL 601
+#define SPECIES_LILLIGANT 602
+#define SPECIES_BASCULIN 603
+#define SPECIES_SANDILE 604
+#define SPECIES_KROKOROK 605
+#define SPECIES_KROOKODILE 606
+#define SPECIES_DARUMAKA 607
+#define SPECIES_DARMANITAN 608
+#define SPECIES_MARACTUS 609
+#define SPECIES_DWEBBLE 610
+#define SPECIES_CRUSTLE 611
+#define SPECIES_SCRAGGY 612
+#define SPECIES_SCRAFTY 613
+#define SPECIES_SIGILYPH 614
+#define SPECIES_YAMASK 615
+#define SPECIES_COFAGRIGUS 616
+#define SPECIES_TIRTOUGA 617
+#define SPECIES_CARRACOSTA 618
+#define SPECIES_ARCHEN 619
+#define SPECIES_ARCHEOPS 620
+#define SPECIES_TRUBBISH 621
+#define SPECIES_GARBODOR 622
+#define SPECIES_ZORUA 623
+#define SPECIES_ZOROARK 624
+#define SPECIES_MINCCINO 625
+#define SPECIES_CINCCINO 626
+#define SPECIES_GOTHITA 627
+#define SPECIES_GOTHORITA 628
+#define SPECIES_GOTHITELLE 629
+#define SPECIES_SOLOSIS 630
+#define SPECIES_DUOSION 631
+#define SPECIES_REUNICLUS 632
+#define SPECIES_DUCKLETT 633
+#define SPECIES_SWANNA 634
+#define SPECIES_VANILLITE 635
+#define SPECIES_VANILLISH 636
+#define SPECIES_VANILLUXE 637
+#define SPECIES_DEERLING 638
+#define SPECIES_SAWSBUCK 639
+#define SPECIES_EMOLGA 640
+#define SPECIES_KARRABLAST 641
+#define SPECIES_ESCAVALIER 642
+#define SPECIES_FOONGUS 643
+#define SPECIES_AMOONGUSS 644
+#define SPECIES_FRILLISH 645
+#define SPECIES_JELLICENT 646
+#define SPECIES_ALOMOMOLA 647
+#define SPECIES_JOLTIK 648
+#define SPECIES_GALVANTULA 649
+#define SPECIES_FERROSEED 650
+#define SPECIES_FERROTHORN 651
+#define SPECIES_KLINK 652
+#define SPECIES_KLANG 653
+#define SPECIES_KLINKLANG 654
+#define SPECIES_TYNAMO 655
+#define SPECIES_EELEKTRIK 656
+#define SPECIES_EELEKTROSS 657
+#define SPECIES_ELGYEM 658
+#define SPECIES_BEHEEYEM 659
+#define SPECIES_LITWICK 660
+#define SPECIES_LAMPENT 661
+#define SPECIES_CHANDELURE 662
+#define SPECIES_AXEW 663
+#define SPECIES_FRAXURE 664
+#define SPECIES_HAXORUS 665
+#define SPECIES_CUBCHOO 666
+#define SPECIES_BEARTIC 667
+#define SPECIES_CRYOGONAL 668
+#define SPECIES_SHELMET 669
+#define SPECIES_ACCELGOR 670
+#define SPECIES_STUNFISK 671
+#define SPECIES_MIENFOO 672
+#define SPECIES_MIENSHAO 673
+#define SPECIES_DRUDDIGON 674
+#define SPECIES_GOLETT 675
+#define SPECIES_GOLURK 676
+#define SPECIES_PAWNIARD 677
+#define SPECIES_BISHARP 678
+#define SPECIES_BOUFFALANT 679
+#define SPECIES_RUFFLET 680
+#define SPECIES_BRAVIARY 681
+#define SPECIES_VULLABY 682
+#define SPECIES_MANDIBUZZ 683
+#define SPECIES_HEATMOR 684
+#define SPECIES_DURANT 685
+#define SPECIES_DEINO 686
+#define SPECIES_ZWEILOUS 687
+#define SPECIES_HYDREIGON 688
+#define SPECIES_LARVESTA 689
+#define SPECIES_VOLCARONA 690
+#define SPECIES_COBALION 691
+#define SPECIES_TERRAKION 692
+#define SPECIES_VIRIZION 693
+#define SPECIES_TORNADUS 694
+#define SPECIES_THUNDURUS 695
+#define SPECIES_RESHIRAM 696
+#define SPECIES_ZEKROM 697
+#define SPECIES_LANDORUS 698
+#define SPECIES_KYUREM 699
+#define SPECIES_KELDEO 700
+#define SPECIES_MELOETTA 701
+#define SPECIES_GENESECT 702
+#define SPECIES_CHESPIN 703
+#define SPECIES_QUILLADIN 704
+#define SPECIES_CHESNAUGHT 705
+#define SPECIES_FENNEKIN 706
+#define SPECIES_BRAIXEN 707
+#define SPECIES_DELPHOX 708
+#define SPECIES_FROAKIE 709
+#define SPECIES_FROGADIER 710
+#define SPECIES_GRENINJA 711
+#define SPECIES_BUNNELBY 712
+#define SPECIES_DIGGERSBY 713
+#define SPECIES_FLETCHLING 714
+#define SPECIES_FLETCHINDER 715
+#define SPECIES_TALONFLAME 716
+#define SPECIES_SCATTERBUG 717
+#define SPECIES_SPEWPA 718
+#define SPECIES_VIVILLON 719
+#define SPECIES_LITLEO 720
+#define SPECIES_PYROAR 721
+#define SPECIES_FLABEBE 722
+#define SPECIES_FLOETTE 723
+#define SPECIES_FLORGES 724
+#define SPECIES_SKIDDO 725
+#define SPECIES_GOGOAT 726
+#define SPECIES_PANCHAM 727
+#define SPECIES_PANGORO 728
+#define SPECIES_FURFROU 729
+#define SPECIES_ESPURR 730
+#define SPECIES_MEOWSTIC 731
+#define SPECIES_HONEDGE 732
+#define SPECIES_DOUBLADE 733
+#define SPECIES_AEGISLASH 734
+#define SPECIES_SPRITZEE 735
+#define SPECIES_AROMATISSE 736
+#define SPECIES_SWIRLIX 737
+#define SPECIES_SLURPUFF 738
+#define SPECIES_INKAY 739
+#define SPECIES_MALAMAR 740
+#define SPECIES_BINACLE 741
+#define SPECIES_BARBARACLE 742
+#define SPECIES_SKRELP 743
+#define SPECIES_DRAGALGE 744
+#define SPECIES_CLAUNCHER 745
+#define SPECIES_CLAWITZER 746
+#define SPECIES_HELIOPTILE 747
+#define SPECIES_HELIOLISK 748
+#define SPECIES_TYRUNT 749
+#define SPECIES_TYRANTRUM 750
+#define SPECIES_AMAURA 751
+#define SPECIES_AURORUS 752
+#define SPECIES_SYLVEON 753
+#define SPECIES_HAWLUCHA 754
+#define SPECIES_DEDENNE 755
+#define SPECIES_CARBINK 756
+#define SPECIES_GOOMY 757
+#define SPECIES_SLIGGOO 758
+#define SPECIES_GOODRA 759
+#define SPECIES_KLEFKI 760
+#define SPECIES_PHANTUMP 761
+#define SPECIES_TREVENANT 762
+#define SPECIES_PUMPKABOO 763
+#define SPECIES_GOURGEIST 764
+#define SPECIES_BERGMITE 765
+#define SPECIES_AVALUGG 766
+#define SPECIES_NOIBAT 767
+#define SPECIES_NOIVERN 768
+#define SPECIES_XERNEAS 769
+#define SPECIES_YVELTAL 770
+#define SPECIES_ZYGARDE 771
+#define SPECIES_DIANCIE 772
+#define SPECIES_HOOPA 773
+#define SPECIES_VOLCANION 774
+#define SPECIES_ROWLET 775
+#define SPECIES_DARTRIX 776
+#define SPECIES_DECIDUEYE 777
+#define SPECIES_LITTEN 778
+#define SPECIES_TORRACAT 779
+#define SPECIES_INCINEROAR 780
+#define SPECIES_POPPLIO 781
+#define SPECIES_BRIONNE 782
+#define SPECIES_PRIMARINA 783
+#define SPECIES_PIKIPEK 784
+#define SPECIES_TRUMBEAK 785
+#define SPECIES_TOUCANNON 786
+#define SPECIES_YUNGOOS 787
+#define SPECIES_GUMSHOOS 788
+#define SPECIES_GRUBBIN 789
+#define SPECIES_CHARJABUG 790
+#define SPECIES_VIKAVOLT 791
+#define SPECIES_CRABRAWLER 792
+#define SPECIES_CRABOMINABLE 793
+#define SPECIES_ORICORIO 794
+#define SPECIES_CUTIEFLY 795
+#define SPECIES_RIBOMBEE 796
+#define SPECIES_ROCKRUFF 797
+#define SPECIES_LYCANROC 798
+#define SPECIES_WISHIWASHI 799
+#define SPECIES_MAREANIE 800
+#define SPECIES_TOXAPEX 801
+#define SPECIES_MUDBRAY 802
+#define SPECIES_MUDSDALE 803
+#define SPECIES_DEWPIDER 804
+#define SPECIES_ARAQUANID 805
+#define SPECIES_FOMANTIS 806
+#define SPECIES_LURANTIS 807
+#define SPECIES_MORELULL 808
+#define SPECIES_SHIINOTIC 809
+#define SPECIES_SALANDIT 810
+#define SPECIES_SALAZZLE 811
+#define SPECIES_STUFFUL 812
+#define SPECIES_BEWEAR 813
+#define SPECIES_BOUNSWEET 814
+#define SPECIES_STEENEE 815
+#define SPECIES_TSAREENA 816
+#define SPECIES_COMFEY 817
+#define SPECIES_ORANGURU 818
+#define SPECIES_PASSIMIAN 819
+#define SPECIES_WIMPOD 820
+#define SPECIES_GOLISOPOD 821
+#define SPECIES_SANDYGAST 822
+#define SPECIES_PALOSSAND 823
+#define SPECIES_PYUKUMUKU 824
+#define SPECIES_TYPE_NULL 825
+#define SPECIES_SILVALLY 826
+#define SPECIES_MINIOR 827
+#define SPECIES_KOMALA 828
+#define SPECIES_TURTONATOR 829
+#define SPECIES_TOGEDEMARU 830
+#define SPECIES_MIMIKYU 831
+#define SPECIES_BRUXISH 832
+#define SPECIES_DRAMPA 833
+#define SPECIES_DHELMISE 834
+#define SPECIES_JANGMO_O 835
+#define SPECIES_HAKAMO_O 836
+#define SPECIES_KOMMO_O 837
+#define SPECIES_TAPU_KOKO 838
+#define SPECIES_TAPU_LELE 839
+#define SPECIES_TAPU_BULU 840
+#define SPECIES_TAPU_FINI 841
+#define SPECIES_COSMOG 842
+#define SPECIES_COSMOEM 843
+#define SPECIES_SOLGALEO 844
+#define SPECIES_LUNALA 845
+#define SPECIES_NIHILEGO 846
+#define SPECIES_BUZZWOLE 847
+#define SPECIES_PHEROMOSA 848
+#define SPECIES_XURKITREE 849
+#define SPECIES_CELESTEELA 850
+#define SPECIES_KARTANA 851
+#define SPECIES_GUZZLORD 852
+#define SPECIES_NECROZMA 853
+#define SPECIES_MAGEARNA 854
+#define SPECIES_MARSHADOW 855
+#define SPECIES_POIPOLE 856
+#define SPECIES_NAGANADEL 857
+#define SPECIES_STAKATAKA 858
+#define SPECIES_BLACEPHALON 859
+#define SPECIES_ZERAORA 860
+#define SPECIES_MELTAN 861
+#define SPECIES_MELMETAL 862
+#define SPECIES_GROOKEY 863
+#define SPECIES_THWACKEY 864
+#define SPECIES_RILLABOOM 865
+#define SPECIES_SCORBUNNY 866
+#define SPECIES_RABOOT 867
+#define SPECIES_CINDERACE 868
+#define SPECIES_SOBBLE 869
+#define SPECIES_DRIZZILE 870
+#define SPECIES_INTELEON 871
+#define SPECIES_SKWOVET 872
+#define SPECIES_GREEDENT 873
+#define SPECIES_ROOKIDEE 874
+#define SPECIES_CORVISQUIRE 875
+#define SPECIES_CORVIKNIGHT 876
+#define SPECIES_BLIPBUG 877
+#define SPECIES_DOTTLER 878
+#define SPECIES_ORBEETLE 879
+#define SPECIES_NICKIT 880
+#define SPECIES_THIEVUL 881
+#define SPECIES_GOSSIFLEUR 882
+#define SPECIES_ELDEGOSS 883
+#define SPECIES_WOOLOO 884
+#define SPECIES_DUBWOOL 885
+#define SPECIES_CHEWTLE 886
+#define SPECIES_DREDNAW 887
+#define SPECIES_YAMPER 888
+#define SPECIES_BOLTUND 889
+#define SPECIES_ROLYCOLY 890
+#define SPECIES_CARKOL 891
+#define SPECIES_COALOSSAL 892
+#define SPECIES_APPLIN 893
+#define SPECIES_FLAPPLE 894
+#define SPECIES_APPLETUN 895
+#define SPECIES_SILICOBRA 896
+#define SPECIES_SANDACONDA 897
+#define SPECIES_CRAMORANT 898
+#define SPECIES_ARROKUDA 899
+#define SPECIES_BARRASKEWDA 900
+#define SPECIES_TOXEL 901
+#define SPECIES_TOXTRICITY 902
+#define SPECIES_SIZZLIPEDE 903
+#define SPECIES_CENTISKORCH 904
+#define SPECIES_CLOBBOPUS 905
+#define SPECIES_GRAPPLOCT 906
+#define SPECIES_SINISTEA 907
+#define SPECIES_POLTEAGEIST 908
+#define SPECIES_HATENNA 909
+#define SPECIES_HATTREM 910
+#define SPECIES_HATTERENE 911
+#define SPECIES_IMPIDIMP 912
+#define SPECIES_MORGREM 913
+#define SPECIES_GRIMMSNARL 914
+#define SPECIES_OBSTAGOON 915
+#define SPECIES_PERRSERKER 916
+#define SPECIES_CURSOLA 917
+#define SPECIES_SIRFETCHD 918
+#define SPECIES_MR_RIME 919
+#define SPECIES_RUNERIGUS 920
+#define SPECIES_MILCERY 921
+#define SPECIES_ALCREMIE 922
+#define SPECIES_FALINKS 923
+#define SPECIES_PINCURCHIN 924
+#define SPECIES_SNOM 925
+#define SPECIES_FROSMOTH 926
+#define SPECIES_STONJOURNER 927
+#define SPECIES_EISCUE 928
+#define SPECIES_INDEEDEE 929
+#define SPECIES_MORPEKO 930
+#define SPECIES_CUFANT 931
+#define SPECIES_COPPERAJAH 932
+#define SPECIES_DRACOZOLT 933
+#define SPECIES_ARCTOZOLT 934
+#define SPECIES_DRACOVISH 935
+#define SPECIES_ARCTOVISH 936
+#define SPECIES_DURALUDON 937
+#define SPECIES_DREEPY 938
+#define SPECIES_DRAKLOAK 939
+#define SPECIES_DRAGAPULT 940
+#define SPECIES_ZACIAN 941
+#define SPECIES_ZAMAZENTA 942
+#define SPECIES_ETERNATUS 943
+#define SPECIES_KUBFU 944
+#define SPECIES_URSHIFU 945
+#define SPECIES_ZARUDE 946
+#define SPECIES_REGIELEKI 947
+#define SPECIES_REGIDRAGO 948
+#define SPECIES_GLASTRIER 949
+#define SPECIES_SPECTRIER 950
+#define SPECIES_CALYREX 951
+
+#define FORMS_START 952
+
+// Megas
+#define SPECIES_VENUSAUR_MEGA 953
+#define SPECIES_CHARIZARD_MEGA_X 954
+#define SPECIES_CHARIZARD_MEGA_Y 955
+#define SPECIES_BLASTOISE_MEGA 956
+#define SPECIES_BEEDRILL_MEGA 957
+#define SPECIES_PIDGEOT_MEGA 958
+#define SPECIES_ALAKAZAM_MEGA 959
+#define SPECIES_SLOWBRO_MEGA 960
+#define SPECIES_GENGAR_MEGA 961
+#define SPECIES_KANGASKHAN_MEGA 962
+#define SPECIES_PINSIR_MEGA 963
+#define SPECIES_GYARADOS_MEGA 964
+#define SPECIES_AERODACTYL_MEGA 965
+#define SPECIES_MEWTWO_MEGA_X 966
+#define SPECIES_MEWTWO_MEGA_Y 967
+#define SPECIES_AMPHAROS_MEGA 968
+#define SPECIES_STEELIX_MEGA 969
+#define SPECIES_SCIZOR_MEGA 970
+#define SPECIES_HERACROSS_MEGA 971
+#define SPECIES_HOUNDOOM_MEGA 972
+#define SPECIES_TYRANITAR_MEGA 973
+#define SPECIES_SCEPTILE_MEGA 974
+#define SPECIES_BLAZIKEN_MEGA 975
+#define SPECIES_SWAMPERT_MEGA 976
+#define SPECIES_GARDEVOIR_MEGA 977
+#define SPECIES_SABLEYE_MEGA 978
+#define SPECIES_MAWILE_MEGA 979
+#define SPECIES_AGGRON_MEGA 980
+#define SPECIES_MEDICHAM_MEGA 981
+#define SPECIES_MANECTRIC_MEGA 982
+#define SPECIES_SHARPEDO_MEGA 983
+#define SPECIES_CAMERUPT_MEGA 984
+#define SPECIES_ALTARIA_MEGA 985
+#define SPECIES_BANETTE_MEGA 986
+#define SPECIES_ABSOL_MEGA 987
+#define SPECIES_GLALIE_MEGA 988
+#define SPECIES_SALAMENCE_MEGA 989
+#define SPECIES_METAGROSS_MEGA 990
+#define SPECIES_LATIAS_MEGA 991
+#define SPECIES_LATIOS_MEGA 992
+#define SPECIES_LOPUNNY_MEGA 993
+#define SPECIES_GARCHOMP_MEGA 994
+#define SPECIES_LUCARIO_MEGA 995
+#define SPECIES_ABOMASNOW_MEGA 996
+#define SPECIES_GALLADE_MEGA 997
+#define SPECIES_AUDINO_MEGA 998
+#define SPECIES_DIANCIE_MEGA 999
+
+// Special Mega + Primals
+#define SPECIES_RAYQUAZA_MEGA 1000
+#define SPECIES_KYOGRE_PRIMAL 1001
+#define SPECIES_GROUDON_PRIMAL 1002
+
+// Alolan Forms
+#define SPECIES_RATTATA_ALOLAN 1003
+#define SPECIES_RATICATE_ALOLAN 1004
+#define SPECIES_RAICHU_ALOLAN 1005
+#define SPECIES_SANDSHREW_ALOLAN 1006
+#define SPECIES_SANDSLASH_ALOLAN 1007
+#define SPECIES_VULPIX_ALOLAN 1008
+#define SPECIES_NINETALES_ALOLAN 1009
+#define SPECIES_DIGLETT_ALOLAN 1010
+#define SPECIES_DUGTRIO_ALOLAN 1011
+#define SPECIES_MEOWTH_ALOLAN 1012
+#define SPECIES_PERSIAN_ALOLAN 1013
+#define SPECIES_GEODUDE_ALOLAN 1014
+#define SPECIES_GRAVELER_ALOLAN 1015
+#define SPECIES_GOLEM_ALOLAN 1016
+#define SPECIES_GRIMER_ALOLAN 1017
+#define SPECIES_MUK_ALOLAN 1018
+#define SPECIES_EXEGGUTOR_ALOLAN 1019
+#define SPECIES_MAROWAK_ALOLAN 1020
+
+// Galarian Forms
+#define SPECIES_MEOWTH_GALARIAN 1021
+#define SPECIES_PONYTA_GALARIAN 1022
+#define SPECIES_RAPIDASH_GALARIAN 1023
+#define SPECIES_SLOWPOKE_GALARIAN 1024
+#define SPECIES_SLOWBRO_GALARIAN 1025
+#define SPECIES_FARFETCHD_GALARIAN 1026
+#define SPECIES_WEEZING_GALARIAN 1027
+#define SPECIES_MR_MIME_GALARIAN 1028
+#define SPECIES_ARTICUNO_GALARIAN 1029
+#define SPECIES_ZAPDOS_GALARIAN 1030
+#define SPECIES_MOLTRES_GALARIAN 1031
+#define SPECIES_SLOWKING_GALARIAN 1032
+#define SPECIES_CORSOLA_GALARIAN 1033
+#define SPECIES_ZIGZAGOON_GALARIAN 1034
+#define SPECIES_LINOONE_GALARIAN 1035
+#define SPECIES_DARUMAKA_GALARIAN 1036
+#define SPECIES_DARMANITAN_GALARIAN 1037
+#define SPECIES_YAMASK_GALARIAN 1038
+#define SPECIES_STUNFISK_GALARIAN 1039
+
+// Misc Forms
+
+// Cosplay Pikachu
+#define SPECIES_PIKACHU_COSPLAY 1040
+#define SPECIES_PIKACHU_ROCK_STAR 1041
+#define SPECIES_PIKACHU_BELLE 1042
+#define SPECIES_PIKACHU_POP_STAR 1043
+#define SPECIES_PIKACHU_PH_D 1044
+#define SPECIES_PIKACHU_LIBRE 1045
+
+// Cap Pikachu
+#define SPECIES_PIKACHU_ORIGINAL_CAP 1046
+#define SPECIES_PIKACHU_HOENN_CAP 1047
+#define SPECIES_PIKACHU_SINNOH_CAP 1048
+#define SPECIES_PIKACHU_UNOVA_CAP 1049
+#define SPECIES_PIKACHU_KALOS_CAP 1050
+#define SPECIES_PIKACHU_ALOLA_CAP 1051
+#define SPECIES_PIKACHU_PARTNER_CAP 1052
+#define SPECIES_PIKACHU_WORLD_CAP 1053
+
+// Pichu
+#define SPECIES_PICHU_SPIKY_EARED 1054
+
+
+// Castform
+#define SPECIES_CASTFORM_SUNNY 1055
+#define SPECIES_CASTFORM_RAINY 1056
+#define SPECIES_CASTFORM_SNOWY 1057
+
+// Deoxys
+#define SPECIES_DEOXYS_ATTACK 1058
+#define SPECIES_DEOXYS_DEFENSE 1059
+#define SPECIES_DEOXYS_SPEED 1060
+
+// Burmy
+#define SPECIES_BURMY_SANDY_CLOAK 1061
+#define SPECIES_BURMY_TRASH_CLOAK 1062
+
+// Wormadam
+#define SPECIES_WORMADAM_SANDY_CLOAK 1063
+#define SPECIES_WORMADAM_TRASH_CLOAK 1064
+
+// Cherrim
+#define SPECIES_CHERRIM_SUNSHINE 1065
+
+// Shellos
+#define SPECIES_SHELLOS_EAST_SEA 1066
+
+// Gastrodon
+#define SPECIES_GASTRODON_EAST_SEA 1067
+
+// Rotom
+#define SPECIES_ROTOM_HEAT 1068
+#define SPECIES_ROTOM_WASH 1069
+#define SPECIES_ROTOM_FROST 1070
+#define SPECIES_ROTOM_FAN 1071
+#define SPECIES_ROTOM_MOW 1072
+
+// Giratina
+#define SPECIES_GIRATINA_ORIGIN 1073
+
+// Shaymin
+#define SPECIES_SHAYMIN_SKY 1074
+
+// Arceus
+#define SPECIES_ARCEUS_FIGHTING 1075
+#define SPECIES_ARCEUS_FLYING 1076
+#define SPECIES_ARCEUS_POISON 1077
+#define SPECIES_ARCEUS_GROUND 1078
+#define SPECIES_ARCEUS_ROCK 1079
+#define SPECIES_ARCEUS_BUG 1080
+#define SPECIES_ARCEUS_GHOST 1081
+#define SPECIES_ARCEUS_STEEL 1082
+#define SPECIES_ARCEUS_FIRE 1083
+#define SPECIES_ARCEUS_WATER 1084
+#define SPECIES_ARCEUS_GRASS 1085
+#define SPECIES_ARCEUS_ELECTRIC 1086
+#define SPECIES_ARCEUS_PSYCHIC 1087
+#define SPECIES_ARCEUS_ICE 1088
+#define SPECIES_ARCEUS_DRAGON 1089
+#define SPECIES_ARCEUS_DARK 1090
+#define SPECIES_ARCEUS_FAIRY 1091
+
+// Basculin
+#define SPECIES_BASCULIN_BLUE_STRIPED 1092
+
+// Darmanitan
+#define SPECIES_DARMANITAN_ZEN_MODE 1093
+#define SPECIES_DARMANITAN_ZEN_MODE_GALARIAN 1094
+
+// Deerling
+#define SPECIES_DEERLING_SUMMER 1095
+#define SPECIES_DEERLING_AUTUMN 1096
+#define SPECIES_DEERLING_WINTER 1097
+
+// Sawsbuck
+#define SPECIES_SAWSBUCK_SUMMER 1098
+#define SPECIES_SAWSBUCK_AUTUMN 1099
+#define SPECIES_SAWSBUCK_WINTER 1100
+
+// Therian Forms
+#define SPECIES_TORNADUS_THERIAN 1101
+#define SPECIES_THUNDURUS_THERIAN 1102
+#define SPECIES_LANDORUS_THERIAN 1103
+
+// Kyurem
+#define SPECIES_KYUREM_WHITE 1104
+#define SPECIES_KYUREM_BLACK 1105
+
+// Keldeo
+#define SPECIES_KELDEO_RESOLUTE 1106
+
+// Meloetta
+#define SPECIES_MELOETTA_PIROUETTE 1107
+
+// Genesect
+#define SPECIES_GENESECT_DOUSE_DRIVE 1108
+#define SPECIES_GENESECT_SHOCK_DRIVE 1109
+#define SPECIES_GENESECT_BURN_DRIVE 1110
+#define SPECIES_GENESECT_CHILL_DRIVE 1111
+
+// Greninja
+#define SPECIES_GRENINJA_BATTLE_BOND 1112
+#define SPECIES_GRENINJA_ASH 1113
+
+// Vivillon
+#define SPECIES_VIVILLON_POLAR 1114
+#define SPECIES_VIVILLON_TUNDRA 1115
+#define SPECIES_VIVILLON_CONTINENTAL 1116
+#define SPECIES_VIVILLON_GARDEN 1117
+#define SPECIES_VIVILLON_ELEGANT 1118
+#define SPECIES_VIVILLON_MEADOW 1119
+#define SPECIES_VIVILLON_MODERN 1120
+#define SPECIES_VIVILLON_MARINE 1121
+#define SPECIES_VIVILLON_ARCHIPELAGO 1122
+#define SPECIES_VIVILLON_HIGH_PLAINS 1123
+#define SPECIES_VIVILLON_SANDSTORM 1124
+#define SPECIES_VIVILLON_RIVER 1125
+#define SPECIES_VIVILLON_MONSOON 1126
+#define SPECIES_VIVILLON_SAVANNA 1127
+#define SPECIES_VIVILLON_SUN 1128
+#define SPECIES_VIVILLON_OCEAN 1129
+#define SPECIES_VIVILLON_JUNGLE 1130
+#define SPECIES_VIVILLON_FANCY 1131
+#define SPECIES_VIVILLON_POKE_BALL 1132
+
+// Flabébé
+#define SPECIES_FLABEBE_YELLOW_FLOWER 1133
+#define SPECIES_FLABEBE_ORANGE_FLOWER 1134
+#define SPECIES_FLABEBE_BLUE_FLOWER 1135
+#define SPECIES_FLABEBE_WHITE_FLOWER 1136
+
+// Floette
+#define SPECIES_FLOETTE_YELLOW_FLOWER 1137
+#define SPECIES_FLOETTE_ORANGE_FLOWER 1138
+#define SPECIES_FLOETTE_BLUE_FLOWER 1139
+#define SPECIES_FLOETTE_WHITE_FLOWER 1140
+#define SPECIES_FLOETTE_ETERNAL_FLOWER 1141
+
+// Florges
+#define SPECIES_FLORGES_YELLOW_FLOWER 1142
+#define SPECIES_FLORGES_ORANGE_FLOWER 1143
+#define SPECIES_FLORGES_BLUE_FLOWER 1144
+#define SPECIES_FLORGES_WHITE_FLOWER 1145
+
+// Furfrou
+#define SPECIES_FURFROU_HEART_TRIM 1146
+#define SPECIES_FURFROU_STAR_TRIM 1147
+#define SPECIES_FURFROU_DIAMOND_TRIM 1148
+#define SPECIES_FURFROU_DEBUTANTE_TRIM 1149
+#define SPECIES_FURFROU_MATRON_TRIM 1150
+#define SPECIES_FURFROU_DANDY_TRIM 1151
+#define SPECIES_FURFROU_LA_REINE_TRIM 1152
+#define SPECIES_FURFROU_KABUKI_TRIM 1153
+#define SPECIES_FURFROU_PHARAOH_TRIM 1154
+
+// Meowstic
+#define SPECIES_MEOWSTIC_FEMALE 1155
+
+// Aegislash
+#define SPECIES_AEGISLASH_BLADE 1156
+
+// Pumpkaboo
+#define SPECIES_PUMPKABOO_SMALL 1157
+#define SPECIES_PUMPKABOO_LARGE 1158
+#define SPECIES_PUMPKABOO_SUPER 1159
+
+// Gourgeist
+#define SPECIES_GOURGEIST_SMALL 1160
+#define SPECIES_GOURGEIST_LARGE 1161
+#define SPECIES_GOURGEIST_SUPER 1162
+
+// Xerneas
+#define SPECIES_XERNEAS_ACTIVE 1163
+
+// Zygarde
+#define SPECIES_ZYGARDE_10 1164
+#define SPECIES_ZYGARDE_10_POWER_CONSTRUCT 1165
+#define SPECIES_ZYGARDE_50_POWER_CONSTRUCT 1166
+#define SPECIES_ZYGARDE_COMPLETE 1167
+
+// Hoopa
+#define SPECIES_HOOPA_UNBOUND 1168
+
+// Oricorio
+#define SPECIES_ORICORIO_POM_POM 1169
+#define SPECIES_ORICORIO_PAU 1170
+#define SPECIES_ORICORIO_SENSU 1171
+
+// Rockruff
+#define SPECIES_ROCKRUFF_OWN_TEMPO 1172
+
+// Lycanroc
+#define SPECIES_LYCANROC_MIDNIGHT 1173
+#define SPECIES_LYCANROC_DUSK 1174
+
+// Wishiwashi
+#define SPECIES_WISHIWASHI_SCHOOL 1175
+
+// Silvally
+#define SPECIES_SILVALLY_FIGHTING 1176
+#define SPECIES_SILVALLY_FLYING 1177
+#define SPECIES_SILVALLY_POISON 1178
+#define SPECIES_SILVALLY_GROUND 1179
+#define SPECIES_SILVALLY_ROCK 1180
+#define SPECIES_SILVALLY_BUG 1181
+#define SPECIES_SILVALLY_GHOST 1182
+#define SPECIES_SILVALLY_STEEL 1183
+#define SPECIES_SILVALLY_FIRE 1184
+#define SPECIES_SILVALLY_WATER 1185
+#define SPECIES_SILVALLY_GRASS 1186
+#define SPECIES_SILVALLY_ELECTRIC 1187
+#define SPECIES_SILVALLY_PSYCHIC 1188
+#define SPECIES_SILVALLY_ICE 1189
+#define SPECIES_SILVALLY_DRAGON 1190
+#define SPECIES_SILVALLY_DARK 1191
+#define SPECIES_SILVALLY_FAIRY 1192
+
+// Minior
+#define SPECIES_MINIOR_METEOR_ORANGE 1193
+#define SPECIES_MINIOR_METEOR_YELLOW 1194
+#define SPECIES_MINIOR_METEOR_GREEN 1195
+#define SPECIES_MINIOR_METEOR_BLUE 1196
+#define SPECIES_MINIOR_METEOR_INDIGO 1197
+#define SPECIES_MINIOR_METEOR_VIOLET 1198
+#define SPECIES_MINIOR_CORE_RED 1199
+#define SPECIES_MINIOR_CORE_ORANGE 1200
+#define SPECIES_MINIOR_CORE_YELLOW 1201
+#define SPECIES_MINIOR_CORE_GREEN 1202
+#define SPECIES_MINIOR_CORE_BLUE 1203
+#define SPECIES_MINIOR_CORE_INDIGO 1204
+#define SPECIES_MINIOR_CORE_VIOLET 1205
+
+// Mimikyu
+#define SPECIES_MIMIKYU_BUSTED 1206
+
+// Necrozma
+#define SPECIES_NECROZMA_DUSK_MANE 1207
+#define SPECIES_NECROZMA_DAWN_WINGS 1208
+#define SPECIES_NECROZMA_ULTRA 1209
+
+// Magearna
+#define SPECIES_MAGEARNA_ORIGINAL_COLOR 1210
+
+// Cramorant
+#define SPECIES_CRAMORANT_GULPING 1211
+#define SPECIES_CRAMORANT_GORGING 1212
+
+// Toxtricity
+#define SPECIES_TOXTRICITY_LOW_KEY 1213
+
+// Sinistea
+#define SPECIES_SINISTEA_ANTIQUE 1214
+
+// Polteageist
+#define SPECIES_POLTEAGEIST_ANTIQUE 1215
+
+// Alcremie
+#define SPECIES_ALCREMIE_RUBY_CREAM 1216
+#define SPECIES_ALCREMIE_MATCHA_CREAM 1217
+#define SPECIES_ALCREMIE_MINT_CREAM 1218
+#define SPECIES_ALCREMIE_LEMON_CREAM 1219
+#define SPECIES_ALCREMIE_SALTED_CREAM 1220
+#define SPECIES_ALCREMIE_RUBY_SWIRL 1221
+#define SPECIES_ALCREMIE_CARAMEL_SWIRL 1222
+#define SPECIES_ALCREMIE_RAINBOW_SWIRL 1223
+
+// Eiscue
+#define SPECIES_EISCUE_NOICE_FACE 1224
+
+// Indeedee
+#define SPECIES_INDEEDEE_FEMALE 1225
+
+// Morpeko
+#define SPECIES_MORPEKO_HANGRY 1226
+
+// Zacian
+#define SPECIES_ZACIAN_CROWNED_SWORD 1227
+
+// Zamazenta
+#define SPECIES_ZAMAZENTA_CROWNED_SHIELD 1228
+
+// Eternatus
+#define SPECIES_ETERNATUS_ETERNAMAX 1229
+
+// Urshifu
+#define SPECIES_URSHIFU_RAPID_STRIKE_STYLE 1230
+
+// Zarude
+#define SPECIES_ZARUDE_DADA 1231
+
+// Calyrex
+#define SPECIES_CALYREX_ICE_RIDER 1232
+#define SPECIES_CALYREX_SHADOW_RIDER 1233
+#define NUM_SPECIES SPECIES_CALYREX_SHADOW_RIDER+1
 
 #endif /* POKE_INDICES_H */

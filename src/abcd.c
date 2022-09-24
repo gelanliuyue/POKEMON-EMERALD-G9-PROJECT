@@ -69,11 +69,6 @@ void AnimTask_HideShow_Sprite(u8 taskID)
     move_anim_task_delete(taskID);
 }
 
-bool is_using_two_frame_anim(u16 species)
-{
-    return !(species == POKE_UNOWN || species == POKE_SPINDA || species == POKE_DEOXYS || species == POKE_CASTFORM ||
-            species > POKE_SHAYMIN_LAND);
-}
 
 
 void* sub_0x8108ad4()//玩水
@@ -182,7 +177,7 @@ bool can_change_stat(u8 bank, bool self_inflicted, u8 statchanger)
 
 const struct evolution_sub* GET_EVO_TABLE(u16 species)
 {
-    return (*evo_table)[species];
+    return gEvolutionTable[species];
 }
 
 void __attribute__((long_call)) setflag(u32 flag);
@@ -203,8 +198,8 @@ u16 lowest_evo(u16 species)
     {
         if (count > 6)
             break;
-        const struct evolution_sub* evos = (*evo_table)[lower_poke];
-        for (u8 j = 0; j < 5; j++)
+        const struct evolution_sub* evos = gEvolutionTable[lower_poke];
+        for (u8 j = 0; j < NUM_OF_EVOS; j++)
         {
             const struct evolution_sub* evo = &evos[j];
             if (evo->poke == species && evo->method < 0xFA)

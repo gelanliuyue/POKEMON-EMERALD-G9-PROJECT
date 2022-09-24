@@ -27,7 +27,7 @@ void reset_multiple_turn_effects(u8 bank);
 bool not_impostered(u8 bank);
 u32 get_battle_item_extra_param(u32 bank);
 bool is_immune_to_powder(u8 bank); //JeremyZ
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 bool is_in_tag_battle(void);
 u8 dragon_darts_target(u8 bank);
 u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
@@ -244,9 +244,9 @@ u8 calculate_move_type(u8 bank, u16 move, u8 set_bonus) {
                 break;
 			}
 			case MOVE_AURA_WHEEL: {
-				if (battle_participants[bank].species == POKE_MORPEKO)
+				if (battle_participants[bank].species == SPECIES_MORPEKO)
 					move_type = TYPE_ELECTRIC;
-				else if (battle_participants[bank].species == POKE_MORPEKO_HANGRY)
+				else if (battle_participants[bank].species == SPECIES_MORPEKO_HANGRY)
 					move_type = TYPE_DARK;
                 break;
             }
@@ -660,11 +660,11 @@ void bs_start_attack(void) {
         //u8 change = 0;
         if (gBankAbilities[bank_attacker] == ABILITY_STANCE_CHANGE &&
             !battle_participants[bank_attacker].status2.transformed) {
-            if (*species == POKE_AEGISLASH_BLADE && current_move == MOVE_KINGS_SHIELD) {
-                *species = POKE_AEGISLASH_SHIELD;
+            if (*species == SPECIES_AEGISLASH_BLADE && current_move == MOVE_KINGS_SHIELD) {
+                *species = SPECIES_AEGISLASH;
                 //change = 1;
-            } else if (*species == POKE_AEGISLASH_SHIELD && DAMAGING_MOVE(current_move)) {
-                *species = POKE_AEGISLASH_BLADE;
+            } else if (*species == SPECIES_AEGISLASH && DAMAGING_MOVE(current_move)) {
+                *species = SPECIES_AEGISLASH_BLADE;
                 //change = 1;
             }
         }//玛夏多

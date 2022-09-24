@@ -13,7 +13,7 @@ void update_rtc(void);
 void prep_string(u16 strID, u8 bank);
 s8 get_priority(u16 move, u8 bank);
 void bs_push_current(void* now);
-u8 check_field_for_ability(enum poke_abilities ability, u8 side_to_ignore, u8 mold);
+u8 check_field_for_ability(u16 ability, u8 side_to_ignore, u8 mold);
 u16 get_airborne_state(u8 bank, u8 mode, u8 check_levitate);
 u8 get_move_table_target(u16 move,u8 atk_bank);
 
@@ -188,7 +188,7 @@ void revert_mega_to_normalform_new(u8 opponent_side)
 		u16 species_to_revert = 0;
 		u16 mega_current_species = poke_address->spieces;
 		const struct evolution_sub* evos = GET_EVO_TABLE(mega_current_species);
-		if (mega_current_species == POKE_ULTRA_NECROZMA)
+		if (mega_current_species == SPECIES_NECROZMA_ULTRA)
 			species_to_revert = ((u16*) sav1->balls_pocket)[opponent_side];
 		for (u8 j = 0; j < NUM_OF_EVOS; j++)
 		{

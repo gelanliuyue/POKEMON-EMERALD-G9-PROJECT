@@ -9,7 +9,7 @@ import os
 ############
 
 ROM_NAME = "BPEE0.gba"  #the name of your rom
-OFFSET_TO_PUT =  0x1d00000 #max:E3CA80 #
+OFFSET_TO_PUT =  0x1A00000 #max:E3CA80 #
 SEARCH_FREE_SPACE = False #Set to True if you want the script to search for free space;Set to False if you don't want to search for free space as you for example update the engine
 CLEAR_ALL_OLDTABLES = True #Set to True if you want to clear all old tables
 CLEAR_OLD_MOVETABLE = True #Set to True if you want to clear the old move table
@@ -91,17 +91,3 @@ with open(ROM_NAME, 'rb+') as rom:
 	build_code()
 	insert_code()
 	rom.close()
-	
-with open("test.gba", 'rb+') as new_rom:
-	if CLEAR_OLD_MOVETABLE == True or CLEAR_ALL_OLDTABLES == True:
-		clear_from_to(new_rom, 0x31C898, 0x31D93C)
-	if CLEAR_OLD_LEARNSETTABLE == True or CLEAR_ALL_OLDTABLES == True:
-		clear_from_to(new_rom, 0x3230DC, 0x32531C) #clear actual old learnsets
-		clear_from_to(new_rom, 0x32937C, 0x3299EC) #clear pointers to moves
-	if CLEAR_OLD_TYPEEFFECTIVENESSTABLE == True or CLEAR_ALL_OLDTABLES == True:
-		clear_from_to(new_rom, 0x31ACE8, 0x31AE38)
-	if CLEAR_OLD_MOVESDESCRIPTIONTABLE == True or CLEAR_ALL_OLDTABLES == True:
-		clear_from_to(new_rom, 0x61C524, 0x61CAAC)
-	#clear_from_to(new_rom, 0xDE4100, 0xE30000)
-	new_rom.close()
-		
